@@ -30,7 +30,7 @@ public:
     GLfloat getPitch(){return pitch;};
 
     glm::mat4 calculateViewMatrix();
-    
+    //Get camera state for movement
     bool getCameraState(){return cameraOn;};
 
     ~Camera();
