@@ -200,13 +200,14 @@ int main(){
 
     /* #region IMGUI setup code*/
     ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
+    ImGuiIO& io = ImGui::GetIO(); 
+    (void)io;
     ImGui_ImplGlfw_InitForOpenGL(mainWindow.getMainWindow(), true);
     ImGui::StyleColorsDark();
     ImGui_ImplOpenGL3_Init(glsl_version);
     bool show_demo_window = true;
     bool show_another_window = false;
-    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+    
     io.MouseDrawCursor = true;
     io.MousePos = ImVec2(0,0);
     /* #endregion */
@@ -221,18 +222,18 @@ int main(){
 
     /* #region Load Textures and materials */
     brickTexture = Texture("src/textures/brick.png");
-    brickTexture.LoadTexture();
+    brickTexture.LoadTextureA();
     dirtTexture = Texture("src/textures/dirt.png");
-    dirtTexture.LoadTexture();
+    dirtTexture.LoadTextureA();
     plainTexture = Texture("src/textures/plain.png");
-    plainTexture.LoadTexture();
+    plainTexture.LoadTextureA();
 
     shinyMaterial = Material(4.0f, 256);
     dullMaterial = Material(0.3f, 4);
     /* #endregion */
 
     GLfloat mlightAI = 0.6f;
-    GLfloat mlightDI = 0.6f;
+    GLfloat mlightDI = 0.0f;
 
     /* #region Light setup */
     mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
@@ -244,7 +245,7 @@ int main(){
     GLfloat xPos; GLfloat yPos; GLfloat zPos;
     GLfloat con; GLfloat lin; GLfloat exp;
     
-    //Commented out because I can't figure out why point lights won't work
+
     unsigned int pointLightCount = 0;
     pointLights[0] = PointLight(1.0f, 0.0f, 1.0f,
                                 0.0f, 1.0f,
@@ -281,30 +282,41 @@ int main(){
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
+        ImVec2 exitPos = ImVec2(-5, 6);
 
+        ImGui::SetNextWindowPos(exitPos);
         
-
         // 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
         {
+            ImGuiWindowFlags window_flags = 0;
+            //window_flags |= ImGuiWindowFlags_NoTitleBar;
+            window_flags |= ImGuiWindowFlags_NoScrollbar;
+            window_flags |= ImGuiWindowFlags_NoMove;
+            window_flags |= ImGuiWindowFlags_NoResize;
+            window_flags |= ImGuiWindowFlags_NoCollapse;
+            window_flags |= ImGuiWindowFlags_NoNav;
+            window_flags |= ImGuiWindowFlags_NoBackground;
+            
 
-            ImGui::Begin("Hello, world!");                         
-
-            ImGui::SliderFloat("float", &controllerVec.x, -10.0f, 10.0f);      
-
+            ImGui::Begin("Exit button", NULL, window_flags);                         
+            
+            if(ImGui::Button("Exit")){
+                break;
+            }
+            
             ImGui::End();
-        }
-
-        
+        } 
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         /* #endregion */
         
         /* #region Camera Controls */
-        //camera.keyControl(mainWindow.getsKeys(), deltaTime);
-        //camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
+        camera.keyControl(mainWindow.getsKeys(), deltaTime);
+        camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
         /* #endregion */
 
         //Current function for moving object on screen
-        SetControllerLoc(mainWindow.getsKeys(), deltaTime);
+        //SetControllerLoc(mainWindow.getsKeys(), deltaTime);
         
         // Clear the window
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -321,7 +333,7 @@ int main(){
         
         shaderList[0].SetDirectionalLight(&mainLight);
         //Commented because I can't understand why this won't work
-        shaderList[0].SetPointLights(pointLights, pointLightCount);
+        //shaderList[0].SetPointLights(pointLights, pointLightCount);
         
         glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
@@ -355,8 +367,7 @@ int main(){
         /* #endregion */
         
         glUseProgram(0);
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
 
         mainWindow.swapBuffers();
     }

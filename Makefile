@@ -21,6 +21,8 @@ INC_FLAGS := $(addprefix -I,$(INC_DIRS))
 
 CPPFLAGS ?= $(INCLUDES) $(LIBRARIES)
 
+run: $(TARGET_EXEC)
+	./$(TARGET_EXEC)
 
 $(TARGET_EXEC): $(OBJS)
 	$(CXX) $(OBJS) -o $@ $(CPPFLAGS)
