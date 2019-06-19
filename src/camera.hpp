@@ -26,8 +26,13 @@ public:
     
     glm::vec3 getCameraPosition();
     
+    GLfloat getYaw(){return yaw;};
+    GLfloat getPitch(){return pitch;};
+
     glm::mat4 calculateViewMatrix();
     
+    bool getCameraState(){return cameraOn;};
+
     ~Camera();
     
 private:
@@ -37,6 +42,8 @@ private:
     glm::vec3 right;
     glm::vec3 worldUp;
     
+    bool cameraOn = false;
+
     GLfloat yaw;
     GLfloat pitch;
     

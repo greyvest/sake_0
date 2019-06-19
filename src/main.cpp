@@ -265,7 +265,6 @@ int main(){
     uniformSpecularIntensity = 0, uniformShininess = 0;
     glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 100.0f);
     /* #endregion */
-
     while(!mainWindow.getShouldClose()){
         /* #region Time Controls */
         GLfloat now = glfwGetTime();
@@ -273,8 +272,33 @@ int main(){
         lastTime = now;
         /* #endregion */
 
+        
+
         // Get + Handle User Input
         glfwPollEvents();
+
+        char * barrier = "";
+
+        if(io.MousePos.x < 0){
+            io.MousePos = ImVec2(0,io.MousePos.y);
+
+            barrier = "left";
+        }
+
+        if(io.MousePos.x > 900){
+            io.MousePos.x = 900;
+            barrier = "right";
+        }
+
+        if(io.MousePos.y < 0){
+            io.MousePos.y = 0;
+            barrier = "top";
+        }
+
+        if(io.MousePos.y > 600){
+            io.MousePos.y = 600;
+            barrier = "bottom";
+        }
 
         /* #region IMGUI */
         // Start the Dear ImGui frame
@@ -282,20 +306,16 @@ int main(){
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        ImVec2 exitPos = ImVec2(-5, 6);
-
-        ImGui::SetNextWindowPos(exitPos);
-        
         // 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
         {
             ImGuiWindowFlags window_flags = 0;
-            //window_flags |= ImGuiWindowFlags_NoTitleBar;
+            window_flags |= ImGuiWindowFlags_NoTitleBar;
             window_flags |= ImGuiWindowFlags_NoScrollbar;
             window_flags |= ImGuiWindowFlags_NoMove;
-            window_flags |= ImGuiWindowFlags_NoResize;
+            //window_flags |= ImGuiWindowFlags_NoResize;
             window_flags |= ImGuiWindowFlags_NoCollapse;
             window_flags |= ImGuiWindowFlags_NoNav;
-            window_flags |= ImGuiWindowFlags_NoBackground;
+            //window_flags |= ImGuiWindowFlags_NoBackground;
             
 
             ImGui::Begin("Exit button", NULL, window_flags);                         
@@ -303,16 +323,37 @@ int main(){
             if(ImGui::Button("Exit")){
                 break;
             }
-            
+            ImGui::SameLine();
+            if(ImGui::Button("Switch Textures")){
+                dirtTexture = Texture("src/textures/brick.png");
+                dirtTexture.LoadTextureA();
+            }
+            ImGui::SameLine();
+            if(ImGui::Button("Switch back")){
+                dirtTexture = Texture("src/textures/dirt.png");
+                dirtTexture.LoadTextureA();
+            }
+            ImGui::SameLine();
+            if(ImGui::Button("Switch to Glitch")){
+                dirtTexture = Texture("src/textures/dirt.png");
+                dirtTexture.LoadTexture();
+            }
+            ImGui::SameLine();
+            ImGui::Text("Mouse Pos: X %.6f Y: %.6f\n", io.MousePos.x, io.MousePos.y);
+
+            ImGui::Text("Camera Pos: X %.6f Y: %.6f Z: %.6f Yaw: %.6f Pitch: %.6f\n", camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z, camera.getYaw(), camera.getPitch());
+
+            ImGui::Text("Broker barrier on %s \n", barrier);
+
             ImGui::End();
         } 
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
         /* #endregion */
         
         /* #region Camera Controls */
         camera.keyControl(mainWindow.getsKeys(), deltaTime);
-        camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
+        if(camera.getCameraState())
+            camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
         /* #endregion */
 
         //Current function for moving object on screen
@@ -368,7 +409,8 @@ int main(){
         
         glUseProgram(0);
 
-
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         mainWindow.swapBuffers();
     }
     
