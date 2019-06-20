@@ -12,6 +12,10 @@ public:
     Object();
     Object(glm::vec3 * , Texture * , Material *);
 
+    std::vector<Object> convertFileToObjectVector(const char *);
+
+    void saveObjectsToFile(std::vector<Object>);
+
     glm::vec3 * pos;
 
     //Visual components
