@@ -1,3 +1,6 @@
+#ifndef WINDOW_H
+#define WINDOW_H
+
 #include "stdio.h"
 
 #include <GL/glew.h>   
@@ -46,3 +49,4 @@ private:
     static void handleKeys(GLFWwindow* window, int key, int code, int action, int mode);
     static void handleMouse(GLFWwindow* window, double xPos, double yPos);
 };
+#endif

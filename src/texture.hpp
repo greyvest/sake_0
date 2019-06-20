@@ -1,3 +1,5 @@
+#ifndef TEXTURE_H
+#define TEXTURE_H
 #include <GL/glew.h>
 
 class Texture
@@ -20,3 +22,5 @@ private:
     
     char* fileLocation;
 };
+
+#endif /*TEXTURE_H */

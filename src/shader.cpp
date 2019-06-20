@@ -25,12 +25,15 @@ void Shader::CreateFromString(const char* vertexCode, const char* fragmentCode)
 void Shader::CreateFromFiles(const char* vertexLocation, const char* fragmentLocation)
 {
     printf("Entered create from files\n");
+    
     std::string vertexString = ReadFile(vertexLocation);
     std::string fragmentString = ReadFile(fragmentLocation);
+    
     const char* vertexCode = vertexString.c_str();
     const char* fragmentCode = fragmentString.c_str();
     
     CompileShader(vertexCode, fragmentCode);
+    printf("Borke here\n");
 }
 
 std::string Shader::ReadFile(const char* fileLocation)
@@ -52,6 +55,7 @@ std::string Shader::ReadFile(const char* fileLocation)
     }
     
     fileStream.close();
+    
     return content;
 }
 

@@ -61,6 +61,7 @@ void Camera::keyControl(bool* keys, GLfloat deltaTime)
     if (keys[GLFW_KEY_C])
     {
         cameraOn = !cameraOn;
+        keys[GLFW_KEY_C] = false;
     }
 }
 

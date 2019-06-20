@@ -36,6 +36,7 @@ This is an OpenGL engine developed for learning purposes.
 #include "material.hpp"
 #include "directionalLight.hpp"
 #include "pointLight.hpp"
+#include "object.hpp"
 /* #endregion */
 
 /* #region constants */
@@ -152,6 +153,10 @@ void CreateObjects()
     Mesh *obj3 = new Mesh();
     obj3->CreateMesh(floorVertices, floorIndices, 32, 6);
     meshList.push_back(obj3);
+
+    Mesh *obj4 = new Mesh();
+    obj4->CreateMesh(vertices, indices, 32, 12);
+    meshList.push_back(obj4);
 }
 /* #endregion */
 
@@ -190,10 +195,43 @@ void SetControllerLoc(bool* keys, GLfloat deltaTime){
 }
 /* #endregion */
 
+/* #region Render Model Function */
+void renderAModel(glm::mat4 * model, GLuint uniformModel, glm::vec3 * pos, Texture * renderTex, Material * renderMat, GLuint uniformSpecularIntensity, GLuint uniformShininess, int i){
+    model = new glm::mat4(1.0f);
+    *model = glm::translate(*model, *pos);
+    glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(*model));
+    renderTex->UseTexture();
+    renderMat->UseMaterial(uniformSpecularIntensity, uniformShininess);
+    meshList[i]->RenderMesh();
+}
+/* #endregion */
 int main(){
     //Set main window size and initialise
     mainWindow = Window(900, 600); // 1280, 1024 or 1024, 768
     mainWindow.Initialise();
+
+   
+    /* #region Load Textures and materials */
+    
+    brickTexture = Texture("src/textures/brick.png");
+    brickTexture.LoadTextureA();
+    dirtTexture = Texture("src/textures/dirt.png");
+    dirtTexture.LoadTextureA();
+    plainTexture = Texture("src/textures/plain.png");
+    plainTexture.LoadTextureA();
+    
+    shinyMaterial = Material(4.0f, 256);
+    dullMaterial = Material(0.3f, 4);
+    /* #endregion */
+
+
+    std::vector<Object> objectList;
+
+    objectList.push_back(Object(new glm::vec3(8.0f, 2.0f,1.0f),&brickTexture,&dullMaterial));
+    objectList.push_back(Object(new glm::vec3(4.0f, 4.0f,1.0f),&brickTexture,&dullMaterial));
+    objectList.push_back(Object(new glm::vec3(1.0f, 0.0f,3.0f),&dirtTexture,&dullMaterial));
+    objectList.push_back(Object(new glm::vec3(0.0f, -4.0f,1.0f),&plainTexture,&dullMaterial));
+
 
     //GLSL version for IMGUI;
     const char* glsl_version = "#version 150"; 
@@ -217,21 +255,10 @@ int main(){
     //Create objects and shaders
     CreateObjects();
     CreateShaders();
+    
     //Camera Setup
     camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.0f, 0.5f);
-
-    /* #region Load Textures and materials */
-    brickTexture = Texture("src/textures/brick.png");
-    brickTexture.LoadTextureA();
-    dirtTexture = Texture("src/textures/dirt.png");
-    dirtTexture.LoadTextureA();
-    plainTexture = Texture("src/textures/plain.png");
-    plainTexture.LoadTextureA();
-
-    shinyMaterial = Material(4.0f, 256);
-    dullMaterial = Material(0.3f, 4);
-    /* #endregion */
-
+    
     GLfloat mlightAI = 0.6f;
     GLfloat mlightDI = 0.0f;
 
@@ -272,73 +299,68 @@ int main(){
         lastTime = now;
         /* #endregion */
 
-        
-
         // Get + Handle User Input
         glfwPollEvents();
 
+        /* #region Mouse Tracking */
         char * barrier = "";
-
         if(io.MousePos.x < 0){
             io.MousePos = ImVec2(0,io.MousePos.y);
-
             barrier = "left";
         }
-
         if(io.MousePos.x > 900){
             io.MousePos.x = 900;
             barrier = "right";
         }
-
         if(io.MousePos.y < 0){
             io.MousePos.y = 0;
             barrier = "top";
         }
-
         if(io.MousePos.y > 600){
             io.MousePos.y = 600;
             barrier = "bottom";
         }
-
+        /* #endregion Mouse Trackin */
+        
         /* #region IMGUI */
         // Start the Dear ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-
-        // 2. Show a simple window that we create ourselves. We use a Begin/End pair to created a named window.
+        
+        {
+            if(ImGui::BeginMainMenuBar()){
+                if (ImGui::MenuItem("Open..", "Ctrl+O")) {
+                    /* Do stuff */ 
+                }
+                if (ImGui::MenuItem("Save", "Ctrl+S"))   {
+                    /* Do stuff */ 
+                }
+                if (ImGui::MenuItem("Close", "Ctrl+W"))  { /*Do stuff */}
+                if (ImGui::BeginMenu("More Options")){
+                    ImGui::MenuItem("Xthing");
+                    ImGui::MenuItem("Ything");
+                    ImGui::EndMenu();
+                }
+                if (ImGui::MenuItem("Exit", "Ctrl+S"))   {
+                    break;
+                }
+                ImGui::EndMainMenuBar();
+            }
+        }
+        
         {
             ImGuiWindowFlags window_flags = 0;
-            window_flags |= ImGuiWindowFlags_NoTitleBar;
+            //window_flags |= ImGuiWindowFlags_NoTitleBar;
             window_flags |= ImGuiWindowFlags_NoScrollbar;
-            window_flags |= ImGuiWindowFlags_NoMove;
+            //window_flags |= ImGuiWindowFlags_NoMove;
             //window_flags |= ImGuiWindowFlags_NoResize;
-            window_flags |= ImGuiWindowFlags_NoCollapse;
-            window_flags |= ImGuiWindowFlags_NoNav;
+            //window_flags |= ImGuiWindowFlags_NoCollapse;
+            //window_flags |= ImGuiWindowFlags_NoNav;
             //window_flags |= ImGuiWindowFlags_NoBackground;
             
 
-            ImGui::Begin("Exit button", NULL, window_flags);                         
-            
-            if(ImGui::Button("Exit")){
-                break;
-            }
-            ImGui::SameLine();
-            if(ImGui::Button("Switch Textures")){
-                dirtTexture = Texture("src/textures/brick.png");
-                dirtTexture.LoadTextureA();
-            }
-            ImGui::SameLine();
-            if(ImGui::Button("Switch back")){
-                dirtTexture = Texture("src/textures/dirt.png");
-                dirtTexture.LoadTextureA();
-            }
-            ImGui::SameLine();
-            if(ImGui::Button("Switch to Glitch")){
-                dirtTexture = Texture("src/textures/dirt.png");
-                dirtTexture.LoadTexture();
-            }
-            ImGui::SameLine();
+            ImGui::Begin("Mouse Tracking", NULL, window_flags);                         
             ImGui::Text("Mouse Pos: X %.6f Y: %.6f\n", io.MousePos.x, io.MousePos.y);
 
             ImGui::Text("Camera Pos: X %.6f Y: %.6f Z: %.6f Yaw: %.6f Pitch: %.6f\n", camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z, camera.getYaw(), camera.getPitch());
@@ -381,39 +403,24 @@ int main(){
         glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
         /* #endregion */
 
+        //Create new Mat for Model
         glm::mat4 model(1.0f);
-        /* #region Modle Rendering */
-        model = glm::translate(model, controllerVec);
-        //model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
-        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-        brickTexture.UseTexture();
-        shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
-        meshList[0]->RenderMesh();
-        
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 4.0f, -2.5f));
-        //model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
-        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-        dirtTexture.UseTexture();
-        dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
-        meshList[1]->RenderMesh();
-        
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, -2.0f, 0.0f));
-        //model = glm::scale(model, glm::vec3(0.4f, 0.4f, 1.0f));
-        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-        plainTexture.UseTexture();
-        shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
-        meshList[2]->RenderMesh();
-        /* #endregion */
-        
-        glUseProgram(0);
 
+        /* #region Model Rendering */
+        for(int i = 0; i < objectList.size(); i++){
+            renderAModel(&model, uniformModel, objectList[i].pos, objectList[i].texture, objectList[i].material, uniformSpecularIntensity, uniformShininess, i);
+        }
+        /* #endregion */
+
+        //Fianl rendering calls        
+        glUseProgram(0);
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        //swap in buffers
         mainWindow.swapBuffers();
+        printf("Borke here\n");
     }
-    
+    //Clean up GUI
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
