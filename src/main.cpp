@@ -26,6 +26,8 @@ This is an OpenGL engine developed for learning purposes.
 #include "Imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
+//ASSIMP
+//#include <assimp/Importer.hpp>
 //--Project Header Files--
 #include "commonValues.h"
 #include "window.hpp"
@@ -418,7 +420,7 @@ int main(){
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         //swap in buffers
         mainWindow.swapBuffers();
-        printf("Borke here\n");
+        
     }
     //Clean up GUI
     ImGui_ImplOpenGL3_Shutdown();
