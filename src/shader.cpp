@@ -33,7 +33,6 @@ void Shader::CreateFromFiles(const char* vertexLocation, const char* fragmentLoc
     const char* fragmentCode = fragmentString.c_str();
     
     CompileShader(vertexCode, fragmentCode);
-    printf("Borke here\n");
 }
 
 std::string Shader::ReadFile(const char* fileLocation)
