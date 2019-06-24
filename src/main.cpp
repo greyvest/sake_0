@@ -27,7 +27,7 @@ This is an OpenGL engine developed for learning purposes.
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
 //ASSIMP
-//#include <assimp/Importer.hpp>
+#include <assimp/Importer.hpp>
 //--Project Header Files--
 #include "commonValues.h"
 #include "window.hpp"
@@ -234,6 +234,9 @@ int main(){
     objectList.push_back(Object(new glm::vec3(1.0f, 0.0f,3.0f),&dirtTexture,&dullMaterial));
     objectList.push_back(Object(new glm::vec3(0.0f, -4.0f,1.0f),&plainTexture,&dullMaterial));
 
+    Assimp::Importer imp;
+    imp = Assimp::Importer();
+
 
     //GLSL version for IMGUI;
     const char* glsl_version = "#version 150"; 
@@ -295,8 +298,6 @@ int main(){
     glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 100.0f);
     /* #endregion */
    
-    //Assimp::Importer newImporter;
-
     /* #region program loop */
     while(!mainWindow.getShouldClose()){
         /* #region Time Controls */
@@ -417,5 +418,7 @@ int main(){
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
     
+    glfwTerminate();
+
     return 0;
 }

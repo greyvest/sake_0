@@ -5,12 +5,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 project (sake)
 
 add_subdirectory(src/imgui)
+add_subdirectory(libs/assimp)
+
 include_directories(${PROJECT_SOURCE_DIR})
 
 file(GLOB SRC_FILES src/*.cpp)
 
 add_executable(sake ${SRC_FILES})
+
 target_link_libraries(sake imgui)
+target_link_libraries(sake assimp)
 
 
 # glfw
@@ -26,12 +30,8 @@ include_directories(${OPENGL_INCLUDE_DIRS})
 find_package(GLEW REQUIRED)
 include_directories(${GLEW_INCLUDE_DIRS})
 
-# glew
 find_package(assimp REQUIRED)
-include_directories(${ASSIMP_INCLUDE_DIRS})
-
-find_package(assimp)
-include_directories(${})
+include_directories(${ASSIMP_INCLUDE_DIR})
 
 if (APPLE)
     find_library(COCOA_LIBRARY Cocoa)

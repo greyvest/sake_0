@@ -511,6 +511,23 @@ CMakeFiles/sake.dir/src/main.cpp.o
  /Users/u0964759/sake_0/src/window.hpp
  /usr/local/include/GL/glew.h
  /usr/local/include/GLFW/glfw3.h
+ /usr/local/include/assimp/./Compiler/poppack1.h
+ /usr/local/include/assimp/./Compiler/pushpack1.h
+ /usr/local/include/assimp/Importer.hpp
+ /usr/local/include/assimp/color4.h
+ /usr/local/include/assimp/color4.inl
+ /usr/local/include/assimp/config.h
+ /usr/local/include/assimp/defs.h
+ /usr/local/include/assimp/matrix3x3.h
+ /usr/local/include/assimp/matrix3x3.inl
+ /usr/local/include/assimp/matrix4x4.h
+ /usr/local/include/assimp/matrix4x4.inl
+ /usr/local/include/assimp/quaternion.h
+ /usr/local/include/assimp/types.h
+ /usr/local/include/assimp/vector2.h
+ /usr/local/include/assimp/vector2.inl
+ /usr/local/include/assimp/vector3.h
+ /usr/local/include/assimp/vector3.inl
  /usr/local/include/glm/./detail/setup.hpp
  /usr/local/include/glm/./detail/type_mat2x2.hpp
  /usr/local/include/glm/./detail/type_mat2x2.inl

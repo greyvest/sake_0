@@ -35,6 +35,7 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/Users/u0964759/sake_0/src/imgui/cmake_install.cmake")
+  include("/Users/u0964759/sake_0/libs/assimp/cmake_install.cmake")
 
 endif()
 

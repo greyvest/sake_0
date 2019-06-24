@@ -245,10 +245,13 @@ sake: CMakeFiles/sake.dir/src/texture.cpp.o
 sake: CMakeFiles/sake.dir/src/window.cpp.o
 sake: CMakeFiles/sake.dir/build.make
 sake: src/imgui/libimgui.a
+sake: lib/libassimp.4.1.0.dylib
 sake: /usr/local/lib/libglfw.3.3.dylib
 sake: /usr/local/lib/libGLEW.dylib
 sake: /usr/local/lib/libGLEW.dylib
 sake: /usr/local/lib/libglfw.3.3.dylib
+sake: /usr/lib/libz.dylib
+sake: lib/libIrrXML.a
 sake: CMakeFiles/sake.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Linking CXX executable sake"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/sake.dir/link.txt --verbose=$(VERBOSE)

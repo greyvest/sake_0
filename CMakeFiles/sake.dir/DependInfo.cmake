@@ -34,6 +34,8 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
   "/Users/u0964759/sake_0/src/imgui/CMakeFiles/imgui.dir/DependInfo.cmake"
+  "/Users/u0964759/sake_0/libs/assimp/code/CMakeFiles/assimp.dir/DependInfo.cmake"
+  "/Users/u0964759/sake_0/libs/assimp/contrib/irrXML/CMakeFiles/IrrXML.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.
