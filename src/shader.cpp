@@ -24,8 +24,6 @@ void Shader::CreateFromString(const char* vertexCode, const char* fragmentCode)
 
 void Shader::CreateFromFiles(const char* vertexLocation, const char* fragmentLocation)
 {
-    printf("Entered create from files\n");
-    
     std::string vertexString = ReadFile(vertexLocation);
     std::string fragmentString = ReadFile(fragmentLocation);
     
@@ -38,7 +36,6 @@ void Shader::CreateFromFiles(const char* vertexLocation, const char* fragmentLoc
 std::string Shader::ReadFile(const char* fileLocation)
 {
     std::string content;
-    printf("Trying to open %s \n", fileLocation);
     std::ifstream fileStream(fileLocation, std::ios::in);
     
     if (!fileStream.is_open()) {

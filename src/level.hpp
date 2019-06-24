@@ -13,7 +13,7 @@ public:
     std::vector<Object> openLevelFromFile();
     //function to save levels vector of objectes to a file
     void saveLevelToFile(std::vector<Object>);
-
+    
 private:
     //Name of level
     std::string levelName;

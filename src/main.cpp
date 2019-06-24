@@ -23,7 +23,7 @@ This is an OpenGL engine developed for learning purposes.
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 //IMGUI
-#include "Imgui/imgui.h"
+#include "imgui/imgui.h"
 #include "imgui/imgui_impl_glfw.h"
 #include "imgui/imgui_impl_opengl3.h"
 //ASSIMP
@@ -294,6 +294,10 @@ int main(){
     uniformSpecularIntensity = 0, uniformShininess = 0;
     glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 100.0f);
     /* #endregion */
+   
+    //Assimp::Importer newImporter;
+
+    /* #region program loop */
     while(!mainWindow.getShouldClose()){
         /* #region Time Controls */
         GLfloat now = glfwGetTime();
@@ -347,31 +351,16 @@ int main(){
                 if (ImGui::MenuItem("Exit", "Ctrl+S"))   {
                     break;
                 }
+                ImGui::SameLine();
+                ImGui::Text("Broker barrier on %s \n", barrier);
+                ImGui::SameLine();
+                ImGui::Text("Mouse Pos: X %.6f Y: %.6f\n", io.MousePos.x, io.MousePos.y);
+                ImGui::SameLine();
+                ImGui::Text("Camera Pos: X %.6f Y: %.6f Z: %.6f Yaw: %.6f Pitch: %.6f\n", camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z, camera.getYaw(), camera.getPitch());
                 ImGui::EndMainMenuBar();
             }
         }
         
-        {
-            ImGuiWindowFlags window_flags = 0;
-            //window_flags |= ImGuiWindowFlags_NoTitleBar;
-            window_flags |= ImGuiWindowFlags_NoScrollbar;
-            //window_flags |= ImGuiWindowFlags_NoMove;
-            //window_flags |= ImGuiWindowFlags_NoResize;
-            //window_flags |= ImGuiWindowFlags_NoCollapse;
-            //window_flags |= ImGuiWindowFlags_NoNav;
-            //window_flags |= ImGuiWindowFlags_NoBackground;
-            
-
-            ImGui::Begin("Mouse Tracking", NULL, window_flags);                         
-            ImGui::Text("Mouse Pos: X %.6f Y: %.6f\n", io.MousePos.x, io.MousePos.y);
-
-            ImGui::Text("Camera Pos: X %.6f Y: %.6f Z: %.6f Yaw: %.6f Pitch: %.6f\n", camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z, camera.getYaw(), camera.getPitch());
-
-            ImGui::Text("Broker barrier on %s \n", barrier);
-
-            ImGui::End();
-        } 
-
         /* #endregion */
         
         /* #region Camera Controls */
@@ -422,6 +411,7 @@ int main(){
         mainWindow.swapBuffers();
         
     }
+    /* #endregion */
     //Clean up GUI
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
