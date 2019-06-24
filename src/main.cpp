@@ -231,7 +231,7 @@ int main(){
 
     objectList.push_back(Object(new glm::vec3(8.0f, 2.0f,1.0f),&brickTexture,&dullMaterial));
     objectList.push_back(Object(new glm::vec3(4.0f, 4.0f,1.0f),&brickTexture,&dullMaterial));
-    objectList.push_back(Object(new glm::vec3(1.0f, 0.0f,3.0f),&dirtTexture,&dullMaterial));
+    objectList.push_back(Object(new glm::vec3(1.0f, 0.0f,3.0f),&plainTexture,&dullMaterial));
     objectList.push_back(Object(new glm::vec3(0.0f, -4.0f,1.0f),&plainTexture,&dullMaterial));
 
     Assimp::Importer imp;
@@ -279,12 +279,12 @@ int main(){
     
 
     unsigned int pointLightCount = 0;
-    pointLights[0] = PointLight(1.0f, 0.0f, 1.0f,
+    pointLights[0] = PointLight(0.0f, 0.0f, 1.0f,
                                 0.0f, 1.0f,
                                 0.0f, 1.0f, 0.0f,
                                 0.3f, 0.2f, 0.1f);
     pointLightCount++;
-    pointLights[1] = PointLight(0.0f, 1.0f, 0.0f,
+    pointLights[1] = PointLight(1.0f, 0.0f, 0.0f,
                                 0.0f, 1.0f,
                                 -4.0f, 2.0f, 0.0f,
                                 0.3f, 0.1f, 0.1f);
@@ -386,9 +386,9 @@ int main(){
         uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
         uniformShininess = shaderList[0].GetShininessLocation();
         
-        shaderList[0].SetDirectionalLight(&mainLight);
+        //shaderList[0].SetDirectionalLight(&mainLight);
         //Commented because I can't understand why this won't work
-        //shaderList[0].SetPointLights(pointLights, pointLightCount);
+        shaderList[0].SetPointLights(pointLights, pointLightCount);
         
         glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));

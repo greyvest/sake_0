@@ -79,9 +79,10 @@ vec4 CalcDirectionalLight()
 
 vec4 CalcPointLights()
 {
-	vec4 totalColour = vec4(0, 0, 0, 0);
+	vec4 totalColour = vec4(0.0f, 0.0f, 0.0f, 0.0f);
 	for(int i = 0; i < pointLightCount; i++)
 	{
+		
 		vec3 direction = FragPos - pointLights[i].position;
 		float distance = length(direction);
 		direction = normalize(direction);
@@ -100,7 +101,7 @@ vec4 CalcPointLights()
 void main()
 {
 	vec4 finalColour = CalcDirectionalLight();
-	//finalColour += CalcPointLights();
-	
+	finalColour += CalcPointLights();
+
 	colour = texture(theTexture, TexCoord) * finalColour;
 }

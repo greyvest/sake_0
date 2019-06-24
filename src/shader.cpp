@@ -99,7 +99,9 @@ void Shader::CompileShader(const char* vertexCode, const char* fragmentCode)
     uniformShininess = glGetUniformLocation(shaderID, "material.shininess");
     uniformEyePosition = glGetUniformLocation(shaderID, "eyePosition");
     
-    uniformPointLightCount = glGetUniformLocation(shaderID, "pointLightcount");
+    printf("UPLC %d\n", uniformPointLightCount);
+    uniformPointLightCount = glGetUniformLocation(shaderID, "pointLightCount");
+    printf("UPLC %d\n", uniformPointLightCount);
     
     for(size_t i = 0; i < MAX_POINT_LIGHTS; i++){
         char locBuff[100] = {'\0'};
