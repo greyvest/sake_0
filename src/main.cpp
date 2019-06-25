@@ -316,6 +316,32 @@ int main(){
     glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 100.0f);
     /* #endregion */
    
+    /* #region Light Control Bools */
+
+    bool directionalLightsOn = true;
+    bool pointLightsOn = true;
+    bool spotLightsOn = true;
+
+
+    static bool switchDirectionalLights = false;
+    static bool switchSpotLights = false;
+    static bool switchPointLights = false;
+
+    if(switchDirectionalLights){
+        directionalLightsOn = !directionalLightsOn;
+        switchDirectionalLights = false;
+    }
+    if(switchPointLights){
+        pointLightsOn = !pointLightsOn;
+        switchDirectionalLights = false;
+    }
+    if(switchSpotLights){
+        spotLightsOn = !spotLightsOn;
+        switchDirectionalLights = false;
+    }
+
+    /* #endregion */
+
     /* #region program loop */
     while(!mainWindow.getShouldClose()){
         /* #region Time Controls */
@@ -362,9 +388,11 @@ int main(){
                     /* Do stuff */ 
                 }
                 if (ImGui::MenuItem("Close", "Ctrl+W"))  { /*Do stuff */}
-                if (ImGui::BeginMenu("More Options")){
-                    ImGui::MenuItem("Xthing");
-                    ImGui::MenuItem("Ything");
+                if (ImGui::BeginMenu("Light Options")){
+                    ImGui::MenuItem("Directional Lights", NULL, &directionalLightsOn);
+                    ImGui::MenuItem("Spot Lights", NULL, &spotLightsOn);
+                    ImGui::MenuItem("Point Lights", NULL, &pointLightsOn);
+                    
                     ImGui::EndMenu();
                 }
                 if (ImGui::MenuItem("Exit", "Ctrl+S"))   {
@@ -405,13 +433,32 @@ int main(){
         uniformShininess = shaderList[0].GetShininessLocation();
 
         glm::vec3 lowerLight = camera.getCameraPosition();
-		lowerLight.y -= 0.3f;
+		lowerLight.y -= 0.4f;
 		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
         
-        shaderList[0].SetDirectionalLight(&mainLight);
-        //Commented because I can't understand why this won't work
-        //shaderList[0].SetPointLights(pointLights, pointLightCount);
-        shaderList[0].SetSpotLights(spotLights, spotLightCount);
+        if(directionalLightsOn){
+            shaderList[0].SetDirectionalLight(&mainLight);
+        }
+        else{
+            DirectionalLight * temp = new DirectionalLight();
+            shaderList[0].SetDirectionalLight(temp);
+        }
+        if(spotLightsOn){
+            shaderList[0].SetSpotLights(spotLights, spotLightCount);
+        }
+        else{
+            SpotLight tempLights[MAX_SPOT_LIGHTS];
+            shaderList[0].SetSpotLights(tempLights, 0);
+        }
+        if(pointLightsOn){
+            shaderList[0].SetPointLights(pointLights, pointLightCount);
+        }
+        else{
+            PointLight tempLights[MAX_POINT_LIGHTS];
+            shaderList[0].SetPointLights(tempLights, 0);
+        }
+        
+        
         
         glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));

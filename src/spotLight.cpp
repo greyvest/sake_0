@@ -1,3 +1,12 @@
+//
+//  spotlight.cpp
+//  OGL
+//
+//  Created by u0964759 on 6/10/19.
+//  Copyright © 2019 u0964759. All rights reserved.
+//
+
+
 #include "spotLight.hpp"
 
 SpotLight::SpotLight() : PointLight(){

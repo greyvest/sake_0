@@ -9,8 +9,8 @@
 #include "light.hpp"
 
 Light::Light(){
-    colour = glm::vec3(1.0f, 1.0f, 1.0f);
-    ambientIntensity = 1.0f;
+    colour = glm::vec3(0.0f, 0.0f, 0.0f);
+    ambientIntensity = 0.0f;
     diffuseIntensity = 0.0f;
 }
 

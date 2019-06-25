@@ -24,40 +24,41 @@ Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLf
     update();
 }
 
+//key controls for camera, 6DOF style
 void Camera::keyControl(bool* keys, GLfloat deltaTime)
 {
     GLfloat velocity = moveSpeed * deltaTime;
-    
+    //forward movement
     if (keys[GLFW_KEY_W])
     {
         position += front * velocity;
     }
-    
+    //backwards movement
     if (keys[GLFW_KEY_S])
     {
         position -= front * velocity;
     }
-    
+    //left movement
     if (keys[GLFW_KEY_A])
     {
         position -= right * velocity;
     }
-    
+    //right movement
     if (keys[GLFW_KEY_D])
     {
         position += right * velocity;
     }
-
+    //down movement
     if (keys[GLFW_KEY_E])
-    {
-        position += up * velocity;
-    }
-
-    if (keys[GLFW_KEY_Q])
     {
         position -= up * velocity;
     }
-
+    //up movement
+    if (keys[GLFW_KEY_Q])
+    {
+        position += up * velocity;
+    }
+    //locks/unlocks camera look controls with mouse
     if (keys[GLFW_KEY_C])
     {
         cameraOn = !cameraOn;
@@ -65,6 +66,7 @@ void Camera::keyControl(bool* keys, GLfloat deltaTime)
     }
 }
 
+//Mouse control for camera
 void Camera::mouseControl(GLfloat xChange, GLfloat yChange)
 {
     xChange *= turnSpeed;
@@ -86,21 +88,25 @@ void Camera::mouseControl(GLfloat xChange, GLfloat yChange)
     update();
 }
 
+//View matricx calculate
 glm::mat4 Camera::calculateViewMatrix()
 {
     return glm::lookAt(position, position + front, up);
 }
 
+//Getter for camera position
 glm::vec3 Camera::getCameraPosition()
 {
     return position;
 }
 
+//getter for camera direction
 glm::vec3 Camera::getCameraDirection()
 {
 	return glm::normalize(front);
 }
 
+//Camera update loop
 void Camera::update()
 {
     front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
