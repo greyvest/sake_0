@@ -881,6 +881,33 @@ src/shader.cpp.s:
 	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/shader.cpp.s
 .PHONY : src/shader.cpp.s
 
+src/spotLight.o: src/spotLight.cpp.o
+
+.PHONY : src/spotLight.o
+
+# target to build an object file
+src/spotLight.cpp.o:
+	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/spotLight.cpp.o
+.PHONY : src/spotLight.cpp.o
+
+src/spotLight.i: src/spotLight.cpp.i
+
+.PHONY : src/spotLight.i
+
+# target to preprocess a source file
+src/spotLight.cpp.i:
+	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/spotLight.cpp.i
+.PHONY : src/spotLight.cpp.i
+
+src/spotLight.s: src/spotLight.cpp.s
+
+.PHONY : src/spotLight.s
+
+# target to generate assembly for a file
+src/spotLight.cpp.s:
+	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/spotLight.cpp.s
+.PHONY : src/spotLight.cpp.s
+
 src/texture.o: src/texture.cpp.o
 
 .PHONY : src/texture.o
@@ -1012,6 +1039,9 @@ help:
 	@echo "... src/shader.o"
 	@echo "... src/shader.i"
 	@echo "... src/shader.s"
+	@echo "... src/spotLight.o"
+	@echo "... src/spotLight.i"
+	@echo "... src/spotLight.s"
 	@echo "... src/texture.o"
 	@echo "... src/texture.i"
 	@echo "... src/texture.s"

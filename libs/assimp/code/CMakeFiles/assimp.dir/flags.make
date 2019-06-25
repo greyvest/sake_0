@@ -9,7 +9,7 @@ C_DEFINES = -DASSIMP_BUILD_DLL_EXPORT -DASSIMP_BUILD_NO_C4D_IMPORTER -DASSIMP_BU
 
 C_INCLUDES = -I/Users/u0964759/sake_0/libs/assimp/. -I/Users/u0964759/sake_0/libs/assimp/include -I/Users/u0964759/sake_0/libs/assimp -I/Users/u0964759/sake_0/libs/assimp/code/../contrib/rapidjson/include -I/Users/u0964759/sake_0/libs/assimp/code/../contrib -I/Users/u0964759/sake_0/libs/assimp/code/../contrib/unzip -I/Users/u0964759/sake_0/libs/assimp/contrib/irrXML -I/Users/u0964759/sake_0/libs/assimp/code/../contrib/openddlparser/include -I/Users/u0964759/sake_0/libs/assimp/code/.. 
 
-CXX_FLAGS =  -g -fvisibility=hidden -fPIC -Wall -Wno-long-long -std=c++11 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk -fPIC   -std=gnu++11
+CXX_FLAGS =  -w -g -fvisibility=hidden -fPIC -Wall -Wno-long-long -std=c++11 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk -fPIC   -std=gnu++11
 
 CXX_DEFINES = -DASSIMP_BUILD_DLL_EXPORT -DASSIMP_BUILD_NO_C4D_IMPORTER -DASSIMP_BUILD_NO_OWN_ZLIB -DOPENDDLPARSER_BUILD -DOPENDDL_NO_USE_CPP11 -Dassimp_EXPORTS
 

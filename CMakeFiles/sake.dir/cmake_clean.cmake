@@ -9,6 +9,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/sake.dir/src/object.cpp.o"
   "CMakeFiles/sake.dir/src/pointLight.cpp.o"
   "CMakeFiles/sake.dir/src/shader.cpp.o"
+  "CMakeFiles/sake.dir/src/spotLight.cpp.o"
   "CMakeFiles/sake.dir/src/texture.cpp.o"
   "CMakeFiles/sake.dir/src/window.cpp.o"
   "sake.pdb"

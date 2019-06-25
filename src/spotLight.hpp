@@ -7,13 +7,16 @@ public:
 
     
     SpotLight(GLfloat red, GLfloat green, GLfloat blue,
-               GLfloat aIntensity, GLfloat dIntensity,
-               GLfloat xPos, GLfloat yPos, GLfloat zPos,
-               GLfloat con, GLfloat lin, GLfloat exp);
+                       GLfloat aIntensity, GLfloat dIntensity,
+                       GLfloat xPos, GLfloat yPos, GLfloat zPos,
+                       GLfloat xDir, GLfloat yDir, GLfloat zDir,
+                       GLfloat con, GLfloat lin, GLfloat exp, GLfloat edge);
     
     void UseLight(GLfloat ambientIntensityLocation, GLfloat ambientColourLocation,
-                  GLfloat diffuseIntensityLocation, GLfloat positionLocation,
-                  GLfloat constantLocation, GLfloat linearLocation, GLfloat exponentLocation);
+                  GLfloat diffuseIntensityLocation, GLfloat positionLocation, GLfloat directionLocation,
+                  GLfloat constantLocation, GLfloat linearLocation, GLfloat exponentLocation, GLfloat edgeLocation);
+
+    void SetFlash(glm::vec3 pos, glm::vec3 dir);
 
     ~SpotLight();
 private:

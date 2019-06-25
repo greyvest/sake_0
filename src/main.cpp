@@ -39,6 +39,7 @@ This is an OpenGL engine developed for learning purposes.
 #include "directionalLight.hpp"
 #include "pointLight.hpp"
 #include "object.hpp"
+#include "spotLight.hpp"
 /* #endregion */
 
 /* #region constants */
@@ -66,6 +67,7 @@ Material dullMaterial;
 DirectionalLight mainLight;
 
 PointLight pointLights[MAX_POINT_LIGHTS];
+SpotLight spotLights[MAX_SPOT_LIGHTS];
 
 GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
@@ -290,6 +292,22 @@ int main(){
                                 0.3f, 0.1f, 0.1f);
     pointLightCount++;
     
+    unsigned int spotLightCount = 0;
+	spotLights[0] = SpotLight(1.0f, 0.0f, 1.0f,
+						0.0f, 2.0f,
+						0.0f, 0.0f, 0.0f,
+						0.0f, -1.0f, 0.0f,
+						1.0f, 0.0f, 0.0f,
+						20.0f);
+    spotLightCount++;
+    /* spotLights[1] = SpotLight(1.0f, 1.0f, 1.0f,
+		0.0f, 1.0f,
+		0.0f, -1.5f, 0.0f,
+		-100.0f, -1.0f, 0.0f,
+		1.0f, 0.0f, 0.0f,
+		20.0f);
+	spotLightCount++;
+    */
     /* #endregion */
     
     /* #region Setup projection  matrix */
@@ -385,10 +403,15 @@ int main(){
         uniformEyePosition = shaderList[0].GetEyePositionLocation();
         uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
         uniformShininess = shaderList[0].GetShininessLocation();
+
+        glm::vec3 lowerLight = camera.getCameraPosition();
+		lowerLight.y -= 0.3f;
+		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
         
-        //shaderList[0].SetDirectionalLight(&mainLight);
+        shaderList[0].SetDirectionalLight(&mainLight);
         //Commented because I can't understand why this won't work
-        shaderList[0].SetPointLights(pointLights, pointLightCount);
+        //shaderList[0].SetPointLights(pointLights, pointLightCount);
+        shaderList[0].SetSpotLights(spotLights, spotLightCount);
         
         glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
         glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));

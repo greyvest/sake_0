@@ -25,6 +25,7 @@ public:
     void mouseControl(GLfloat xChange, GLfloat yChange);
     
     glm::vec3 getCameraPosition();
+    glm::vec3 getCameraDirection();
     
     GLfloat getYaw(){return yaw;};
     GLfloat getPitch(){return pitch;};

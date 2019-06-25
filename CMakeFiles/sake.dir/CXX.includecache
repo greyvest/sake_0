@@ -105,6 +105,8 @@ pointLight.hpp
 /Users/u0964759/sake_0/src/pointLight.hpp
 object.hpp
 /Users/u0964759/sake_0/src/object.hpp
+spotLight.hpp
+/Users/u0964759/sake_0/src/spotLight.hpp
 
 /Users/u0964759/sake_0/src/material.hpp
 stdio.h
@@ -153,6 +155,12 @@ commonValues.h
 /Users/u0964759/sake_0/src/commonValues.h
 directionalLight.hpp
 /Users/u0964759/sake_0/src/directionalLight.hpp
+pointLight.hpp
+/Users/u0964759/sake_0/src/pointLight.hpp
+spotLight.hpp
+/Users/u0964759/sake_0/src/spotLight.hpp
+
+/Users/u0964759/sake_0/src/spotLight.hpp
 pointLight.hpp
 /Users/u0964759/sake_0/src/pointLight.hpp
 
