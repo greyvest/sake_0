@@ -40,6 +40,7 @@ This is an OpenGL engine developed for learning purposes.
 #include "pointLight.hpp"
 #include "object.hpp"
 #include "spotLight.hpp"
+#include "model.hpp"
 /* #endregion */
 
 /* #region constants */
@@ -63,6 +64,8 @@ Texture plainTexture;
 
 Material shinyMaterial;
 Material dullMaterial;
+
+Model ironMan;
 
 DirectionalLight mainLight;
 
@@ -208,6 +211,7 @@ void renderAModel(glm::mat4 * model, GLuint uniformModel, glm::vec3 * pos, Textu
     renderMat->UseMaterial(uniformSpecularIntensity, uniformShininess);
     meshList[i]->RenderMesh();
 }
+
 /* #endregion */
 int main(){
     //Set main window size and initialise
@@ -215,6 +219,8 @@ int main(){
     mainWindow.Initialise();
 
    
+
+    //TODO: This region should happen externally, ideally reading in a file with the information in it
     /* #region Load Textures and materials */
     
     brickTexture = Texture("src/textures/brick.png");
@@ -228,47 +234,57 @@ int main(){
     dullMaterial = Material(0.3f, 4);
     /* #endregion */
 
-
+    //TODO: This region should happen externally, ideally reading in a file with the information in it
+    /* region Create object list and put objects into it. This lines up one to one with the meshlist, so you should make a single list or entity with objects/meshes included */
     std::vector<Object> objectList;
 
     objectList.push_back(Object(new glm::vec3(8.0f, 2.0f,1.0f),&brickTexture,&dullMaterial));
     objectList.push_back(Object(new glm::vec3(4.0f, 4.0f,1.0f),&brickTexture,&dullMaterial));
     objectList.push_back(Object(new glm::vec3(1.0f, 0.0f,3.0f),&plainTexture,&dullMaterial));
     objectList.push_back(Object(new glm::vec3(0.0f, -4.0f,1.0f),&plainTexture,&dullMaterial));
+    /* #endregion */
 
-    Assimp::Importer imp;
-    imp = Assimp::Importer();
+    ironMan = Model();
 
-
-    //GLSL version for IMGUI;
-    const char* glsl_version = "#version 150"; 
-
+    std::string inIron = "Models/IronMan.obj";
+    
+    ironMan.LoadModel(inIron);
     /* #region IMGUI setup code*/
+    //glsl version, required for opengl3 implementation
+    const char* glsl_version = "#version 150"; 
+    //Creaete IMGUI context
     ImGui::CreateContext();
+    //Create IMGUI IO object
     ImGuiIO& io = ImGui::GetIO(); 
     (void)io;
+    //initialized opengl
     ImGui_ImplGlfw_InitForOpenGL(mainWindow.getMainWindow(), true);
+    //Set imgui style to dark theme
     ImGui::StyleColorsDark();
+    ////initialized opengl
     ImGui_ImplOpenGL3_Init(glsl_version);
-    bool show_demo_window = true;
-    bool show_another_window = false;
     
+    //create mouse cursor for window
     io.MouseDrawCursor = true;
     io.MousePos = ImVec2(0,0);
     /* #endregion */
 
+    
     //Create control vec
     controllerVec = glm::vec3(8,0,0);
+    
     //Create objects and shaders
     CreateObjects();
     CreateShaders();
     
-    //Camera Setup
+    /* #region Camera Setup */
     camera = Camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 5.0f, 0.5f);
     
     GLfloat mlightAI = 0.6f;
     GLfloat mlightDI = 0.0f;
+    /* #endregion */
 
+    //TODO: This should also be extracted and read in from file, the same as other level objects
     /* #region Light setup */
     mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
                                  mlightAI, mlightDI,
@@ -300,14 +316,6 @@ int main(){
 						1.0f, 0.0f, 0.0f,
 						20.0f);
     spotLightCount++;
-    /* spotLights[1] = SpotLight(1.0f, 1.0f, 1.0f,
-		0.0f, 1.0f,
-		0.0f, -1.5f, 0.0f,
-		-100.0f, -1.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		20.0f);
-	spotLightCount++;
-    */
     /* #endregion */
     
     /* #region Setup projection  matrix */
@@ -353,6 +361,7 @@ int main(){
         // Get + Handle User Input
         glfwPollEvents();
 
+        //TODO: Somehow confine mouse to window
         /* #region Mouse Tracking */
         char * barrier = "";
         if(io.MousePos.x < 0){
@@ -380,6 +389,7 @@ int main(){
         ImGui::NewFrame();
         
         {
+            //Create main menu bar with objects on it
             if(ImGui::BeginMainMenuBar()){
                 if (ImGui::MenuItem("Open..", "Ctrl+O")) {
                     /* Do stuff */ 
@@ -392,7 +402,6 @@ int main(){
                     ImGui::MenuItem("Directional Lights", NULL, &directionalLightsOn);
                     ImGui::MenuItem("Spot Lights", NULL, &spotLightsOn);
                     ImGui::MenuItem("Point Lights", NULL, &pointLightsOn);
-                    
                     ImGui::EndMenu();
                 }
                 if (ImGui::MenuItem("Exit", "Ctrl+S"))   {
@@ -402,8 +411,6 @@ int main(){
                 ImGui::Text("Broker barrier on %s \n", barrier);
                 ImGui::SameLine();
                 ImGui::Text("Mouse Pos: X %.6f Y: %.6f\n", io.MousePos.x, io.MousePos.y);
-                ImGui::SameLine();
-                ImGui::Text("Camera Pos: X %.6f Y: %.6f Z: %.6f Yaw: %.6f Pitch: %.6f\n", camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z, camera.getYaw(), camera.getPitch());
                 ImGui::EndMainMenuBar();
             }
         }
@@ -416,6 +423,8 @@ int main(){
             camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
         /* #endregion */
 
+
+        //TODO: Cleaner object controller
         //Current function for moving object on screen
         //SetControllerLoc(mainWindow.getsKeys(), deltaTime);
         
@@ -435,7 +444,8 @@ int main(){
         glm::vec3 lowerLight = camera.getCameraPosition();
 		lowerLight.y -= 0.4f;
 		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
-        
+    
+        //detect if certain type of lights should be on given checked GUI option and swap them in with defaults appropriately
         if(directionalLightsOn){
             shaderList[0].SetDirectionalLight(&mainLight);
         }
@@ -473,6 +483,13 @@ int main(){
             renderAModel(&model, uniformModel, objectList[i].pos, objectList[i].texture, objectList[i].material, uniformSpecularIntensity, uniformShininess, i);
         }
         /* #endregion */
+        
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 20.0f));
+        model = glm::scale(model, glm::vec3(0.001f, 0.001f, 0.001f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
+        ironMan.RenderModel();
 
         //Fianl rendering calls        
         glUseProgram(0);
@@ -487,7 +504,7 @@ int main(){
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
-    
+    //clean up glfw
     glfwTerminate();
 
     return 0;

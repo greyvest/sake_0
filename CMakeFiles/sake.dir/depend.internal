@@ -331,8 +331,6 @@ CMakeFiles/sake.dir/src/directionalLight.cpp.o
  /usr/local/include/glm/vec3.hpp
  /usr/local/include/glm/vec4.hpp
  /usr/local/include/glm/vector_relational.hpp
-CMakeFiles/sake.dir/src/level.cpp.o
- /Users/u0964759/sake_0/src/level.cpp
 CMakeFiles/sake.dir/src/light.cpp.o
  /Users/u0964759/sake_0/src/light.cpp
  /Users/u0964759/sake_0/src/light.hpp
@@ -504,6 +502,7 @@ CMakeFiles/sake.dir/src/main.cpp.o
  /Users/u0964759/sake_0/src/main.cpp
  /Users/u0964759/sake_0/src/material.hpp
  /Users/u0964759/sake_0/src/mesh.hpp
+ /Users/u0964759/sake_0/src/model.hpp
  /Users/u0964759/sake_0/src/object.hpp
  /Users/u0964759/sake_0/src/pointLight.hpp
  /Users/u0964759/sake_0/src/shader.hpp
@@ -514,16 +513,28 @@ CMakeFiles/sake.dir/src/main.cpp.o
  /usr/local/include/GLFW/glfw3.h
  /usr/local/include/assimp/./Compiler/poppack1.h
  /usr/local/include/assimp/./Compiler/pushpack1.h
+ /usr/local/include/assimp/Compiler/pstdint.h
  /usr/local/include/assimp/Importer.hpp
+ /usr/local/include/assimp/anim.h
+ /usr/local/include/assimp/camera.h
  /usr/local/include/assimp/color4.h
  /usr/local/include/assimp/color4.inl
  /usr/local/include/assimp/config.h
  /usr/local/include/assimp/defs.h
+ /usr/local/include/assimp/importer.hpp
+ /usr/local/include/assimp/light.h
+ /usr/local/include/assimp/material.h
+ /usr/local/include/assimp/material.inl
  /usr/local/include/assimp/matrix3x3.h
  /usr/local/include/assimp/matrix3x3.inl
  /usr/local/include/assimp/matrix4x4.h
  /usr/local/include/assimp/matrix4x4.inl
+ /usr/local/include/assimp/mesh.h
+ /usr/local/include/assimp/metadata.h
+ /usr/local/include/assimp/postprocess.h
  /usr/local/include/assimp/quaternion.h
+ /usr/local/include/assimp/scene.h
+ /usr/local/include/assimp/texture.h
  /usr/local/include/assimp/types.h
  /usr/local/include/assimp/vector2.h
  /usr/local/include/assimp/vector2.inl
@@ -738,14 +749,47 @@ CMakeFiles/sake.dir/src/mesh.cpp.o
  /Users/u0964759/sake_0/src/mesh.cpp
  /Users/u0964759/sake_0/src/mesh.hpp
  /usr/local/include/GL/glew.h
+CMakeFiles/sake.dir/src/model.cpp.o
+ /Users/u0964759/sake_0/src/material.hpp
+ /Users/u0964759/sake_0/src/mesh.hpp
+ /Users/u0964759/sake_0/src/model.cpp
+ /Users/u0964759/sake_0/src/model.hpp
+ /Users/u0964759/sake_0/src/texture.hpp
+ /usr/local/include/GL/glew.h
+ /usr/local/include/assimp/./Compiler/poppack1.h
+ /usr/local/include/assimp/./Compiler/pushpack1.h
+ /usr/local/include/assimp/Compiler/pstdint.h
+ /usr/local/include/assimp/anim.h
+ /usr/local/include/assimp/camera.h
+ /usr/local/include/assimp/color4.h
+ /usr/local/include/assimp/color4.inl
+ /usr/local/include/assimp/config.h
+ /usr/local/include/assimp/defs.h
+ /usr/local/include/assimp/importer.hpp
+ /usr/local/include/assimp/light.h
+ /usr/local/include/assimp/material.h
+ /usr/local/include/assimp/material.inl
+ /usr/local/include/assimp/matrix3x3.h
+ /usr/local/include/assimp/matrix3x3.inl
+ /usr/local/include/assimp/matrix4x4.h
+ /usr/local/include/assimp/matrix4x4.inl
+ /usr/local/include/assimp/mesh.h
+ /usr/local/include/assimp/metadata.h
+ /usr/local/include/assimp/postprocess.h
+ /usr/local/include/assimp/quaternion.h
+ /usr/local/include/assimp/quaternion.inl
+ /usr/local/include/assimp/scene.h
+ /usr/local/include/assimp/texture.h
+ /usr/local/include/assimp/types.h
+ /usr/local/include/assimp/vector2.h
+ /usr/local/include/assimp/vector2.inl
+ /usr/local/include/assimp/vector3.h
+ /usr/local/include/assimp/vector3.inl
 CMakeFiles/sake.dir/src/object.cpp.o
- /Users/u0964759/sake_0/src/directionalLight.hpp
- /Users/u0964759/sake_0/src/light.hpp
  /Users/u0964759/sake_0/src/material.hpp
  /Users/u0964759/sake_0/src/mesh.hpp
  /Users/u0964759/sake_0/src/object.cpp
  /Users/u0964759/sake_0/src/object.hpp
- /Users/u0964759/sake_0/src/pointLight.hpp
  /Users/u0964759/sake_0/src/texture.hpp
  /usr/local/include/GL/glew.h
  /usr/local/include/glm/./detail/setup.hpp

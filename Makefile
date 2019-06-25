@@ -665,33 +665,6 @@ src/directionalLight.cpp.s:
 	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/directionalLight.cpp.s
 .PHONY : src/directionalLight.cpp.s
 
-src/level.o: src/level.cpp.o
-
-.PHONY : src/level.o
-
-# target to build an object file
-src/level.cpp.o:
-	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/level.cpp.o
-.PHONY : src/level.cpp.o
-
-src/level.i: src/level.cpp.i
-
-.PHONY : src/level.i
-
-# target to preprocess a source file
-src/level.cpp.i:
-	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/level.cpp.i
-.PHONY : src/level.cpp.i
-
-src/level.s: src/level.cpp.s
-
-.PHONY : src/level.s
-
-# target to generate assembly for a file
-src/level.cpp.s:
-	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/level.cpp.s
-.PHONY : src/level.cpp.s
-
 src/light.o: src/light.cpp.o
 
 .PHONY : src/light.o
@@ -799,6 +772,33 @@ src/mesh.s: src/mesh.cpp.s
 src/mesh.cpp.s:
 	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/mesh.cpp.s
 .PHONY : src/mesh.cpp.s
+
+src/model.o: src/model.cpp.o
+
+.PHONY : src/model.o
+
+# target to build an object file
+src/model.cpp.o:
+	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/model.cpp.o
+.PHONY : src/model.cpp.o
+
+src/model.i: src/model.cpp.i
+
+.PHONY : src/model.i
+
+# target to preprocess a source file
+src/model.cpp.i:
+	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/model.cpp.i
+.PHONY : src/model.cpp.i
+
+src/model.s: src/model.cpp.s
+
+.PHONY : src/model.s
+
+# target to generate assembly for a file
+src/model.cpp.s:
+	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/model.cpp.s
+.PHONY : src/model.cpp.s
 
 src/object.o: src/object.cpp.o
 
@@ -1015,9 +1015,6 @@ help:
 	@echo "... src/directionalLight.o"
 	@echo "... src/directionalLight.i"
 	@echo "... src/directionalLight.s"
-	@echo "... src/level.o"
-	@echo "... src/level.i"
-	@echo "... src/level.s"
 	@echo "... src/light.o"
 	@echo "... src/light.i"
 	@echo "... src/light.s"
@@ -1030,6 +1027,9 @@ help:
 	@echo "... src/mesh.o"
 	@echo "... src/mesh.i"
 	@echo "... src/mesh.s"
+	@echo "... src/model.o"
+	@echo "... src/model.i"
+	@echo "... src/model.s"
 	@echo "... src/object.o"
 	@echo "... src/object.i"
 	@echo "... src/object.s"

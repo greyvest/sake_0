@@ -83,22 +83,9 @@ CMakeFiles/sake.dir/src/directionalLight.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sake.dir/src/directionalLight.cpp.s"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/u0964759/sake_0/src/directionalLight.cpp -o CMakeFiles/sake.dir/src/directionalLight.cpp.s
 
-CMakeFiles/sake.dir/src/level.cpp.o: CMakeFiles/sake.dir/flags.make
-CMakeFiles/sake.dir/src/level.cpp.o: src/level.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/sake.dir/src/level.cpp.o"
-	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sake.dir/src/level.cpp.o -c /Users/u0964759/sake_0/src/level.cpp
-
-CMakeFiles/sake.dir/src/level.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sake.dir/src/level.cpp.i"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/u0964759/sake_0/src/level.cpp > CMakeFiles/sake.dir/src/level.cpp.i
-
-CMakeFiles/sake.dir/src/level.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sake.dir/src/level.cpp.s"
-	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/u0964759/sake_0/src/level.cpp -o CMakeFiles/sake.dir/src/level.cpp.s
-
 CMakeFiles/sake.dir/src/light.cpp.o: CMakeFiles/sake.dir/flags.make
 CMakeFiles/sake.dir/src/light.cpp.o: src/light.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/sake.dir/src/light.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/sake.dir/src/light.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sake.dir/src/light.cpp.o -c /Users/u0964759/sake_0/src/light.cpp
 
 CMakeFiles/sake.dir/src/light.cpp.i: cmake_force
@@ -111,7 +98,7 @@ CMakeFiles/sake.dir/src/light.cpp.s: cmake_force
 
 CMakeFiles/sake.dir/src/main.cpp.o: CMakeFiles/sake.dir/flags.make
 CMakeFiles/sake.dir/src/main.cpp.o: src/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/sake.dir/src/main.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/sake.dir/src/main.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sake.dir/src/main.cpp.o -c /Users/u0964759/sake_0/src/main.cpp
 
 CMakeFiles/sake.dir/src/main.cpp.i: cmake_force
@@ -124,7 +111,7 @@ CMakeFiles/sake.dir/src/main.cpp.s: cmake_force
 
 CMakeFiles/sake.dir/src/material.cpp.o: CMakeFiles/sake.dir/flags.make
 CMakeFiles/sake.dir/src/material.cpp.o: src/material.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/sake.dir/src/material.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/sake.dir/src/material.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sake.dir/src/material.cpp.o -c /Users/u0964759/sake_0/src/material.cpp
 
 CMakeFiles/sake.dir/src/material.cpp.i: cmake_force
@@ -137,7 +124,7 @@ CMakeFiles/sake.dir/src/material.cpp.s: cmake_force
 
 CMakeFiles/sake.dir/src/mesh.cpp.o: CMakeFiles/sake.dir/flags.make
 CMakeFiles/sake.dir/src/mesh.cpp.o: src/mesh.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/sake.dir/src/mesh.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/sake.dir/src/mesh.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sake.dir/src/mesh.cpp.o -c /Users/u0964759/sake_0/src/mesh.cpp
 
 CMakeFiles/sake.dir/src/mesh.cpp.i: cmake_force
@@ -147,6 +134,19 @@ CMakeFiles/sake.dir/src/mesh.cpp.i: cmake_force
 CMakeFiles/sake.dir/src/mesh.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sake.dir/src/mesh.cpp.s"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/u0964759/sake_0/src/mesh.cpp -o CMakeFiles/sake.dir/src/mesh.cpp.s
+
+CMakeFiles/sake.dir/src/model.cpp.o: CMakeFiles/sake.dir/flags.make
+CMakeFiles/sake.dir/src/model.cpp.o: src/model.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/sake.dir/src/model.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sake.dir/src/model.cpp.o -c /Users/u0964759/sake_0/src/model.cpp
+
+CMakeFiles/sake.dir/src/model.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sake.dir/src/model.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/u0964759/sake_0/src/model.cpp > CMakeFiles/sake.dir/src/model.cpp.i
+
+CMakeFiles/sake.dir/src/model.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sake.dir/src/model.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/u0964759/sake_0/src/model.cpp -o CMakeFiles/sake.dir/src/model.cpp.s
 
 CMakeFiles/sake.dir/src/object.cpp.o: CMakeFiles/sake.dir/flags.make
 CMakeFiles/sake.dir/src/object.cpp.o: src/object.cpp
@@ -230,11 +230,11 @@ CMakeFiles/sake.dir/src/window.cpp.s: cmake_force
 sake_OBJECTS = \
 "CMakeFiles/sake.dir/src/camera.cpp.o" \
 "CMakeFiles/sake.dir/src/directionalLight.cpp.o" \
-"CMakeFiles/sake.dir/src/level.cpp.o" \
 "CMakeFiles/sake.dir/src/light.cpp.o" \
 "CMakeFiles/sake.dir/src/main.cpp.o" \
 "CMakeFiles/sake.dir/src/material.cpp.o" \
 "CMakeFiles/sake.dir/src/mesh.cpp.o" \
+"CMakeFiles/sake.dir/src/model.cpp.o" \
 "CMakeFiles/sake.dir/src/object.cpp.o" \
 "CMakeFiles/sake.dir/src/pointLight.cpp.o" \
 "CMakeFiles/sake.dir/src/shader.cpp.o" \
@@ -247,11 +247,11 @@ sake_EXTERNAL_OBJECTS =
 
 sake: CMakeFiles/sake.dir/src/camera.cpp.o
 sake: CMakeFiles/sake.dir/src/directionalLight.cpp.o
-sake: CMakeFiles/sake.dir/src/level.cpp.o
 sake: CMakeFiles/sake.dir/src/light.cpp.o
 sake: CMakeFiles/sake.dir/src/main.cpp.o
 sake: CMakeFiles/sake.dir/src/material.cpp.o
 sake: CMakeFiles/sake.dir/src/mesh.cpp.o
+sake: CMakeFiles/sake.dir/src/model.cpp.o
 sake: CMakeFiles/sake.dir/src/object.cpp.o
 sake: CMakeFiles/sake.dir/src/pointLight.cpp.o
 sake: CMakeFiles/sake.dir/src/shader.cpp.o

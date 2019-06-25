@@ -1,7 +1,11 @@
 #include "object.hpp"
 
-Object::Object(glm::vec3 * inPos, Texture * inTexture, Material * inMaterial){
-    pos = inPos;
-    texture = inTexture;
-    material = inMaterial;
+Object::Object(){};
+
+Object::~Object(){};
+
+Object::Object(glm::vec3 * invec, Texture * intex, Material * inmat){
+    pos = invec;
+    texture = intex;
+    material = inmat;
 }

@@ -6,11 +6,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/u0964759/sake_0/src/camera.cpp" "/Users/u0964759/sake_0/CMakeFiles/sake.dir/src/camera.cpp.o"
   "/Users/u0964759/sake_0/src/directionalLight.cpp" "/Users/u0964759/sake_0/CMakeFiles/sake.dir/src/directionalLight.cpp.o"
-  "/Users/u0964759/sake_0/src/level.cpp" "/Users/u0964759/sake_0/CMakeFiles/sake.dir/src/level.cpp.o"
   "/Users/u0964759/sake_0/src/light.cpp" "/Users/u0964759/sake_0/CMakeFiles/sake.dir/src/light.cpp.o"
   "/Users/u0964759/sake_0/src/main.cpp" "/Users/u0964759/sake_0/CMakeFiles/sake.dir/src/main.cpp.o"
   "/Users/u0964759/sake_0/src/material.cpp" "/Users/u0964759/sake_0/CMakeFiles/sake.dir/src/material.cpp.o"
   "/Users/u0964759/sake_0/src/mesh.cpp" "/Users/u0964759/sake_0/CMakeFiles/sake.dir/src/mesh.cpp.o"
+  "/Users/u0964759/sake_0/src/model.cpp" "/Users/u0964759/sake_0/CMakeFiles/sake.dir/src/model.cpp.o"
   "/Users/u0964759/sake_0/src/object.cpp" "/Users/u0964759/sake_0/CMakeFiles/sake.dir/src/object.cpp.o"
   "/Users/u0964759/sake_0/src/pointLight.cpp" "/Users/u0964759/sake_0/CMakeFiles/sake.dir/src/pointLight.cpp.o"
   "/Users/u0964759/sake_0/src/shader.cpp" "/Users/u0964759/sake_0/CMakeFiles/sake.dir/src/shader.cpp.o"

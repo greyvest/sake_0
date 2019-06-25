@@ -1,25 +1,25 @@
-#ifndef OBJECT_H
-#define OBJECT_H
+#include <vector>
+#include <stdio.h>
 
+#include "texture.hpp"
 #include "mesh.hpp"
 #include "material.hpp"
-#include "texture.hpp"
-#include "directionalLight.hpp"
-#include "pointLight.hpp"
+
+#include <glm/glm.hpp>
 
 class Object{
 public:
     Object();
-    Object(glm::vec3 * , Texture * , Material *);
+
+    Object(glm::vec3 *, Texture * , Material *);
 
     glm::vec3 * pos;
-
-    //Visual components
-    Mesh * mesh;
     Texture * texture;
     Material * material;
+    Mesh * mesh;
+
+    ~Object();
+
 private:
-
+    
 };
-
-#endif /*OBJECT_H */
