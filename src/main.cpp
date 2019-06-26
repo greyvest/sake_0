@@ -246,9 +246,11 @@ int main(){
 
     ironMan = Model();
 
-    std::string inIron = "Models/IronMan.obj";
+    std::string inIron = "src/Models/deer.obj";
     
     ironMan.LoadModel(inIron);
+
+
     /* #region IMGUI setup code*/
     //glsl version, required for opengl3 implementation
     const char* glsl_version = "#version 150"; 
@@ -485,10 +487,10 @@ int main(){
         /* #endregion */
         
         model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 20.0f));
-        model = glm::scale(model, glm::vec3(0.001f, 0.001f, 0.001f));
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
+        model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
         glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-        shinyMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
+        dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
         ironMan.RenderModel();
 
         //Fianl rendering calls        

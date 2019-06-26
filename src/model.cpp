@@ -9,8 +9,9 @@ Model::~Model(){
 }
 
 void Model::LoadModel(const std::string & filename){
+	
     Assimp::Importer importer;
-    const aiScene * scene = importer.ReadFile(filename, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);
+	const aiScene *scene = importer.ReadFile(filename, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);
 
     if(!scene){
         printf("Model %s failed to load: %s.\n", filename.c_str(), importer.GetErrorString());
@@ -117,7 +118,7 @@ void Model::LoadMaterials(const aiScene *scene){
             }
         }
         if(!textureList[i]){
-            textureList[i] = new Texture("Textures/plain.png");
+            textureList[i] = new Texture("src/textures/plain.png");
             textureList[i]->LoadTextureA();
         }
     }
