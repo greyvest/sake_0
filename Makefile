@@ -881,6 +881,33 @@ src/shader.cpp.s:
 	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/shader.cpp.s
 .PHONY : src/shader.cpp.s
 
+src/shadowMap.o: src/shadowMap.cpp.o
+
+.PHONY : src/shadowMap.o
+
+# target to build an object file
+src/shadowMap.cpp.o:
+	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/shadowMap.cpp.o
+.PHONY : src/shadowMap.cpp.o
+
+src/shadowMap.i: src/shadowMap.cpp.i
+
+.PHONY : src/shadowMap.i
+
+# target to preprocess a source file
+src/shadowMap.cpp.i:
+	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/shadowMap.cpp.i
+.PHONY : src/shadowMap.cpp.i
+
+src/shadowMap.s: src/shadowMap.cpp.s
+
+.PHONY : src/shadowMap.s
+
+# target to generate assembly for a file
+src/shadowMap.cpp.s:
+	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/shadowMap.cpp.s
+.PHONY : src/shadowMap.cpp.s
+
 src/spotLight.o: src/spotLight.cpp.o
 
 .PHONY : src/spotLight.o
@@ -1039,6 +1066,9 @@ help:
 	@echo "... src/shader.o"
 	@echo "... src/shader.i"
 	@echo "... src/shader.s"
+	@echo "... src/shadowMap.o"
+	@echo "... src/shadowMap.i"
+	@echo "... src/shadowMap.s"
 	@echo "... src/spotLight.o"
 	@echo "... src/spotLight.i"
 	@echo "... src/spotLight.s"

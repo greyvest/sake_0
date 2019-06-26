@@ -43,6 +43,8 @@ This is an OpenGL engine developed for learning purposes.
 #include "model.hpp"
 /* #endregion */
 
+//TODO: Clean up all these global variables damn dude this tutorial guy has some bad habits
+
 /* #region constants */
 //Radian conversion Const
 const float toRadians = 3.14159265f / 180.0f;
@@ -55,6 +57,9 @@ Window mainWindow;
 //Master list of meshes
 std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
+
+Shader directionalShadowShader;
+
 //Camera Object
 Camera camera;
 //List of textueres:
@@ -72,18 +77,31 @@ DirectionalLight mainLight;
 PointLight pointLights[MAX_POINT_LIGHTS];
 SpotLight spotLights[MAX_SPOT_LIGHTS];
 
+unsigned int directionalLightCount = 0;
+unsigned int pointLightCount = 0;
+unsigned int spotLightCount = 0;
+
 GLfloat deltaTime = 0.0f;
 GLfloat lastTime = 0.0f;
 
 GLfloat movementVelocity = 0.01f;
 
+GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
+    uniformSpecularIntensity = 0, uniformShininess = 0;
+
 glm::vec3 controllerVec; 
+
+bool directionalLightsOn = true;
+bool pointLightsOn = true;
+bool spotLightsOn = true;
 
 //Shader location constants
 static const char * vShader = "src/Shaders/shader.vert";
 
 static const char * fShader = "src/Shaders/shader.frag";
 
+
+std::vector<Object> objectList;
 /* #endregion */
 
 /* #region Calc Normals */
@@ -173,6 +191,8 @@ void CreateShaders()
     Shader *shader1 = new Shader();
     shader1->CreateFromFiles(vShader, fShader);
     shaderList.push_back(*shader1);
+
+    directionalShadowShader.CreateFromFiles("src/Shaders/directional_shadow_map.vert", "src/Shaders/directional_shadow_map.frag");
 }
 /* #endregion */
 
@@ -211,14 +231,120 @@ void renderAModel(glm::mat4 * model, GLuint uniformModel, glm::vec3 * pos, Textu
     renderMat->UseMaterial(uniformSpecularIntensity, uniformShininess);
     meshList[i]->RenderMesh();
 }
-
 /* #endregion */
-int main(){
+
+/* #region Render Scene Function */
+void RenderScene(){
+        glm::mat4 model(1.0f);
+
+        /* #region Model Rendering */
+        for(int i = 0; i < objectList.size(); i++){
+            renderAModel(&model, uniformModel, objectList[i].pos, objectList[i].texture, objectList[i].material, uniformSpecularIntensity, uniformShininess, i);
+        }
+        /* #endregion */
+        
+        model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(-3.0f, -4.0f, 4.0f));
+        model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
+        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
+        dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
+        ironMan.RenderModel();
+
+}
+/* #endregion */
+
+/* #region Directional Shadow Map Pass */
+void DirectionalShadowMapPass(DirectionalLight * light){
+    directionalShadowShader.UseShader();
+
+    glViewport(0,0, light->GetShadowMap()->GetShadowWidth(), light->GetShadowMap()->GetShadowHeight());
+
+    light->GetShadowMap()->Write();
+    glClear(GL_DEPTH_BUFFER_BIT);
+
+    glm::mat4 returnVal = light->CalculateLightTransform();
+
+    uniformModel = directionalShadowShader.GetModelLocation();
+    directionalShadowShader.SetDirectionalLightTransform(&returnVal); 
+
+    RenderScene();
+    
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+/* #endregion  */
+
+/* #region  Render Pass*/
+void RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
+{
+
+    
+    /* #region Calculating Lighting */
+    shaderList[0].UseShader();
+
+    uniformModel = shaderList[0].GetModelLocation();
+    uniformProjection = shaderList[0].GetProjectionLocation();
+    uniformView = shaderList[0].GetViewLocation();
+    uniformEyePosition = shaderList[0].GetEyePositionLocation();
+    uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
+    uniformShininess = shaderList[0].GetShininessLocation();
+
+    glViewport(0, 0, 900, 600);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projectionMatrix));
+	glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(viewMatrix));
+	glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
+
+    glm::mat4 lightTrans = mainLight.CalculateLightTransform();
+
+	shaderList[0].SetDirectionalLight(&mainLight);
+	shaderList[0].SetPointLights(pointLights, pointLightCount);
+	shaderList[0].SetSpotLights(spotLights, spotLightCount);
+	shaderList[0].SetDirectionalLightTransform(&lightTrans);
+
+	mainLight.GetShadowMap()->Read(GL_TEXTURE1);
+	shaderList[0].SetTexture(0);
+	shaderList[0].SetDirectionalShadowMap(1);
+
+    glm::vec3 lowerLight = camera.getCameraPosition();
+    lowerLight.y -= 0.4f;
+    //spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
+    /* #endregion */
+    //detect if certain type of lights should be on given checked GUI option and swap them in with defaults appropriately
+    if(directionalLightsOn){
+        shaderList[0].SetDirectionalLight(&mainLight);
+    }
+    else{
+        DirectionalLight * temp = new DirectionalLight();
+        shaderList[0].SetDirectionalLight(temp);
+    }
+    if(spotLightsOn){
+        shaderList[0].SetSpotLights(spotLights, spotLightCount);
+    }
+    else{
+        SpotLight tempLights[MAX_SPOT_LIGHTS];
+        shaderList[0].SetSpotLights(tempLights, 0);
+    }
+    if(pointLightsOn){
+        shaderList[0].SetPointLights(pointLights, pointLightCount);
+    }
+    else{
+        PointLight tempLights[MAX_POINT_LIGHTS];
+        shaderList[0].SetPointLights(tempLights, 0);
+    }
+	//spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
+
+	RenderScene();
+    
+}
+/* #endregion */
+
+/* #region Main */
+int main(){ 
     //Set main window size and initialise
     mainWindow = Window(900, 600); // 1280, 1024 or 1024, 768
     mainWindow.Initialise();
-
-   
 
     //TODO: This region should happen externally, ideally reading in a file with the information in it
     /* #region Load Textures and materials */
@@ -235,8 +361,8 @@ int main(){
     /* #endregion */
 
     //TODO: This region should happen externally, ideally reading in a file with the information in it
-    /* region Create object list and put objects into it. This lines up one to one with the meshlist, so you should make a single list or entity with objects/meshes included */
-    std::vector<Object> objectList;
+    /* #region Create object list and put objects into it. This lines up one to one with the meshlist, so you should make a single list or entity with objects/meshes included */
+
 
     objectList.push_back(Object(new glm::vec3(8.0f, 2.0f,1.0f),&brickTexture,&dullMaterial));
     objectList.push_back(Object(new glm::vec3(4.0f, 4.0f,1.0f),&brickTexture,&dullMaterial));
@@ -288,9 +414,10 @@ int main(){
 
     //TODO: This should also be extracted and read in from file, the same as other level objects
     /* #region Light setup */
-    mainLight = DirectionalLight(1.0f, 1.0f, 1.0f,
-                                 mlightAI, mlightDI,
-                                 0.0f, 0.0f, -1.0f);
+	mainLight = DirectionalLight(2048, 2048,
+								1.0f, 1.0f, 1.0f, 
+								0.1f, 0.3f,
+								0.0f, -10.0f, -10.0f);
 
     GLfloat red; GLfloat green; GLfloat blue;
     GLfloat aIntensity; GLfloat dIntensity;
@@ -298,7 +425,7 @@ int main(){
     GLfloat con; GLfloat lin; GLfloat exp;
     
 
-    unsigned int pointLightCount = 0;
+    /*
     pointLights[0] = PointLight(0.0f, 0.0f, 1.0f,
                                 0.0f, 1.0f,
                                 0.0f, 1.0f, 0.0f,
@@ -318,20 +445,15 @@ int main(){
 						1.0f, 0.0f, 0.0f,
 						20.0f);
     spotLightCount++;
+    */
     /* #endregion */
     
     /* #region Setup projection  matrix */
-    GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
-    uniformSpecularIntensity = 0, uniformShininess = 0;
+
     glm::mat4 projection = glm::perspective(45.0f, (GLfloat)mainWindow.getBufferWidth() / mainWindow.getBufferHeight(), 0.1f, 100.0f);
     /* #endregion */
    
     /* #region Light Control Bools */
-
-    bool directionalLightsOn = true;
-    bool pointLightsOn = true;
-    bool spotLightsOn = true;
-
 
     static bool switchDirectionalLights = false;
     static bool switchSpotLights = false;
@@ -425,73 +547,14 @@ int main(){
             camera.mouseControl(mainWindow.getXChange(), mainWindow.getYChange());
         /* #endregion */
 
-
         //TODO: Cleaner object controller
         //Current function for moving object on screen
         //SetControllerLoc(mainWindow.getsKeys(), deltaTime);
-        
-        // Clear the window
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        
-        /* #region Calculating Lighting */
-        shaderList[0].UseShader();
-        uniformModel = shaderList[0].GetModelLocation();
-        uniformProjection = shaderList[0].GetProjectionLocation();
-        uniformView = shaderList[0].GetViewLocation();
-        uniformEyePosition = shaderList[0].GetEyePositionLocation();
-        uniformSpecularIntensity = shaderList[0].GetSpecularIntensityLocation();
-        uniformShininess = shaderList[0].GetShininessLocation();
 
-        glm::vec3 lowerLight = camera.getCameraPosition();
-		lowerLight.y -= 0.4f;
-		spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
-    
-        //detect if certain type of lights should be on given checked GUI option and swap them in with defaults appropriately
-        if(directionalLightsOn){
-            shaderList[0].SetDirectionalLight(&mainLight);
-        }
-        else{
-            DirectionalLight * temp = new DirectionalLight();
-            shaderList[0].SetDirectionalLight(temp);
-        }
-        if(spotLightsOn){
-            shaderList[0].SetSpotLights(spotLights, spotLightCount);
-        }
-        else{
-            SpotLight tempLights[MAX_SPOT_LIGHTS];
-            shaderList[0].SetSpotLights(tempLights, 0);
-        }
-        if(pointLightsOn){
-            shaderList[0].SetPointLights(pointLights, pointLightCount);
-        }
-        else{
-            PointLight tempLights[MAX_POINT_LIGHTS];
-            shaderList[0].SetPointLights(tempLights, 0);
-        }
-        
-        
-        
-        glUniformMatrix4fv(uniformProjection, 1, GL_FALSE, glm::value_ptr(projection));
-        glUniformMatrix4fv(uniformView, 1, GL_FALSE, glm::value_ptr(camera.calculateViewMatrix()));
-        glUniform3f(uniformEyePosition, camera.getCameraPosition().x, camera.getCameraPosition().y, camera.getCameraPosition().z);
+        /* # region Rendering passes */
+        DirectionalShadowMapPass(&mainLight);
+        RenderPass(camera.calculateViewMatrix(), projection);
         /* #endregion */
-
-        //Create new Mat for Model
-        glm::mat4 model(1.0f);
-
-        /* #region Model Rendering */
-        for(int i = 0; i < objectList.size(); i++){
-            renderAModel(&model, uniformModel, objectList[i].pos, objectList[i].texture, objectList[i].material, uniformSpecularIntensity, uniformShininess, i);
-        }
-        /* #endregion */
-        
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-        model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
-        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-        dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
-        ironMan.RenderModel();
 
         //Fianl rendering calls        
         glUseProgram(0);
@@ -511,3 +574,4 @@ int main(){
 
     return 0;
 }
+/* #endregion */
