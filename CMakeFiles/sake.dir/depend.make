@@ -525,6 +525,7 @@ CMakeFiles/sake.dir/src/main.cpp.o: src/material.hpp
 CMakeFiles/sake.dir/src/main.cpp.o: src/mesh.hpp
 CMakeFiles/sake.dir/src/main.cpp.o: src/model.hpp
 CMakeFiles/sake.dir/src/main.cpp.o: src/object.hpp
+CMakeFiles/sake.dir/src/main.cpp.o: src/omniShadowMap.hpp
 CMakeFiles/sake.dir/src/main.cpp.o: src/pointLight.hpp
 CMakeFiles/sake.dir/src/main.cpp.o: src/shader.hpp
 CMakeFiles/sake.dir/src/main.cpp.o: src/shadowMap.hpp
@@ -970,7 +971,13 @@ CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/glm/vec3.hpp
 CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/glm/vec4.hpp
 CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/glm/vector_relational.hpp
 
+CMakeFiles/sake.dir/src/omniShadowMap.cpp.o: src/omniShadowMap.cpp
+CMakeFiles/sake.dir/src/omniShadowMap.cpp.o: src/omniShadowMap.hpp
+CMakeFiles/sake.dir/src/omniShadowMap.cpp.o: src/shadowMap.hpp
+CMakeFiles/sake.dir/src/omniShadowMap.cpp.o: /usr/local/include/GL/glew.h
+
 CMakeFiles/sake.dir/src/pointLight.cpp.o: src/light.hpp
+CMakeFiles/sake.dir/src/pointLight.cpp.o: src/omniShadowMap.hpp
 CMakeFiles/sake.dir/src/pointLight.cpp.o: src/pointLight.cpp
 CMakeFiles/sake.dir/src/pointLight.cpp.o: src/pointLight.hpp
 CMakeFiles/sake.dir/src/pointLight.cpp.o: src/shadowMap.hpp
@@ -1144,6 +1151,7 @@ CMakeFiles/sake.dir/src/pointLight.cpp.o: /usr/local/include/glm/vector_relation
 CMakeFiles/sake.dir/src/shader.cpp.o: src/commonValues.h
 CMakeFiles/sake.dir/src/shader.cpp.o: src/directionalLight.hpp
 CMakeFiles/sake.dir/src/shader.cpp.o: src/light.hpp
+CMakeFiles/sake.dir/src/shader.cpp.o: src/omniShadowMap.hpp
 CMakeFiles/sake.dir/src/shader.cpp.o: src/pointLight.hpp
 CMakeFiles/sake.dir/src/shader.cpp.o: src/shader.cpp
 CMakeFiles/sake.dir/src/shader.cpp.o: src/shader.hpp
@@ -1357,6 +1365,7 @@ CMakeFiles/sake.dir/src/shadowMap.cpp.o: src/shadowMap.hpp
 CMakeFiles/sake.dir/src/shadowMap.cpp.o: /usr/local/include/GL/glew.h
 
 CMakeFiles/sake.dir/src/spotLight.cpp.o: src/light.hpp
+CMakeFiles/sake.dir/src/spotLight.cpp.o: src/omniShadowMap.hpp
 CMakeFiles/sake.dir/src/spotLight.cpp.o: src/pointLight.hpp
 CMakeFiles/sake.dir/src/spotLight.cpp.o: src/shadowMap.hpp
 CMakeFiles/sake.dir/src/spotLight.cpp.o: src/spotLight.cpp

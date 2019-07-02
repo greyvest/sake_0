@@ -7,6 +7,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/sake.dir/src/mesh.cpp.o"
   "CMakeFiles/sake.dir/src/model.cpp.o"
   "CMakeFiles/sake.dir/src/object.cpp.o"
+  "CMakeFiles/sake.dir/src/omniShadowMap.cpp.o"
   "CMakeFiles/sake.dir/src/pointLight.cpp.o"
   "CMakeFiles/sake.dir/src/shader.cpp.o"
   "CMakeFiles/sake.dir/src/shadowMap.cpp.o"

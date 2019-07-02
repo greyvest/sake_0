@@ -526,6 +526,7 @@ CMakeFiles/sake.dir/src/main.cpp.o
  /Users/u0964759/sake_0/src/mesh.hpp
  /Users/u0964759/sake_0/src/model.hpp
  /Users/u0964759/sake_0/src/object.hpp
+ /Users/u0964759/sake_0/src/omniShadowMap.hpp
  /Users/u0964759/sake_0/src/pointLight.hpp
  /Users/u0964759/sake_0/src/shader.hpp
  /Users/u0964759/sake_0/src/shadowMap.hpp
@@ -970,8 +971,14 @@ CMakeFiles/sake.dir/src/object.cpp.o
  /usr/local/include/glm/vec3.hpp
  /usr/local/include/glm/vec4.hpp
  /usr/local/include/glm/vector_relational.hpp
+CMakeFiles/sake.dir/src/omniShadowMap.cpp.o
+ /Users/u0964759/sake_0/src/omniShadowMap.cpp
+ /Users/u0964759/sake_0/src/omniShadowMap.hpp
+ /Users/u0964759/sake_0/src/shadowMap.hpp
+ /usr/local/include/GL/glew.h
 CMakeFiles/sake.dir/src/pointLight.cpp.o
  /Users/u0964759/sake_0/src/light.hpp
+ /Users/u0964759/sake_0/src/omniShadowMap.hpp
  /Users/u0964759/sake_0/src/pointLight.cpp
  /Users/u0964759/sake_0/src/pointLight.hpp
  /Users/u0964759/sake_0/src/shadowMap.hpp
@@ -1145,6 +1152,7 @@ CMakeFiles/sake.dir/src/shader.cpp.o
  /Users/u0964759/sake_0/src/commonValues.h
  /Users/u0964759/sake_0/src/directionalLight.hpp
  /Users/u0964759/sake_0/src/light.hpp
+ /Users/u0964759/sake_0/src/omniShadowMap.hpp
  /Users/u0964759/sake_0/src/pointLight.hpp
  /Users/u0964759/sake_0/src/shader.cpp
  /Users/u0964759/sake_0/src/shader.hpp
@@ -1358,6 +1366,7 @@ CMakeFiles/sake.dir/src/shadowMap.cpp.o
  /usr/local/include/GL/glew.h
 CMakeFiles/sake.dir/src/spotLight.cpp.o
  /Users/u0964759/sake_0/src/light.hpp
+ /Users/u0964759/sake_0/src/omniShadowMap.hpp
  /Users/u0964759/sake_0/src/pointLight.hpp
  /Users/u0964759/sake_0/src/shadowMap.hpp
  /Users/u0964759/sake_0/src/spotLight.cpp

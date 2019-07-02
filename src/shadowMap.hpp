@@ -1,3 +1,5 @@
+#ifndef SHADOW_MAP
+#define SHADOW_MAP
 #include <stdio.h>
 
 #include <GL/glew.h>
@@ -14,6 +16,7 @@ public:
 
     GLuint GetShadowWidth(){return shadowWidth;}
     GLuint GetShadowHeight(){return shadowHeight;}
+    
     ~ShadowMap();
 
 
@@ -21,3 +24,4 @@ protected:
     GLuint FBO, shadowMap;
     GLuint shadowWidth, shadowHeight;
 };
+#endif

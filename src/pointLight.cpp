@@ -16,7 +16,7 @@ PointLight::PointLight() : Light()
     exponent = 0.0f;
 }
 
-PointLight::PointLight(GLfloat shadowWidth, GLfloat shadowHeight,GLfloat red, GLfloat green, GLfloat blue,
+PointLight::PointLight(GLfloat shadowWidth, GLfloat shadowHeight, GLfloat near, GLfloat far, GLfloat red, GLfloat green, GLfloat blue,
                        GLfloat aIntensity, GLfloat dIntensity,
                        GLfloat xPos, GLfloat yPos, GLfloat zPos,
                        GLfloat con, GLfloat lin, GLfloat exp) : Light(shadowWidth, shadowHeight, red, green, blue, aIntensity, dIntensity)
@@ -25,6 +25,14 @@ PointLight::PointLight(GLfloat shadowWidth, GLfloat shadowHeight,GLfloat red, GL
     constant = con;
     linear = lin;
     exponent = exp;
+
+    float aspect = (float)shadowWidth / (float)shadowHeight;
+
+	farPlane = far;
+	lightProj = glm::perspective(glm::radians(90.0f), aspect, near, far);
+
+	shadowMap = new OmniShadowMap();
+	shadowMap->Init(shadowWidth, shadowHeight);
 }
 
 void PointLight::UseLight(GLfloat ambientIntensityLocation, GLfloat ambientColourLocation,
@@ -44,6 +52,34 @@ void PointLight::UseLight(GLfloat ambientIntensityLocation, GLfloat ambientColou
     
 }
 
+std::vector<glm::mat4> PointLight::CalculateLightTransform()
+{
+	std::vector<glm::mat4> lightTransforms;
+	lightTransforms.push_back(lightProj *
+		glm::lookAt(position, position + glm::vec3(1.0, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0)));
+	lightTransforms.push_back(lightProj *
+		glm::lookAt(position, position + glm::vec3(-1.0, 0.0, 0.0), glm::vec3(0.0, -1.0, 0.0)));
+	lightTransforms.push_back(lightProj *
+		glm::lookAt(position, position + glm::vec3(0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 1.0)));
+	lightTransforms.push_back(lightProj *
+		glm::lookAt(position, position + glm::vec3(0.0, -1.0, 0.0), glm::vec3(0.0, 0.0, -1.0)));
+	lightTransforms.push_back(lightProj *
+		glm::lookAt(position, position + glm::vec3(0.0, 0.0, 1.0), glm::vec3(0.0, -1.0, 0.0)));
+	lightTransforms.push_back(lightProj *
+		glm::lookAt(position, position + glm::vec3(0.0, 0.0, -1.0), glm::vec3(0.0, -1.0, 0.0)));
+
+	return lightTransforms;
+}
+
+glm::vec3 PointLight::GetPosition()
+{
+	return position;
+}
+
+GLfloat PointLight::GetFarPlane()
+{
+	return farPlane;
+}
 PointLight::~PointLight()
 {
 }

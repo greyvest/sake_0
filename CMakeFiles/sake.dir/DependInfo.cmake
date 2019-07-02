@@ -12,6 +12,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/u0964759/sake_0/src/mesh.cpp" "/Users/u0964759/sake_0/CMakeFiles/sake.dir/src/mesh.cpp.o"
   "/Users/u0964759/sake_0/src/model.cpp" "/Users/u0964759/sake_0/CMakeFiles/sake.dir/src/model.cpp.o"
   "/Users/u0964759/sake_0/src/object.cpp" "/Users/u0964759/sake_0/CMakeFiles/sake.dir/src/object.cpp.o"
+  "/Users/u0964759/sake_0/src/omniShadowMap.cpp" "/Users/u0964759/sake_0/CMakeFiles/sake.dir/src/omniShadowMap.cpp.o"
   "/Users/u0964759/sake_0/src/pointLight.cpp" "/Users/u0964759/sake_0/CMakeFiles/sake.dir/src/pointLight.cpp.o"
   "/Users/u0964759/sake_0/src/shader.cpp" "/Users/u0964759/sake_0/CMakeFiles/sake.dir/src/shader.cpp.o"
   "/Users/u0964759/sake_0/src/shadowMap.cpp" "/Users/u0964759/sake_0/CMakeFiles/sake.dir/src/shadowMap.cpp.o"

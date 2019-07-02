@@ -827,6 +827,33 @@ src/object.cpp.s:
 	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/object.cpp.s
 .PHONY : src/object.cpp.s
 
+src/omniShadowMap.o: src/omniShadowMap.cpp.o
+
+.PHONY : src/omniShadowMap.o
+
+# target to build an object file
+src/omniShadowMap.cpp.o:
+	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/omniShadowMap.cpp.o
+.PHONY : src/omniShadowMap.cpp.o
+
+src/omniShadowMap.i: src/omniShadowMap.cpp.i
+
+.PHONY : src/omniShadowMap.i
+
+# target to preprocess a source file
+src/omniShadowMap.cpp.i:
+	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/omniShadowMap.cpp.i
+.PHONY : src/omniShadowMap.cpp.i
+
+src/omniShadowMap.s: src/omniShadowMap.cpp.s
+
+.PHONY : src/omniShadowMap.s
+
+# target to generate assembly for a file
+src/omniShadowMap.cpp.s:
+	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/omniShadowMap.cpp.s
+.PHONY : src/omniShadowMap.cpp.s
+
 src/pointLight.o: src/pointLight.cpp.o
 
 .PHONY : src/pointLight.o
@@ -1060,6 +1087,9 @@ help:
 	@echo "... src/object.o"
 	@echo "... src/object.i"
 	@echo "... src/object.s"
+	@echo "... src/omniShadowMap.o"
+	@echo "... src/omniShadowMap.i"
+	@echo "... src/omniShadowMap.s"
 	@echo "... src/pointLight.o"
 	@echo "... src/pointLight.i"
 	@echo "... src/pointLight.s"
