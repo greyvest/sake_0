@@ -299,8 +299,8 @@ void RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
     glm::mat4 lightTrans = mainLight.CalculateLightTransform();
 
 	shaderList[0].SetDirectionalLight(&mainLight);
-	shaderList[0].SetPointLights(pointLights, pointLightCount);
-	shaderList[0].SetSpotLights(spotLights, spotLightCount);
+	shaderList[0].SetPointLights(pointLights, pointLightCount, 3, 0);
+	shaderList[0].SetSpotLights(spotLights, spotLightCount, 3 + pointLightCount, pointLightCount);
 	shaderList[0].SetDirectionalLightTransform(&lightTrans);
 
 	mainLight.GetShadowMap()->Read(GL_TEXTURE1);
@@ -320,18 +320,18 @@ void RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
         shaderList[0].SetDirectionalLight(temp);
     }
     if(spotLightsOn){
-        shaderList[0].SetSpotLights(spotLights, spotLightCount);
+        shaderList[0].SetSpotLights(spotLights, spotLightCount, 3 + pointLightCount, pointLightCount);
     }
     else{
         SpotLight tempLights[MAX_SPOT_LIGHTS];
-        shaderList[0].SetSpotLights(tempLights, 0);
+        shaderList[0].SetSpotLights(tempLights, 0, 3 + pointLightCount, pointLightCount);
     }
     if(pointLightsOn){
-        shaderList[0].SetPointLights(pointLights, pointLightCount);
+        shaderList[0].SetPointLights(pointLights, pointLightCount, 3, 0);
     }
     else{
         PointLight tempLights[MAX_POINT_LIGHTS];
-        shaderList[0].SetPointLights(tempLights, 0);
+        shaderList[0].SetPointLights(tempLights, 0, 3, 0);
     }
 	//spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
 
