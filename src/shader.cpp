@@ -339,6 +339,15 @@ void Shader::SetDirectionalShadowMap(GLuint textureUnit){
 void Shader::SetDirectionalLightTransform(glm::mat4 * lTransform){
     glUniformMatrix4fv(uniformDirectionalLightTransform, 1, GL_FALSE, glm::value_ptr(*lTransform));
 }
+
+void Shader::SetOmniLightMatrices(std::vector<glm::mat4> lightMatrices)
+{
+	for (size_t i = 0; i < 6; i++)
+	{
+		glUniformMatrix4fv(uniformLightMatrices[i], 1, GL_FALSE, glm::value_ptr(lightMatrices[i]));
+	}
+}
+
 void Shader::UseShader()
 {
     glUseProgram(shaderID);

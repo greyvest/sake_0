@@ -59,7 +59,7 @@ std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
 
 Shader directionalShadowShader;
-
+Shader omniShadowShader;
 //Camera Object
 Camera camera;
 //List of textueres:
@@ -87,7 +87,7 @@ GLfloat lastTime = 0.0f;
 GLfloat movementVelocity = 0.01f;
 
 GLuint uniformProjection = 0, uniformModel = 0, uniformView = 0, uniformEyePosition = 0,
-    uniformSpecularIntensity = 0, uniformShininess = 0;
+    uniformSpecularIntensity = 0, uniformShininess = 0, uniformOmniLightPos = 0, uniformFarPlane = 0;
 
 glm::vec3 controllerVec; 
 
@@ -193,6 +193,10 @@ void CreateShaders()
     shaderList.push_back(*shader1);
 
     directionalShadowShader.CreateFromFiles("src/Shaders/directional_shadow_map.vert", "src/Shaders/directional_shadow_map.frag");
+
+
+    omniShadowShader.CreateFromFiles("src/Shaders/omni_directional_shadow_map.vert","src/Shaders/omni_directional_shadow_map.geom","src/Shaders/omni_directional_shadow_map.frag" );
+
 }
 /* #endregion */
 
@@ -272,6 +276,29 @@ void DirectionalShadowMapPass(DirectionalLight * light){
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 /* #endregion  */
+
+void OmniShadowMapPass(PointLight * light){
+    glViewport(0, 0, light->GetShadowMap()->GetShadowWidth(), light->GetShadowMap()->GetShadowHeight());
+	
+	omniShadowShader.UseShader();
+	uniformModel = omniShadowShader.GetModelLocation();
+	uniformOmniLightPos = omniShadowShader.GetOmniLightPosLocation();
+	uniformFarPlane = omniShadowShader.GetFarPlaneLocation();
+
+	light->GetShadowMap()->Write();
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	glUniform3f(uniformOmniLightPos, light->GetPosition().x, light->GetPosition().y, light->GetPosition().z);
+	glUniform1f(uniformFarPlane, light->GetFarPlane());
+	omniShadowShader.SetOmniLightMatrices(light->CalculateLightTransform());
+
+	omniShadowShader.Validate();
+	RenderScene();
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
 
 /* #region  Render Pass*/
 void RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
