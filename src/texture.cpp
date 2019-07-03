@@ -13,6 +13,7 @@
 
 char * empty = "";
 
+/* #region Constructor/Destructor */
 Texture::Texture()
 {
     textureID = 0;
@@ -31,6 +32,13 @@ Texture::Texture(char* fileLoc)
     fileLocation = fileLoc;
 }
 
+Texture::~Texture()
+{
+    ClearTexture();
+}
+/* #endregion */
+
+/* #region Load Texture Functions */
 bool Texture::LoadTextureA()
 {
     unsigned char *texData = stbi_load(fileLocation, &width, &height, &bitDepth, 0);
@@ -82,13 +90,17 @@ bool Texture::LoadTexture()
 
     return true;
 }
+/* #endregion */
 
+/* #region Use texture */
 void Texture::UseTexture()
 {
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, textureID);
 }
+/* #endregion */
 
+/* #region Clear texture */
 void Texture::ClearTexture()
 {
     glDeleteTextures(1, &textureID);
@@ -99,8 +111,5 @@ void Texture::ClearTexture()
     fileLocation = empty;
 }
 
+/* #endregion */
 
-Texture::~Texture()
-{
-    ClearTexture();
-}

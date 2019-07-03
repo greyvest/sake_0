@@ -8,6 +8,7 @@
 
 #include "directionalLight.hpp"
 
+/* #region Consturctor/Destructor */
 DirectionalLight::DirectionalLight() : Light()
 {
     direction = glm::vec3(0.0f, -1.0f, 0.0f);
@@ -22,6 +23,12 @@ DirectionalLight::DirectionalLight(GLfloat shadowWidth, GLfloat shadowHeight,GLf
     lightProj = glm::ortho(-5.0f, 5.0f, -5.0f, 5.0f, 0.1f, 20.0f);
 }
 
+DirectionalLight::~DirectionalLight()
+{
+}
+/* #endregion */
+
+/* #region Use Light */
 void DirectionalLight::UseLight(GLfloat ambientIntensityLocation, GLfloat ambientColourLocation,
                                 GLfloat diffuseIntensityLocation, GLfloat directionLocation)
 {
@@ -31,11 +38,11 @@ void DirectionalLight::UseLight(GLfloat ambientIntensityLocation, GLfloat ambien
     glUniform3f(directionLocation, direction.x, direction.y, direction.z);
     glUniform1f(diffuseIntensityLocation, diffuseIntensity);
 }
+/* #endregion */
 
+/* #region Calculate Light Transform */
 glm::mat4 DirectionalLight::CalculateLightTransform(){
     return lightProj * glm::lookAt(-direction, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 }
+/* #endregion */
 
-DirectionalLight::~DirectionalLight()
-{
-}

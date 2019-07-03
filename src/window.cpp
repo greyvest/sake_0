@@ -1,7 +1,7 @@
 
 #include "window.hpp"
 
-
+/* #region Constructors/Destructor */
 Window::Window()
 {
     width = 800;
@@ -24,6 +24,15 @@ Window::Window(GLint windowWidth, GLint windowHeight)
     }
 }
 
+Window::~Window()
+{
+    glfwDestroyWindow(mainWindow);
+    glfwTerminate();
+}
+
+/* #endregion */
+
+/* #region Initialise */
 int Window::Initialise()
 {
     if (!glfwInit())
@@ -82,13 +91,17 @@ int Window::Initialise()
     
     return 0;
 }
+/* #endregion */
 
+/* #region Create Callbacks */
 void Window::createCallbacks()
 {
     glfwSetKeyCallback(mainWindow, handleKeys);
     glfwSetCursorPosCallback(mainWindow, handleMouse);
 }
+/* #endregion */
 
+/* #region Getter functions */
 GLfloat Window::getXChange()
 {
     GLfloat theChange = xChange;
@@ -103,6 +116,12 @@ GLfloat Window::getYChange()
     return theChange;
 }
 
+GLFWwindow * Window::getMainWindow(){
+    return mainWindow;
+}
+/* #endregion */
+
+/* #region handleKeys */
 void Window::handleKeys(GLFWwindow* window, int key, int code, int action, int mode)
 {
     Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
@@ -124,11 +143,9 @@ void Window::handleKeys(GLFWwindow* window, int key, int code, int action, int m
         }
     }
 }
+/* #endregion */
 
-GLFWwindow * Window::getMainWindow(){
-    return mainWindow;
-}
-
+/* #region handle mouse */
 void Window::handleMouse(GLFWwindow* window, double xPos, double yPos)
 {
     Window* theWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
@@ -146,9 +163,4 @@ void Window::handleMouse(GLFWwindow* window, double xPos, double yPos)
     theWindow->lastX = xPos;
     theWindow->lastY = yPos;
 }
-
-Window::~Window()
-{
-    glfwDestroyWindow(mainWindow);
-    glfwTerminate();
-}
+/* #endregion */

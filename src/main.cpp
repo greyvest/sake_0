@@ -276,6 +276,7 @@ void DirectionalShadowMapPass(DirectionalLight * light){
 }
 /* #endregion  */
 
+/* #region Omni Shadow Map Pass */
 void OmniShadowMapPass(PointLight * light){
     glViewport(0, 0, light->GetShadowMap()->GetShadowWidth(), light->GetShadowMap()->GetShadowHeight());
 	
@@ -297,7 +298,7 @@ void OmniShadowMapPass(PointLight * light){
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
-
+/* #endregion */
 
 /* #region  Render Pass*/
 void RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
@@ -596,7 +597,7 @@ int main(){
         mainWindow.swapBuffers();
         
     }
-    /* #endregion */
+    
     //Clean up GUI
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();

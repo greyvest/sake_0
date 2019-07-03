@@ -1,7 +1,12 @@
 #include "omniShadowMap.hpp"
 
+/* #region constructor/destructor */
 OmniShadowMap::OmniShadowMap() : ShadowMap() {}
 
+OmniShadowMap::~OmniShadowMap(){}
+/* #endregion */
+
+/* #region Init */
 bool OmniShadowMap::Init(unsigned int width, unsigned int height)
 {
 	shadowWidth = width; shadowHeight = height;
@@ -39,7 +44,9 @@ bool OmniShadowMap::Init(unsigned int width, unsigned int height)
 
 	return true;
 }
+/* #endregion */
 
+/* #region Write/Read */
 void OmniShadowMap::Write()
 {
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, FBO);
@@ -50,7 +57,5 @@ void OmniShadowMap::Read(GLenum texUnit)
 	glActiveTexture(texUnit);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, shadowMap);
 }
+/* #endregion */
 
-OmniShadowMap::~OmniShadowMap()
-{
-}

@@ -8,6 +8,7 @@
 
 #include "light.hpp"
 
+/* #region Constructors/Destructor */
 Light::Light(){
     colour = glm::vec3(0.0f, 0.0f, 0.0f);
     ambientIntensity = 0.0f;
@@ -27,3 +28,4 @@ Light::Light(GLfloat shadowWidth, GLfloat shadowheight, GLfloat red,GLfloat gree
 Light::~Light(){
     
 }
+/* #endregion */

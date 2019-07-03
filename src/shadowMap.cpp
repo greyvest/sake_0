@@ -1,5 +1,6 @@
 #include "shadowMap.hpp"
 
+/* #region Constructor/Destructor */
 ShadowMap::ShadowMap(){
     FBO = 0;
     shadowMap = 0;
@@ -14,7 +15,9 @@ ShadowMap::~ShadowMap(){
         glDeleteTextures(1, &shadowMap);
     }
 }
+/* #endregion */
 
+/* #region Init */
 bool ShadowMap::Init(GLuint width, GLuint height){
 	shadowWidth = width; shadowHeight = height;
 
@@ -46,7 +49,9 @@ bool ShadowMap::Init(GLuint width, GLuint height){
 
 	return true;
 }
+/* #endregion */
 
+/* #region Write and read */
 void ShadowMap::Write(){
     glBindFramebuffer(GL_FRAMEBUFFER, FBO);
 }
@@ -55,3 +60,4 @@ void ShadowMap::Read(GLenum textureUnit){
     glActiveTexture(textureUnit);
     glBindTexture(GL_TEXTURE_2D, shadowMap);
 }
+/* #endregion */

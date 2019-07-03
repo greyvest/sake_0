@@ -6,9 +6,9 @@
 //  Copyright © 2019 u0964759. All rights reserved.
 //
 
-
 #include "spotLight.hpp"
 
+/* #region Constructor/Destructor */
 SpotLight::SpotLight() : PointLight(){
     direction = glm::vec3(0.0f, -1.0f, 0.0f);
     edge = 0;
@@ -25,6 +25,13 @@ SpotLight::SpotLight(GLfloat shadowWidth, GLfloat shadowHeight, GLfloat near, GL
     edge = edge;
     procEdge = cos(glm::radians(edge));
 }
+
+SpotLight::~SpotLight(){
+    
+}
+/* #endregion */
+
+/* #region Use Light */
 
 void SpotLight::UseLight(GLfloat ambientIntensityLocation, GLfloat ambientColourLocation,
                   GLfloat diffuseIntensityLocation, GLfloat positionLocation, GLfloat directionLocation,
@@ -43,12 +50,13 @@ void SpotLight::UseLight(GLfloat ambientIntensityLocation, GLfloat ambientColour
     glUniform1f(edgeLocation, procEdge);
 }
 
+/* #endregion */
+
+/* #region Set Flash */
 void SpotLight::SetFlash(glm::vec3 pos, glm::vec3 dir)
 {
 	position = pos;
 	direction = dir;
 }
 
-SpotLight::~SpotLight(){
-    
-}
+/* #endregion */

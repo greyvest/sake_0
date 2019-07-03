@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/Users/u0964759/sake_0/src/camera.cpp
+camera.hpp
+/Users/u0964759/sake_0/src/camera.hpp
+
 /Users/u0964759/sake_0/src/camera.hpp
 stdio.h
 -
@@ -19,6 +23,10 @@ GLFW/glfw3.h
 -
 
 /Users/u0964759/sake_0/src/commonValues.h
+
+/Users/u0964759/sake_0/src/directionalLight.cpp
+directionalLight.hpp
+/Users/u0964759/sake_0/src/directionalLight.hpp
 
 /Users/u0964759/sake_0/src/directionalLight.hpp
 stdio.h
@@ -49,6 +57,10 @@ imgui_user.h
 /Users/u0964759/sake_0/src/imgui/imgui_impl_glfw.h
 
 /Users/u0964759/sake_0/src/imgui/imgui_impl_opengl3.h
+
+/Users/u0964759/sake_0/src/light.cpp
+light.hpp
+/Users/u0964759/sake_0/src/light.hpp
 
 /Users/u0964759/sake_0/src/light.hpp
 stdio.h
@@ -114,17 +126,29 @@ spotLight.hpp
 model.hpp
 /Users/u0964759/sake_0/src/model.hpp
 
+/Users/u0964759/sake_0/src/material.cpp
+material.hpp
+/Users/u0964759/sake_0/src/material.hpp
+
 /Users/u0964759/sake_0/src/material.hpp
 stdio.h
 -
 GL/glew.h
 -
 
+/Users/u0964759/sake_0/src/mesh.cpp
+mesh.hpp
+/Users/u0964759/sake_0/src/mesh.hpp
+
 /Users/u0964759/sake_0/src/mesh.hpp
 stdio.h
 -
 GL/glew.h
 -
+
+/Users/u0964759/sake_0/src/model.cpp
+model.hpp
+/Users/u0964759/sake_0/src/model.hpp
 
 /Users/u0964759/sake_0/src/model.hpp
 vector
@@ -160,9 +184,17 @@ material.hpp
 glm/glm.hpp
 -
 
+/Users/u0964759/sake_0/src/omniShadowMap.cpp
+omniShadowMap.hpp
+/Users/u0964759/sake_0/src/omniShadowMap.hpp
+
 /Users/u0964759/sake_0/src/omniShadowMap.hpp
 shadowMap.hpp
 /Users/u0964759/sake_0/src/shadowMap.hpp
+
+/Users/u0964759/sake_0/src/pointLight.cpp
+pointLight.hpp
+/Users/u0964759/sake_0/src/pointLight.hpp
 
 /Users/u0964759/sake_0/src/pointLight.hpp
 stdio.h
@@ -204,19 +236,67 @@ pointLight.hpp
 spotLight.hpp
 /Users/u0964759/sake_0/src/spotLight.hpp
 
+/Users/u0964759/sake_0/src/shadowMap.cpp
+shadowMap.hpp
+/Users/u0964759/sake_0/src/shadowMap.hpp
+
 /Users/u0964759/sake_0/src/shadowMap.hpp
 stdio.h
 -
 GL/glew.h
 -
 
+/Users/u0964759/sake_0/src/spotLight.cpp
+spotLight.hpp
+/Users/u0964759/sake_0/src/spotLight.hpp
+
 /Users/u0964759/sake_0/src/spotLight.hpp
 pointLight.hpp
 /Users/u0964759/sake_0/src/pointLight.hpp
 
+/Users/u0964759/sake_0/src/stb_image.h
+stb_image.h
+/Users/u0964759/sake_0/src/stb_image.h
+stdio.h
+-
+stdarg.h
+-
+stddef.h
+-
+stdlib.h
+-
+string.h
+-
+limits.h
+-
+math.h
+-
+stdio.h
+-
+assert.h
+-
+stdint.h
+-
+emmintrin.h
+-
+intrin.h
+-
+arm_neon.h
+-
+
+/Users/u0964759/sake_0/src/texture.cpp
+texture.hpp
+/Users/u0964759/sake_0/src/texture.hpp
+stb_image.h
+/Users/u0964759/sake_0/src/stb_image.h
+
 /Users/u0964759/sake_0/src/texture.hpp
 GL/glew.h
 -
+
+/Users/u0964759/sake_0/src/window.cpp
+window.hpp
+/Users/u0964759/sake_0/src/window.hpp
 
 /Users/u0964759/sake_0/src/window.hpp
 stdio.h
@@ -414,6 +494,12 @@ types.h
 defs.h
 /usr/local/include/assimp/defs.h
 
+/usr/local/include/assimp/quaternion.inl
+quaternion.h
+/usr/local/include/assimp/quaternion.h
+cmath
+-
+
 /usr/local/include/assimp/scene.h
 types.h
 /usr/local/include/assimp/types.h
@@ -582,6 +668,20 @@ type_mat3x2.inl
 
 /usr/local/include/glm/./detail/type_mat3x2.inl
 
+/usr/local/include/glm/./detail/type_mat3x3.hpp
+type_vec3.hpp
+/usr/local/include/glm/./detail/type_vec3.hpp
+limits
+-
+cstddef
+-
+type_mat3x3.inl
+/usr/local/include/glm/./detail/type_mat3x3.inl
+
+/usr/local/include/glm/./detail/type_mat3x3.inl
+../matrix.hpp
+/usr/local/include/glm/./matrix.hpp
+
 /usr/local/include/glm/./detail/type_mat3x4.hpp
 type_vec3.hpp
 /usr/local/include/glm/./detail/type_vec3.hpp
@@ -624,6 +724,24 @@ type_mat4x3.inl
 
 /usr/local/include/glm/./detail/type_mat4x3.inl
 
+/usr/local/include/glm/./detail/type_mat4x4.hpp
+type_vec4.hpp
+/usr/local/include/glm/./detail/type_vec4.hpp
+limits
+-
+cstddef
+-
+type_mat4x4.inl
+/usr/local/include/glm/./detail/type_mat4x4.inl
+
+/usr/local/include/glm/./detail/type_mat4x4.inl
+../matrix.hpp
+/usr/local/include/glm/./matrix.hpp
+type_mat4x4_simd.inl
+/usr/local/include/glm/./detail/type_mat4x4_simd.inl
+
+/usr/local/include/glm/./detail/type_mat4x4_simd.inl
+
 /usr/local/include/glm/./detail/type_vec2.hpp
 qualifier.hpp
 /usr/local/include/glm/./detail/qualifier.hpp
@@ -635,6 +753,30 @@ cstddef
 -
 type_vec2.inl
 /usr/local/include/glm/./detail/type_vec2.inl
+
+/usr/local/include/glm/./detail/type_vec3.hpp
+qualifier.hpp
+/usr/local/include/glm/./detail/qualifier.hpp
+_swizzle.hpp
+/usr/local/include/glm/./detail/_swizzle.hpp
+_swizzle_func.hpp
+/usr/local/include/glm/./detail/_swizzle_func.hpp
+cstddef
+-
+type_vec3.inl
+/usr/local/include/glm/./detail/type_vec3.inl
+
+/usr/local/include/glm/./detail/type_vec4.hpp
+qualifier.hpp
+/usr/local/include/glm/./detail/qualifier.hpp
+_swizzle.hpp
+/usr/local/include/glm/./detail/_swizzle.hpp
+_swizzle_func.hpp
+/usr/local/include/glm/./detail/_swizzle_func.hpp
+cstddef
+-
+type_vec4.inl
+/usr/local/include/glm/./detail/type_vec4.inl
 
 /usr/local/include/glm/./ext/matrix_double2x2.hpp
 ../detail/type_mat2x2.hpp
