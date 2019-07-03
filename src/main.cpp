@@ -73,7 +73,6 @@ Material dullMaterial;
 Model ironMan;
 
 DirectionalLight mainLight;
-
 PointLight pointLights[MAX_POINT_LIGHTS];
 SpotLight spotLights[MAX_SPOT_LIGHTS];
 
@@ -452,27 +451,33 @@ int main(){
     GLfloat con; GLfloat lin; GLfloat exp;
     
 
-    /*
-    pointLights[0] = PointLight(0.0f, 0.0f, 1.0f,
+    
+    pointLights[0] = PointLight(1024, 1024,
+		                        0.1f, 100.0f,
+                                0.0f, 0.0f, 1.0f,
                                 0.0f, 1.0f,
                                 0.0f, 1.0f, 0.0f,
                                 0.3f, 0.2f, 0.1f);
     pointLightCount++;
-    pointLights[1] = PointLight(1.0f, 0.0f, 0.0f,
+    pointLights[1] = PointLight(1024, 1024,
+		                        0.1f, 100.0f,
+                                1.0f, 0.0f, 0.0f,
                                 0.0f, 1.0f,
                                 -4.0f, 2.0f, 0.0f,
                                 0.3f, 0.1f, 0.1f);
     pointLightCount++;
     
     unsigned int spotLightCount = 0;
-	spotLights[0] = SpotLight(1.0f, 0.0f, 1.0f,
+	spotLights[0] = SpotLight(1024, 1024,
+                        0.1f, 100.0f,
+                        1.0f, 0.0f, 1.0f,
 						0.0f, 2.0f,
 						0.0f, 0.0f, 0.0f,
 						0.0f, -1.0f, 0.0f,
 						1.0f, 0.0f, 0.0f,
 						20.0f);
     spotLightCount++;
-    */
+    
     /* #endregion */
     
     /* #region Setup projection  matrix */
