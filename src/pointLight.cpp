@@ -8,6 +8,8 @@
 
 #include "pointLight.hpp"
 
+/* #region Constructors/Destructor */
+
 PointLight::PointLight() : Light()
 {
     position = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -35,6 +37,12 @@ PointLight::PointLight(GLfloat shadowWidth, GLfloat shadowHeight, GLfloat near, 
 	shadowMap->Init(shadowWidth, shadowHeight);
 }
 
+PointLight::~PointLight()
+{
+}
+/* #endregion */
+
+/* #region Use Light */
 void PointLight::UseLight(GLfloat ambientIntensityLocation, GLfloat ambientColourLocation,
                           GLfloat diffuseIntensityLocation, GLfloat positionLocation,
                           GLfloat constantLocation, GLfloat linearLocation, GLfloat exponentLocation)
@@ -51,7 +59,9 @@ void PointLight::UseLight(GLfloat ambientIntensityLocation, GLfloat ambientColou
 
     
 }
+/* #endregion */
 
+/* #region Calculate Light Transforms */
 std::vector<glm::mat4> PointLight::CalculateLightTransform()
 {
 	std::vector<glm::mat4> lightTransforms;
@@ -70,6 +80,9 @@ std::vector<glm::mat4> PointLight::CalculateLightTransform()
 
 	return lightTransforms;
 }
+/* #endregion */
+
+/* #region Getter functions */
 
 glm::vec3 PointLight::GetPosition()
 {
@@ -80,6 +93,5 @@ GLfloat PointLight::GetFarPlane()
 {
 	return farPlane;
 }
-PointLight::~PointLight()
-{
-}
+
+/* #endregion */

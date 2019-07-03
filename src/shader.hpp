@@ -28,16 +28,23 @@
 class Shader
 {
 public:
-    Shader();
-    
+    /* #region Constructor/Destructor */
+    Shader();    
+    ~Shader();
+    /* #endregion */
+
+    /* #region Create Shaders */
     void CreateFromString(const char* vertexCode, const char* fragmentCode);
     void CreateFromFiles(const char* vertexLocation, const char* fragmentLocation);
     void CreateFromFiles(const char* vertexLocation, const char* geometryLocation, const char* fragmentLocation);
-
-    void Validate();
-
     std::string ReadFile(const char* fileLocation);
-    
+    /* #endregion Create Shaders */
+
+    /* #region Validation */
+    void Validate();
+    /* #endregion Validation */
+
+    /* #region Getter functions */
     GLuint GetProjectionLocation();
     GLuint GetModelLocation();
     GLuint GetViewLocation();
@@ -50,40 +57,47 @@ public:
     GLuint GetEyePositionLocation();
 	GLuint GetOmniLightPosLocation();
 	GLuint GetFarPlaneLocation();
+    /* #endregion */
 
+    /* #region Setter functions */
     void SetDirectionalLight(DirectionalLight * dLight);
     void SetPointLights(PointLight * pLight, unsigned int lightCount, unsigned int textureUnit, unsigned int offset);
     void SetSpotLights(SpotLight * sLight, unsigned int lightCount,unsigned int textureUnit, unsigned int offset);
     void SetTexture(GLuint textureUnit);
     void SetDirectionalShadowMap(GLuint textureUnit);
     void SetDirectionalLightTransform(glm::mat4 * lTransform);
-
     void SetOmniLightMatrices(std::vector<glm::mat4> lightMatrices);
+    /* #endregion */
 
+    /* #region Key Shader Functions */
     void UseShader();
     void ClearShader();
-    
-    ~Shader();
+    /* #endregion */
+
     
 private:
+    /* Light Count Variables */
     int pointLightCount;
     int spotLightCount;
 
+    /* uniform variables */
     GLuint shaderID, uniformProjection, uniformModel, uniformView, uniformEyePosition,
     uniformSpecularIntensity, uniformShininess, uniformTexture, uniformDirectionalLightTransform, uniformDirectionalShadowMap, uniformOmniLightPos, uniformFarPlane;
 
+    /* Light matrice array for omni directional shaodw maps */
     GLuint uniformLightMatrices[6];
     
+    /* Directional light struct */
     struct {
         GLuint uniformColour;
         GLuint uniformAmbientIntensity;
         GLuint uniformDiffuseIntensity;
-        
         GLuint uniformDirection;
     } uniformDirectionalLight;
-    
+
+    /* Point light count */    
     GLuint uniformPointLightCount;
-    
+    /* Point light struct */
     struct {
         GLuint uniformColour;
         GLuint uniformAmbientIntensity;
@@ -95,8 +109,9 @@ private:
         GLuint uniformExponent;
     } uniformPointLight[MAX_POINT_LIGHTS];
     
+    /* Spot light count */
     GLuint uniformSpotLightCount;
-
+    /* Spot light struct */
     struct {
         GLuint uniformColour;
         GLuint uniformAmbientIntensity;
@@ -111,15 +126,16 @@ private:
         GLuint uniformEdge;
     } uniformSpotLight[MAX_SPOT_LIGHTS];
 
+    /* Omni directional shadow map struct */
     struct {
 		GLuint uniformShadowMap;
 		GLuint uniformFarPlane;
 	} uniformOmniShadowMap[MAX_POINT_LIGHTS + MAX_SPOT_LIGHTS];
 
+    /*Shader compilation functions */
     void CompileShader(const char* vertexCode, const char* fragmentCode);
 	void CompileShader(const char* vertexCode, const char* geometryCode, const char* fragmentCode);
     void AddShader(GLuint theProgram, const char* shaderCode, GLenum shaderType);
-
     void CompileProgram();
 };
 

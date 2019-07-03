@@ -1,5 +1,6 @@
 #include "mesh.hpp"
 
+/* #region Constructors/Destructor */
 Mesh::Mesh()
 {
     VAO = 0;
@@ -8,6 +9,13 @@ Mesh::Mesh()
     indexCount = 0;
 }
 
+Mesh::~Mesh()
+{
+    ClearMesh();
+}
+/* #endregion */
+
+/* #region Create Mesh */
 void Mesh::CreateMesh(GLfloat *vertices, unsigned int *indices, unsigned int numOfVertices, unsigned int numOfIndices)
 {
     indexCount = numOfIndices;
@@ -35,7 +43,9 @@ void Mesh::CreateMesh(GLfloat *vertices, unsigned int *indices, unsigned int num
     
     glBindVertexArray(0);
 }
+/* #endregion */
 
+/* #region Render Mesh */
 void Mesh::RenderMesh()
 {
     glBindVertexArray(VAO);
@@ -44,7 +54,9 @@ void Mesh::RenderMesh()
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }
+/* #endregion */
 
+/* #region Clear Mesh */
 void Mesh::ClearMesh()
 {
     if (IBO != 0)
@@ -67,9 +79,5 @@ void Mesh::ClearMesh()
     
     indexCount = 0;
 }
+/* #endregion Clearmesh */
 
-
-Mesh::~Mesh()
-{
-    ClearMesh();
-}

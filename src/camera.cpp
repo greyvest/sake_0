@@ -8,6 +8,7 @@
 
 #include "camera.hpp"
 
+/* #region Constructors/Destructors */
 Camera::Camera() {}
 
 Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLfloat startPitch, GLfloat startMoveSpeed, GLfloat startTurnSpeed)
@@ -24,7 +25,13 @@ Camera::Camera(glm::vec3 startPosition, glm::vec3 startUp, GLfloat startYaw, GLf
     update();
 }
 
-//key controls for camera, 6DOF style
+
+Camera::~Camera()
+{
+}
+/* #endregion */
+
+/* #region key controls for camera, 6DOF style */
 void Camera::keyControl(bool* keys, GLfloat deltaTime)
 {
     GLfloat velocity = moveSpeed * deltaTime;
@@ -65,8 +72,9 @@ void Camera::keyControl(bool* keys, GLfloat deltaTime)
         keys[GLFW_KEY_C] = false;
     }
 }
+/* #endregion */
 
-//Mouse control for camera
+/* #region Mouse control for camera */
 void Camera::mouseControl(GLfloat xChange, GLfloat yChange)
 {
     xChange *= turnSpeed;
@@ -87,13 +95,17 @@ void Camera::mouseControl(GLfloat xChange, GLfloat yChange)
     
     update();
 }
+/* #endregion */
 
-//View matricx calculate
+/* #region view matrix calculations */
+//View matrix calculate
 glm::mat4 Camera::calculateViewMatrix()
 {
     return glm::lookAt(position, position + front, up);
 }
+/* #endregion */
 
+/* #region Postion / Direction getters */
 //Getter for camera position
 glm::vec3 Camera::getCameraPosition()
 {
@@ -105,8 +117,9 @@ glm::vec3 Camera::getCameraDirection()
 {
 	return glm::normalize(front);
 }
+/* #endregion */
 
-//Camera update loop
+/* #region Camera update loop */
 void Camera::update()
 {
     front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
@@ -117,8 +130,5 @@ void Camera::update()
     right = glm::normalize(glm::cross(front, worldUp));
     up = glm::normalize(glm::cross(right, front));
 }
+/* #endregion */
 
-
-Camera::~Camera()
-{
-}

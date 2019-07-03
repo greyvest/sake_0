@@ -1,5 +1,6 @@
 #include "model.hpp"
 
+/* #region Constructors/Destructor */
 Model::Model(){
 
 }
@@ -7,7 +8,11 @@ Model::Model(){
 Model::~Model(){
 
 }
+/* #endregion */
 
+/* #region Loading models functionality */
+
+/* #region Load Model parent function */
 void Model::LoadModel(const std::string & filename){
 	
     Assimp::Importer importer;
@@ -23,33 +28,9 @@ void Model::LoadModel(const std::string & filename){
     LoadMaterials(scene);
     
 }
+/* #endregion */
 
-void Model::RenderModel(){
-    for(size_t i = 0; i < meshList.size(); i++){
-        unsigned int materialIndex = meshToTex[i];
-
-
-        if(materialIndex < textureList.size() && textureList[materialIndex]){
-            textureList[materialIndex]->UseTexture();
-        }
-
-        meshList[i]->RenderMesh();
-    }
-}
-
-void Model::ClearModel(){
-    for(size_t i = 0; i < meshList.size(); i++){
-        if(meshList[i]){
-            delete meshList[i];
-            meshList[i] = nullptr;
-        }
-    }
-    for(size_t i = 0; i < textureList.size(); i++){
-        delete textureList[i];
-        textureList[i] = nullptr;
-    }
-}
-
+/* #region Load Node */
 void Model::LoadNode(aiNode * node, const aiScene * scene){
     for(size_t i = 0; i < node->mNumMeshes; i++){
         LoadMesh(scene->mMeshes[node->mMeshes[i]], scene);
@@ -58,7 +39,9 @@ void Model::LoadNode(aiNode * node, const aiScene * scene){
         LoadNode(node->mChildren[i], scene);
     }
 }
+/* #endregion */
 
+/* #region Load Mesh */
 void Model::LoadMesh(aiMesh * mesh, const aiScene * scene){
     std::vector<GLfloat> vertices;
     std::vector<unsigned int> indices;
@@ -86,7 +69,9 @@ void Model::LoadMesh(aiMesh * mesh, const aiScene * scene){
     meshList.push_back(newMesh);
     meshToTex.push_back(mesh->mMaterialIndex);
 }
+/* #endregion */
 
+/* #region Load Materials */
 void Model::LoadMaterials(const aiScene *scene){
 
     textureList.resize(scene->mNumMaterials);
@@ -123,3 +108,36 @@ void Model::LoadMaterials(const aiScene *scene){
         }
     }
 }
+/* #endregion */
+
+/* #endregion */
+
+/* #region Render model */
+void Model::RenderModel(){
+    for(size_t i = 0; i < meshList.size(); i++){
+        unsigned int materialIndex = meshToTex[i];
+
+
+        if(materialIndex < textureList.size() && textureList[materialIndex]){
+            textureList[materialIndex]->UseTexture();
+        }
+
+        meshList[i]->RenderMesh();
+    }
+}
+/* #endregion */
+
+/* #region Clear Model */
+void Model::ClearModel(){
+    for(size_t i = 0; i < meshList.size(); i++){
+        if(meshList[i]){
+            delete meshList[i];
+            meshList[i] = nullptr;
+        }
+    }
+    for(size_t i = 0; i < textureList.size(); i++){
+        delete textureList[i];
+        textureList[i] = nullptr;
+    }
+}
+/* #endregion */
