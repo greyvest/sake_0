@@ -26,6 +26,9 @@ void Model::LoadModel(const std::string & filename){
     LoadNode(scene->mRootNode, scene);
 
     LoadMaterials(scene);
+
+    sourceFile = filename.c_str();
+    sourceInt = 1;
     
 }
 /* #endregion */

@@ -20,11 +20,27 @@ GLFW/glfw3.h
 
 /Users/u0964759/sake_0/src/commonValues.h
 
+/Users/u0964759/sake_0/src/config.hpp
+
 /Users/u0964759/sake_0/src/directionalLight.hpp
 stdio.h
 -
 light.hpp
 /Users/u0964759/sake_0/src/light.hpp
+
+/Users/u0964759/sake_0/src/fileOperations.hpp
+stdio.h
+-
+iostream
+-
+fstream
+-
+string.h
+-
+vector
+-
+serializable.hpp
+/Users/u0964759/sake_0/src/serializable.hpp
 
 /Users/u0964759/sake_0/src/imgui/imconfig.h
 
@@ -89,6 +105,8 @@ imgui/imgui_impl_opengl3.h
 /Users/u0964759/sake_0/src/imgui/imgui_impl_opengl3.h
 assimp/Importer.hpp
 -
+config.hpp
+/Users/u0964759/sake_0/src/config.hpp
 commonValues.h
 /Users/u0964759/sake_0/src/commonValues.h
 window.hpp
@@ -113,6 +131,8 @@ spotLight.hpp
 /Users/u0964759/sake_0/src/spotLight.hpp
 model.hpp
 /Users/u0964759/sake_0/src/model.hpp
+fileOperations.hpp
+/Users/u0964759/sake_0/src/fileOperations.hpp
 
 /Users/u0964759/sake_0/src/material.hpp
 stdio.h
@@ -123,6 +143,8 @@ GL/glew.h
 /Users/u0964759/sake_0/src/mesh.hpp
 stdio.h
 -
+iostream
+-
 GL/glew.h
 -
 
@@ -132,6 +154,8 @@ vector
 stdio.h
 -
 string
+-
+iostream
 -
 texture.hpp
 /Users/u0964759/sake_0/src/texture.hpp
@@ -151,12 +175,14 @@ vector
 -
 stdio.h
 -
-texture.hpp
-/Users/u0964759/sake_0/src/texture.hpp
-mesh.hpp
-/Users/u0964759/sake_0/src/mesh.hpp
-material.hpp
-/Users/u0964759/sake_0/src/material.hpp
+iostream
+-
+stdio.h
+-
+serializable.hpp
+/Users/u0964759/sake_0/src/serializable.hpp
+model.hpp
+/Users/u0964759/sake_0/src/model.hpp
 glm/glm.hpp
 -
 
@@ -176,9 +202,11 @@ light.hpp
 omniShadowMap.hpp
 /Users/u0964759/sake_0/src/omniShadowMap.hpp
 
-/Users/u0964759/sake_0/src/shader.cpp
-shader.hpp
-/Users/u0964759/sake_0/src/shader.hpp
+/Users/u0964759/sake_0/src/serializable.hpp
+iostream
+-
+vector
+-
 
 /Users/u0964759/sake_0/src/shader.hpp
 stdio.h
@@ -216,6 +244,12 @@ pointLight.hpp
 
 /Users/u0964759/sake_0/src/texture.hpp
 GL/glew.h
+-
+iostream
+-
+stdio.h
+-
+vector
 -
 
 /Users/u0964759/sake_0/src/window.hpp

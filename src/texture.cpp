@@ -90,6 +90,13 @@ bool Texture::LoadTexture()
 
     return true;
 }
+
+bool Texture::LoadTexturelistFromFile(){
+    
+
+    return true;
+}
+
 /* #endregion */
 
 /* #region Use texture */

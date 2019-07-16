@@ -16,21 +16,28 @@ PointLight::PointLight() : Light()
     constant = 1.0f;
     linear = 0.0f;
     exponent = 0.0f;
+    farPlane = 0.0f;
 }
 
-PointLight::PointLight(GLfloat shadowWidth, GLfloat shadowHeight, GLfloat near, GLfloat far, GLfloat red, GLfloat green, GLfloat blue,
+PointLight::PointLight(GLfloat shadowWidth, GLfloat shadowHeight,
+                       GLfloat near, GLfloat far,
+                       GLfloat red, GLfloat green, GLfloat blue,
                        GLfloat aIntensity, GLfloat dIntensity,
                        GLfloat xPos, GLfloat yPos, GLfloat zPos,
-                       GLfloat con, GLfloat lin, GLfloat exp) : Light(shadowWidth, shadowHeight, red, green, blue, aIntensity, dIntensity)
+                       GLfloat con, GLfloat lin, GLfloat exp) 
+                       : Light(shadowWidth, shadowHeight,
+                       red, green, blue,
+                       aIntensity, dIntensity)
 {
     position = glm::vec3(xPos, yPos, zPos);
     constant = con;
     linear = lin;
     exponent = exp;
-
+    
     float aspect = (float)shadowWidth / (float)shadowHeight;
-
+    
 	farPlane = far;
+    
 	lightProj = glm::perspective(glm::radians(90.0f), aspect, near, far);
 
 	shadowMap = new OmniShadowMap();

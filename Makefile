@@ -881,6 +881,33 @@ src/pointLight.cpp.s:
 	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/pointLight.cpp.s
 .PHONY : src/pointLight.cpp.s
 
+src/serializable.o: src/serializable.cpp.o
+
+.PHONY : src/serializable.o
+
+# target to build an object file
+src/serializable.cpp.o:
+	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/serializable.cpp.o
+.PHONY : src/serializable.cpp.o
+
+src/serializable.i: src/serializable.cpp.i
+
+.PHONY : src/serializable.i
+
+# target to preprocess a source file
+src/serializable.cpp.i:
+	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/serializable.cpp.i
+.PHONY : src/serializable.cpp.i
+
+src/serializable.s: src/serializable.cpp.s
+
+.PHONY : src/serializable.s
+
+# target to generate assembly for a file
+src/serializable.cpp.s:
+	$(MAKE) -f CMakeFiles/sake.dir/build.make CMakeFiles/sake.dir/src/serializable.cpp.s
+.PHONY : src/serializable.cpp.s
+
 src/shader.o: src/shader.cpp.o
 
 .PHONY : src/shader.o
@@ -1093,6 +1120,9 @@ help:
 	@echo "... src/pointLight.o"
 	@echo "... src/pointLight.i"
 	@echo "... src/pointLight.s"
+	@echo "... src/serializable.o"
+	@echo "... src/serializable.i"
+	@echo "... src/serializable.s"
 	@echo "... src/shader.o"
 	@echo "... src/shader.i"
 	@echo "... src/shader.s"

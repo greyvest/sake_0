@@ -89,8 +89,6 @@ void Shader::Validate()
 	if (!result)
 	{
 		glGetProgramInfoLog(shaderID, sizeof(eLog), NULL, eLog);
-		printf("Error validating program: '%s'\n", eLog);
-		return;
 	}
 }
 /* #endregion */
@@ -153,6 +151,7 @@ void Shader::CompileProgram(){
     
     /* #region set directional light uniform values */
     uniformProjection = glGetUniformLocation(shaderID, "projection");
+    printf("Uniform Project: %d \n", uniformProjection);
     uniformModel = glGetUniformLocation(shaderID, "model");
     uniformView = glGetUniformLocation(shaderID, "view");
     uniformDirectionalLight.uniformColour = glGetUniformLocation(shaderID, "directionalLight.base.colour");
@@ -238,10 +237,13 @@ void Shader::CompileProgram(){
 
         snprintf(locBuff, sizeof(locBuff), "omniShadowMaps[%d].shadowMap", i);
         uniformOmniShadowMap[i].uniformShadowMap = glGetUniformLocation(shaderID, locBuff);
+        printf("Uniform Shadow Map %d\n", uniformOmniShadowMap[i].uniformShadowMap);
 
         snprintf(locBuff, sizeof(locBuff), "omniShadowMaps[%d].farPlane", i);
         uniformOmniShadowMap[i].uniformFarPlane = glGetUniformLocation(shaderID, locBuff);
+        printf("Uniform Far Plane %d\n", uniformOmniShadowMap[i].uniformFarPlane);
     }
+
     /* #endregion */
 
     /* #region set directional shadowmap uniform values */
@@ -251,6 +253,7 @@ void Shader::CompileProgram(){
 
     uniformOmniLightPos = glGetUniformLocation(shaderID, "lightPos");
     uniformFarPlane = glGetUniformLocation(shaderID, "farPlane");
+    printf("Uniform Far Plane X : %d \n", uniformFarPlane);
     /* #endregion */
 
     /* #region set light matrice values */
@@ -363,6 +366,9 @@ void Shader::SetSpotLights(SpotLight * sLight, unsigned int lightCount, unsigned
 			uniformSpotLight[i].uniformConstant, uniformSpotLight[i].uniformLinear, uniformSpotLight[i].uniformExponent,
 			uniformSpotLight[i].uniformEdge);
         
+        printf("Texture unit: %u\n", GL_TEXTURE0 + textureUnit + i);
+        printf("Far Plane: %u\n", sLight[i].GetFarPlane());
+
         sLight[i].GetShadowMap()->Read(GL_TEXTURE0 + textureUnit + i);
 		glUniform1i(uniformOmniShadowMap[i + offset].uniformShadowMap, textureUnit + i);
 		glUniform1f(uniformOmniShadowMap[i + offset].uniformFarPlane, sLight[i].GetFarPlane());

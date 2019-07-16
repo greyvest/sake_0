@@ -29,6 +29,7 @@ This is an OpenGL engine developed for learning purposes.
 //ASSIMP
 #include <assimp/Importer.hpp>
 //--Project Header Files--
+#include "config.hpp"
 #include "commonValues.h"
 #include "window.hpp"
 #include "mesh.hpp"
@@ -41,6 +42,7 @@ This is an OpenGL engine developed for learning purposes.
 #include "object.hpp"
 #include "spotLight.hpp"
 #include "model.hpp"
+#include "fileOperations.hpp"
 /* #endregion */
 
 //TODO: Clean up all these global variables damn dude this tutorial guy has some bad habits
@@ -236,6 +238,17 @@ void renderAModel(glm::mat4 * model, GLuint uniformModel, glm::vec3 * pos, Textu
 }
 /* #endregion */
 
+void render3DModel(glm::mat4 * model, GLuint uniformModel, glm::vec3 * pos, glm::vec3 * scale, Texture * renderTex, Material * renderMat, GLuint uniformSpecularIntensity, GLuint uniformShininess, Model * renderModel){
+    glm::mat4 tempMat(1.0f);
+    model = &tempMat;
+    *model = glm::translate(*model, *pos);
+    *model = glm::scale(*model, *scale);
+    glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(*model));
+    renderTex->UseTexture();
+    renderMat->UseMaterial(uniformSpecularIntensity, uniformShininess);
+    renderModel->RenderModel();
+}
+
 /* #region Render Scene Function */
 void RenderScene(){
         glm::mat4 model(1.0f);
@@ -245,13 +258,9 @@ void RenderScene(){
             renderAModel(&model, uniformModel, objectList[i].pos, objectList[i].texture, objectList[i].material, uniformSpecularIntensity, uniformShininess, i);
         }
         /* #endregion */
-        
-        model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(-3.0f, -4.0f, 4.0f));
-        model = glm::scale(model, glm::vec3(0.01f, 0.01f, 0.01f));
-        glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(model));
-        dullMaterial.UseMaterial(uniformSpecularIntensity, uniformShininess);
-        ironMan.RenderModel();
+        glm::vec3 deerpos(-3.0f, -4.0f, 4.0f);
+        glm::vec3 deerScale(0.01f, 0.01f, 0.01f);
+        render3DModel(&model, uniformModel, &deerpos, &deerScale, objectList[0].texture,objectList[0].material, uniformSpecularIntensity, uniformShininess, &ironMan);
 
 }
 /* #endregion */
@@ -279,7 +288,7 @@ void DirectionalShadowMapPass(DirectionalLight * light){
 /* #region Omni Shadow Map Pass */
 void OmniShadowMapPass(PointLight * light){
     glViewport(0, 0, light->GetShadowMap()->GetShadowWidth(), light->GetShadowMap()->GetShadowHeight());
-	
+	//printf("Shadowmap width in omnipass: %d\n", light->GetShadowMap()->GetShadowWidth());
 	omniShadowShader.UseShader();
 	uniformModel = omniShadowShader.GetModelLocation();
 	uniformOmniLightPos = omniShadowShader.GetOmniLightPosLocation();
@@ -290,6 +299,7 @@ void OmniShadowMapPass(PointLight * light){
 	glClear(GL_DEPTH_BUFFER_BIT);
 
 	glUniform3f(uniformOmniLightPos, light->GetPosition().x, light->GetPosition().y, light->GetPosition().z);
+    //printf("Far Plane in OmniShadowMapPass: %d\n", light->GetFarPlane());
 	glUniform1f(uniformFarPlane, light->GetFarPlane());
 	omniShadowShader.SetOmniLightMatrices(light->CalculateLightTransform());
 
@@ -325,9 +335,9 @@ void RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 
     glm::mat4 lightTrans = mainLight.CalculateLightTransform();
 
-	shaderList[0].SetDirectionalLight(&mainLight);
-	shaderList[0].SetPointLights(pointLights, pointLightCount, 3, 0);
-	shaderList[0].SetSpotLights(spotLights, spotLightCount, 3 + pointLightCount, pointLightCount);
+	//shaderList[0].SetDirectionalLight(&mainLight);
+	//shaderList[0].SetPointLights(pointLights, pointLightCount, 3, 0);
+	//shaderList[0].SetSpotLights(spotLights, spotLightCount, 3 + pointLightCount, pointLightCount);
 	shaderList[0].SetDirectionalLightTransform(&lightTrans);
 
 	mainLight.GetShadowMap()->Read(GL_TEXTURE1);
@@ -360,7 +370,7 @@ void RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
         PointLight tempLights[MAX_POINT_LIGHTS];
         shaderList[0].SetPointLights(tempLights, 0, 3, 0);
     }
-	//spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
+	spotLights[0].SetFlash(lowerLight, camera.getCameraDirection());
 
 	RenderScene();
     
@@ -370,7 +380,7 @@ void RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 /* #region Main */
 int main(){ 
     //Set main window size and initialise
-    mainWindow = Window(900, 600); // 1280, 1024 or 1024, 768
+    mainWindow = Window(windowWidth, windowHeight); // 1280, 1024 or 1024, 768
     mainWindow.Initialise();
 
     //TODO: This region should happen externally, ideally reading in a file with the information in it
@@ -390,11 +400,25 @@ int main(){
     //TODO: This region should happen externally, ideally reading in a file with the information in it
     /* #region Create object list and put objects into it. This lines up one to one with the meshlist, so you should make a single list or entity with objects/meshes included */
 
+    glm::vec3 objPos1(8.0f, 2.0f, 1.0f);
+    glm::vec3 objPos2(4.0f, 4.0f, 1.0f);
+    glm::vec3 objPos3(1.0f, 0.0f, 3.0f);
+    glm::vec3 objPos4(0.0f, -4.0f, 1.0f);
 
-    objectList.push_back(Object(new glm::vec3(8.0f, 2.0f,1.0f),&brickTexture,&dullMaterial));
-    objectList.push_back(Object(new glm::vec3(4.0f, 4.0f,1.0f),&brickTexture,&dullMaterial));
-    objectList.push_back(Object(new glm::vec3(1.0f, 0.0f,3.0f),&plainTexture,&dullMaterial));
-    objectList.push_back(Object(new glm::vec3(0.0f, -4.0f,1.0f),&plainTexture,&dullMaterial));
+    Object ob1(&objPos1,&dullMaterial,&brickTexture);
+    Object ob2(&objPos2,&dullMaterial,&brickTexture);
+    Object ob3(&objPos3,&dullMaterial,&plainTexture);
+    Object ob4(&objPos4,&dullMaterial,&plainTexture);
+    objectList.push_back(ob1);
+    objectList.push_back(ob2);
+    objectList.push_back(ob3);
+    objectList.push_back(ob4);
+
+    std::vector <Object *> objectPointerList;
+    objectPointerList.push_back(&ob1);
+    objectPointerList.push_back(&ob2);
+    objectPointerList.push_back(&ob3);
+    objectPointerList.push_back(&ob4);
     /* #endregion */
 
     ironMan = Model();
@@ -403,6 +427,10 @@ int main(){
     
     ironMan.LoadModel(inIron);
 
+    glm::vec3 deerPos2(-4.0f, 4.0f, 1.0f);
+    Object deer(&deerPos2, &ironMan);
+
+    objectPointerList.push_back(&deer);
 
     /* #region IMGUI setup code*/
     //glsl version, required for opengl3 implementation
@@ -451,25 +479,34 @@ int main(){
     GLfloat xPos; GLfloat yPos; GLfloat zPos;
     GLfloat con; GLfloat lin; GLfloat exp;
     
-
-    
-    pointLights[0] = PointLight(1024, 1024,
-		                        0.1f, 100.0f,
+    pointLightCount = 0 ;
+    printf("Creating first point light\n");
+    PointLight x = PointLight(1025, 1024,
+		                        0.1f, 500.0f,
                                 0.0f, 0.0f, 1.0f,
-                                0.0f, 1.0f,
+                                0.0f, .4f,
+                                0.0f, 1.0f, 0.0f,
+                                0.3f, 0.2f, 0.1f);
+    printf("Creating second point light\n");
+    pointLights[0] = PointLight(1025, 1024,
+		                        0.1f, 50.0f,
+                                1.0f, 0.0f, 1.0f,
+                                0.0f, .4f,
                                 0.0f, 1.0f, 0.0f,
                                 0.3f, 0.2f, 0.1f);
     pointLightCount++;
-    pointLights[1] = PointLight(1024, 1024,
+
+    /* pointLights[1] = PointLight(1024, 1024,
 		                        0.1f, 100.0f,
                                 1.0f, 0.0f, 0.0f,
-                                0.0f, 1.0f,
+                                0.0f, .4f,
                                 -4.0f, 2.0f, 0.0f,
                                 0.3f, 0.1f, 0.1f);
     pointLightCount++;
-    
+    */
     spotLightCount = 0;
-	spotLights[0] = SpotLight(1024, 1024,
+	/*
+    spotLights[0] = SpotLight(1024, 1024,
                         0.1f, 100.0f,
                         1.0f, 0.0f, 1.0f,
 						0.0f, 2.0f,
@@ -478,7 +515,7 @@ int main(){
 						1.0f, 0.0f, 0.0f,
 						20.0f);
     spotLightCount++;
-    
+    */
     /* #endregion */
     
     /* #region Setup projection  matrix */
@@ -548,22 +585,29 @@ int main(){
         {
             //Create main menu bar with objects on it
             if(ImGui::BeginMainMenuBar()){
-                if (ImGui::MenuItem("Open..", "Ctrl+O")) {
-                    /* Do stuff */ 
+                if(ImGui::BeginMenu("File")){
+                    if (ImGui::MenuItem("Open..", "Ctrl+O")) {
+                        /* Do stuff */ 
+                    }
+                    if (ImGui::MenuItem("Save", "Ctrl+S"))   {
+                        /* Do stuff */ 
+                        FileOperations::saveObjectVector<Object>(objectPointerList, "Objects.txt");
+                        printf("Hit save\n");
+                    }
+                    if (ImGui::MenuItem("Exit", "Ctrl+S"))   {
+                        break;
+                    }
+
+                    ImGui::EndMenu();
                 }
-                if (ImGui::MenuItem("Save", "Ctrl+S"))   {
-                    /* Do stuff */ 
-                }
-                if (ImGui::MenuItem("Close", "Ctrl+W"))  { /*Do stuff */}
+
                 if (ImGui::BeginMenu("Light Options")){
                     ImGui::MenuItem("Directional Lights", NULL, &directionalLightsOn);
                     ImGui::MenuItem("Spot Lights", NULL, &spotLightsOn);
                     ImGui::MenuItem("Point Lights", NULL, &pointLightsOn);
                     ImGui::EndMenu();
                 }
-                if (ImGui::MenuItem("Exit", "Ctrl+S"))   {
-                    break;
-                }
+
                 ImGui::SameLine();
                 ImGui::Text("Broker barrier on %s \n", barrier);
                 ImGui::SameLine();
@@ -586,6 +630,14 @@ int main(){
 
         /* # region Rendering passes */
         DirectionalShadowMapPass(&mainLight);
+        for (size_t i = 0; i < pointLightCount; i++)
+		{
+			OmniShadowMapPass(&pointLights[i]);
+		}
+		for (size_t i = 0; i < spotLightCount; i++)
+		{
+			OmniShadowMapPass(&spotLights[i]);
+		}
         RenderPass(camera.calculateViewMatrix(), projection);
         /* #endregion */
 

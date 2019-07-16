@@ -187,9 +187,22 @@ CMakeFiles/sake.dir/src/pointLight.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sake.dir/src/pointLight.cpp.s"
 	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/u0964759/sake_0/src/pointLight.cpp -o CMakeFiles/sake.dir/src/pointLight.cpp.s
 
+CMakeFiles/sake.dir/src/serializable.cpp.o: CMakeFiles/sake.dir/flags.make
+CMakeFiles/sake.dir/src/serializable.cpp.o: src/serializable.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/sake.dir/src/serializable.cpp.o"
+	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sake.dir/src/serializable.cpp.o -c /Users/u0964759/sake_0/src/serializable.cpp
+
+CMakeFiles/sake.dir/src/serializable.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/sake.dir/src/serializable.cpp.i"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/u0964759/sake_0/src/serializable.cpp > CMakeFiles/sake.dir/src/serializable.cpp.i
+
+CMakeFiles/sake.dir/src/serializable.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/sake.dir/src/serializable.cpp.s"
+	/Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/u0964759/sake_0/src/serializable.cpp -o CMakeFiles/sake.dir/src/serializable.cpp.s
+
 CMakeFiles/sake.dir/src/shader.cpp.o: CMakeFiles/sake.dir/flags.make
 CMakeFiles/sake.dir/src/shader.cpp.o: src/shader.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/sake.dir/src/shader.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/sake.dir/src/shader.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sake.dir/src/shader.cpp.o -c /Users/u0964759/sake_0/src/shader.cpp
 
 CMakeFiles/sake.dir/src/shader.cpp.i: cmake_force
@@ -202,7 +215,7 @@ CMakeFiles/sake.dir/src/shader.cpp.s: cmake_force
 
 CMakeFiles/sake.dir/src/shadowMap.cpp.o: CMakeFiles/sake.dir/flags.make
 CMakeFiles/sake.dir/src/shadowMap.cpp.o: src/shadowMap.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/sake.dir/src/shadowMap.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/sake.dir/src/shadowMap.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sake.dir/src/shadowMap.cpp.o -c /Users/u0964759/sake_0/src/shadowMap.cpp
 
 CMakeFiles/sake.dir/src/shadowMap.cpp.i: cmake_force
@@ -215,7 +228,7 @@ CMakeFiles/sake.dir/src/shadowMap.cpp.s: cmake_force
 
 CMakeFiles/sake.dir/src/spotLight.cpp.o: CMakeFiles/sake.dir/flags.make
 CMakeFiles/sake.dir/src/spotLight.cpp.o: src/spotLight.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/sake.dir/src/spotLight.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/sake.dir/src/spotLight.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sake.dir/src/spotLight.cpp.o -c /Users/u0964759/sake_0/src/spotLight.cpp
 
 CMakeFiles/sake.dir/src/spotLight.cpp.i: cmake_force
@@ -228,7 +241,7 @@ CMakeFiles/sake.dir/src/spotLight.cpp.s: cmake_force
 
 CMakeFiles/sake.dir/src/texture.cpp.o: CMakeFiles/sake.dir/flags.make
 CMakeFiles/sake.dir/src/texture.cpp.o: src/texture.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/sake.dir/src/texture.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/sake.dir/src/texture.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sake.dir/src/texture.cpp.o -c /Users/u0964759/sake_0/src/texture.cpp
 
 CMakeFiles/sake.dir/src/texture.cpp.i: cmake_force
@@ -241,7 +254,7 @@ CMakeFiles/sake.dir/src/texture.cpp.s: cmake_force
 
 CMakeFiles/sake.dir/src/window.cpp.o: CMakeFiles/sake.dir/flags.make
 CMakeFiles/sake.dir/src/window.cpp.o: src/window.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/sake.dir/src/window.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/sake.dir/src/window.cpp.o"
 	/Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/sake.dir/src/window.cpp.o -c /Users/u0964759/sake_0/src/window.cpp
 
 CMakeFiles/sake.dir/src/window.cpp.i: cmake_force
@@ -264,6 +277,7 @@ sake_OBJECTS = \
 "CMakeFiles/sake.dir/src/object.cpp.o" \
 "CMakeFiles/sake.dir/src/omniShadowMap.cpp.o" \
 "CMakeFiles/sake.dir/src/pointLight.cpp.o" \
+"CMakeFiles/sake.dir/src/serializable.cpp.o" \
 "CMakeFiles/sake.dir/src/shader.cpp.o" \
 "CMakeFiles/sake.dir/src/shadowMap.cpp.o" \
 "CMakeFiles/sake.dir/src/spotLight.cpp.o" \
@@ -283,6 +297,7 @@ sake: CMakeFiles/sake.dir/src/model.cpp.o
 sake: CMakeFiles/sake.dir/src/object.cpp.o
 sake: CMakeFiles/sake.dir/src/omniShadowMap.cpp.o
 sake: CMakeFiles/sake.dir/src/pointLight.cpp.o
+sake: CMakeFiles/sake.dir/src/serializable.cpp.o
 sake: CMakeFiles/sake.dir/src/shader.cpp.o
 sake: CMakeFiles/sake.dir/src/shadowMap.cpp.o
 sake: CMakeFiles/sake.dir/src/spotLight.cpp.o
@@ -298,7 +313,7 @@ sake: /usr/local/lib/libglfw.3.3.dylib
 sake: /usr/lib/libz.dylib
 sake: lib/libIrrXML.a
 sake: CMakeFiles/sake.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Linking CXX executable sake"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/u0964759/sake_0/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Linking CXX executable sake"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/sake.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

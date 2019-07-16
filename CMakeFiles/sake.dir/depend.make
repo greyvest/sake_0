@@ -514,7 +514,9 @@ CMakeFiles/sake.dir/src/light.cpp.o: /usr/local/include/glm/vector_relational.hp
 
 CMakeFiles/sake.dir/src/main.cpp.o: src/camera.hpp
 CMakeFiles/sake.dir/src/main.cpp.o: src/commonValues.h
+CMakeFiles/sake.dir/src/main.cpp.o: src/config.hpp
 CMakeFiles/sake.dir/src/main.cpp.o: src/directionalLight.hpp
+CMakeFiles/sake.dir/src/main.cpp.o: src/fileOperations.hpp
 CMakeFiles/sake.dir/src/main.cpp.o: src/imgui/imconfig.h
 CMakeFiles/sake.dir/src/main.cpp.o: src/imgui/imgui.h
 CMakeFiles/sake.dir/src/main.cpp.o: src/imgui/imgui_impl_glfw.h
@@ -527,6 +529,7 @@ CMakeFiles/sake.dir/src/main.cpp.o: src/model.hpp
 CMakeFiles/sake.dir/src/main.cpp.o: src/object.hpp
 CMakeFiles/sake.dir/src/main.cpp.o: src/omniShadowMap.hpp
 CMakeFiles/sake.dir/src/main.cpp.o: src/pointLight.hpp
+CMakeFiles/sake.dir/src/main.cpp.o: src/serializable.hpp
 CMakeFiles/sake.dir/src/main.cpp.o: src/shader.hpp
 CMakeFiles/sake.dir/src/main.cpp.o: src/shadowMap.hpp
 CMakeFiles/sake.dir/src/main.cpp.o: src/spotLight.hpp
@@ -811,10 +814,41 @@ CMakeFiles/sake.dir/src/model.cpp.o: /usr/local/include/assimp/vector3.inl
 
 CMakeFiles/sake.dir/src/object.cpp.o: src/material.hpp
 CMakeFiles/sake.dir/src/object.cpp.o: src/mesh.hpp
+CMakeFiles/sake.dir/src/object.cpp.o: src/model.hpp
 CMakeFiles/sake.dir/src/object.cpp.o: src/object.cpp
 CMakeFiles/sake.dir/src/object.cpp.o: src/object.hpp
+CMakeFiles/sake.dir/src/object.cpp.o: src/serializable.hpp
 CMakeFiles/sake.dir/src/object.cpp.o: src/texture.hpp
 CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/GL/glew.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/./Compiler/poppack1.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/./Compiler/pushpack1.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/Compiler/pstdint.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/anim.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/camera.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/color4.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/color4.inl
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/config.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/defs.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/importer.hpp
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/light.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/material.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/material.inl
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/matrix3x3.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/matrix3x3.inl
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/matrix4x4.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/matrix4x4.inl
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/mesh.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/metadata.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/postprocess.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/quaternion.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/quaternion.inl
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/scene.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/texture.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/types.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/vector2.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/vector2.inl
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/vector3.h
+CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/assimp/vector3.inl
 CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/glm/./detail/setup.hpp
 CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/glm/./detail/type_mat2x2.hpp
 CMakeFiles/sake.dir/src/object.cpp.o: /usr/local/include/glm/./detail/type_mat2x2.inl
@@ -1147,6 +1181,9 @@ CMakeFiles/sake.dir/src/pointLight.cpp.o: /usr/local/include/glm/vec2.hpp
 CMakeFiles/sake.dir/src/pointLight.cpp.o: /usr/local/include/glm/vec3.hpp
 CMakeFiles/sake.dir/src/pointLight.cpp.o: /usr/local/include/glm/vec4.hpp
 CMakeFiles/sake.dir/src/pointLight.cpp.o: /usr/local/include/glm/vector_relational.hpp
+
+CMakeFiles/sake.dir/src/serializable.cpp.o: src/serializable.cpp
+CMakeFiles/sake.dir/src/serializable.cpp.o: src/serializable.hpp
 
 CMakeFiles/sake.dir/src/shader.cpp.o: src/commonValues.h
 CMakeFiles/sake.dir/src/shader.cpp.o: src/directionalLight.hpp

@@ -1,7 +1,10 @@
+#ifndef Model_h
+#define Model_h
+
 #include <vector>
 #include <stdio.h>
 #include <string>
-
+#include <iostream>
 #include "texture.hpp"
 #include "material.hpp"
 #include "mesh.hpp"
@@ -18,6 +21,10 @@ public:
     void LoadModel(const std::string & fileName);
     void RenderModel();
     void ClearModel();
+
+    Texture * returnTexture(){return textureList[0];}
+    int sourceInt = 0;
+
 private:
 
     void LoadNode(aiNode * node, const aiScene * scene);
@@ -27,4 +34,47 @@ private:
     std::vector<Mesh *> meshList;
     std::vector<Texture *> textureList;
     std::vector<unsigned int> meshToTex;
+
+    std::string sourceFile = "default";
+    
+
+    friend std::ostream& operator<<(std::ostream& os, const Model& dt)
+    {
+
+        printf("Writing Sourcefile string %d\n", dt.sourceFile.c_str());
+        /*os << dt.meshList.size() << dt.textureList.size() << dt.meshToTex.size();
+        for(int i = 0; i < dt.meshList.size(); i++){
+            os << *dt.meshList[i];
+        }
+        for(int i = 0; i < dt.textureList.size(); i++){
+            os << *dt.textureList[i];
+        }
+        for(int i = 0; i < dt.meshToTex.size(); i++){
+            os << dt.meshToTex[i];
+        }*/
+        os << dt.sourceFile.c_str();
+        return os;
+    }
+
+    friend std::istream & operator>>(std::istream &in, Model &c){
+        int temp1, temp2, temp3;
+        in >> temp1 >> temp2 >> temp3;
+        for(int i = 0; i < temp1; i++){
+            Mesh y;
+            in >> y;
+            c.meshList[i] = &y;
+        }
+        for(int i = 0; i < temp2; i++){
+            Texture x;
+            in >> x;
+            c.textureList[i] = &x;
+        }
+        for(int i = 0; i < temp3; i++){
+            in >> c.meshToTex[i];
+        }
+        in >> c.sourceFile;
+        return in;
+    }
 };
+
+#endif
