@@ -21,6 +21,8 @@ GLFW/glfw3.h
 /Users/u0964759/sake_0/src/commonValues.h
 
 /Users/u0964759/sake_0/src/config.hpp
+string.h
+-
 
 /Users/u0964759/sake_0/src/directionalLight.hpp
 stdio.h
@@ -86,6 +88,10 @@ string.h
 cmath
 -
 vector
+-
+dirent.h
+-
+map
 -
 GL/glew.h
 -

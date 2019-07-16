@@ -151,7 +151,7 @@ void Shader::CompileProgram(){
     
     /* #region set directional light uniform values */
     uniformProjection = glGetUniformLocation(shaderID, "projection");
-    printf("Uniform Project: %d \n", uniformProjection);
+    //printf("Uniform Project: %d \n", uniformProjection);
     uniformModel = glGetUniformLocation(shaderID, "model");
     uniformView = glGetUniformLocation(shaderID, "view");
     uniformDirectionalLight.uniformColour = glGetUniformLocation(shaderID, "directionalLight.base.colour");
@@ -237,11 +237,11 @@ void Shader::CompileProgram(){
 
         snprintf(locBuff, sizeof(locBuff), "omniShadowMaps[%d].shadowMap", i);
         uniformOmniShadowMap[i].uniformShadowMap = glGetUniformLocation(shaderID, locBuff);
-        printf("Uniform Shadow Map %d\n", uniformOmniShadowMap[i].uniformShadowMap);
+        //printf("Uniform Shadow Map %d\n", uniformOmniShadowMap[i].uniformShadowMap);
 
         snprintf(locBuff, sizeof(locBuff), "omniShadowMaps[%d].farPlane", i);
         uniformOmniShadowMap[i].uniformFarPlane = glGetUniformLocation(shaderID, locBuff);
-        printf("Uniform Far Plane %d\n", uniformOmniShadowMap[i].uniformFarPlane);
+        //printf("Uniform Far Plane %d\n", uniformOmniShadowMap[i].uniformFarPlane);
     }
 
     /* #endregion */
@@ -253,7 +253,7 @@ void Shader::CompileProgram(){
 
     uniformOmniLightPos = glGetUniformLocation(shaderID, "lightPos");
     uniformFarPlane = glGetUniformLocation(shaderID, "farPlane");
-    printf("Uniform Far Plane X : %d \n", uniformFarPlane);
+    //printf("Uniform Far Plane X : %d \n", uniformFarPlane);
     /* #endregion */
 
     /* #region set light matrice values */

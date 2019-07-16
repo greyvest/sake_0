@@ -12,6 +12,8 @@ This is an OpenGL engine developed for learning purposes.
 #include <string.h>
 #include <cmath>
 #include <vector>
+#include <dirent.h>
+#include <map>
 //--Third Pawrty Header Files--
 //GLEW
 #define GLEW_STATIC
@@ -386,6 +388,30 @@ int main(){
     //TODO: This region should happen externally, ideally reading in a file with the information in it
     /* #region Load Textures and materials */
     
+    std::map<std::string, Texture> TextureMap;
+    
+    DIR *pDir;
+    struct dirent *entry;
+    if(pDir=opendir(textureDirectory.c_str())){
+        while(entry = readdir(pDir)){
+            if(strcmp(entry->d_name, ".")!= 0 && strcmp(entry->d_name, "..") != 0){
+                //TDOO: Fix these not loading
+                printf("%s\n", entry->d_name);
+                textureDirectory.append("/");
+                textureDirectory.append(entry->d_name);
+                printf("blip\n");
+                char * buffer = (char *) malloc(100);
+                printf("blip\n");
+                strcpy(buffer, textureDirectory.c_str());
+                printf("blip\n");
+                TextureMap[std::string(entry->d_name)] = Texture(buffer);
+                TextureMap[std::string(entry->d_name)].LoadTextureA();
+                free(buffer);
+            }
+        }
+    }
+
+    
     brickTexture = Texture("src/textures/brick.png");
     brickTexture.LoadTextureA();
     dirtTexture = Texture("src/textures/dirt.png");
@@ -405,7 +431,7 @@ int main(){
     glm::vec3 objPos3(1.0f, 0.0f, 3.0f);
     glm::vec3 objPos4(0.0f, -4.0f, 1.0f);
 
-    Object ob1(&objPos1,&dullMaterial,&brickTexture);
+    Object ob1(&objPos1,&dullMaterial,&TextureMap[0]);
     Object ob2(&objPos2,&dullMaterial,&brickTexture);
     Object ob3(&objPos3,&dullMaterial,&plainTexture);
     Object ob4(&objPos4,&dullMaterial,&plainTexture);
@@ -480,14 +506,14 @@ int main(){
     GLfloat con; GLfloat lin; GLfloat exp;
     
     pointLightCount = 0 ;
-    printf("Creating first point light\n");
+    //printf("Creating first point light\n");
     PointLight x = PointLight(1025, 1024,
 		                        0.1f, 500.0f,
                                 0.0f, 0.0f, 1.0f,
                                 0.0f, .4f,
                                 0.0f, 1.0f, 0.0f,
                                 0.3f, 0.2f, 0.1f);
-    printf("Creating second point light\n");
+    //printf("Creating second point light\n");
     pointLights[0] = PointLight(1025, 1024,
 		                        0.1f, 50.0f,
                                 1.0f, 0.0f, 1.0f,
