@@ -4,7 +4,8 @@
 #include <iostream>
 #include <stdio.h>
 #include <vector>
-
+#include <string>
+#include <map>
 
 class Texture
 {
@@ -15,7 +16,7 @@ public:
     bool LoadTexture();
     bool LoadTextureA();
 
-
+    static std::map<std::string, Texture> TextureMap;
 
     static std::vector<Texture> textureList;
     static bool LoadTexturelistFromFile();

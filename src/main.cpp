@@ -229,6 +229,8 @@ void SetControllerLoc(bool* keys, GLfloat deltaTime){
 }
 /* #endregion */
 
+/* #region Rendering functionality */
+
 /* #region Render Model Function */
 void renderAModel(glm::mat4 * model, GLuint uniformModel, glm::vec3 * pos, Texture * renderTex, Material * renderMat, GLuint uniformSpecularIntensity, GLuint uniformShininess, int i){
     model = new glm::mat4(1.0f);
@@ -240,6 +242,7 @@ void renderAModel(glm::mat4 * model, GLuint uniformModel, glm::vec3 * pos, Textu
 }
 /* #endregion */
 
+/* #region Render 3D Model Function */
 void render3DModel(glm::mat4 * model, GLuint uniformModel, glm::vec3 * pos, glm::vec3 * scale, Texture * renderTex, Material * renderMat, GLuint uniformSpecularIntensity, GLuint uniformShininess, Model * renderModel){
     glm::mat4 tempMat(1.0f);
     model = &tempMat;
@@ -250,6 +253,7 @@ void render3DModel(glm::mat4 * model, GLuint uniformModel, glm::vec3 * pos, glm:
     renderMat->UseMaterial(uniformSpecularIntensity, uniformShininess);
     renderModel->RenderModel();
 }
+/* #endregion */
 
 /* #region Render Scene Function */
 void RenderScene(){
@@ -379,6 +383,72 @@ void RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 }
 /* #endregion */
 
+/* #endregion */
+
+/* #region Load Textures function */
+void loadTextures(){
+    DIR *pDir;
+    struct dirent *entry;
+    if(pDir=opendir(textureDirectory.c_str())){
+        while(entry = readdir(pDir)){
+            if(strcmp(entry->d_name, ".")!= 0 && strcmp(entry->d_name, "..") != 0){
+                //TDOO: Fix these not loading
+    
+                std::string textureDirectoryCopy = textureDirectory;
+                textureDirectoryCopy.append("/");
+                textureDirectoryCopy.append(entry->d_name);
+    
+                char * buffer = (char *) malloc(100);
+    
+                strcpy(buffer, textureDirectoryCopy.c_str());
+
+                int dotPos = std::string(entry->d_name).find(".");
+                std::string entryName = std::string(entry->d_name).substr(0, dotPos);
+
+                Texture::TextureMap[entryName] = Texture(buffer);
+    
+                Texture::TextureMap[entryName].LoadTextureA();
+    
+                free(buffer);
+            }
+        }
+    }
+}
+
+void loadMaterialsFromFile(){
+    //Create Directory Pointer
+    DIR *pDir;
+    //Variable for current entry 
+    struct dirent *entry;
+    //If you can open the directory
+    if(pDir=opendir(textureDirectory.c_str())){
+        //while there are files to read in the directory
+        while(entry = readdir(pDir)){
+            //if the file name isn't the current direcotry/prev directory reference
+            if(strcmp(entry->d_name, ".")!= 0 && strcmp(entry->d_name, "..") != 0){
+                //Copy of material directory string
+                std::string materialDirectoryCopy = materialDirectory;
+                //Append /
+                materialDirectoryCopy.append("/");
+                //
+                materialDirectoryCopy.append(entry->d_name);
+                char * buffer = (char *) malloc(100);
+    
+                strcpy(buffer, materialDirectoryCopy.c_str());
+
+                int dotPos = std::string(entry->d_name).find(".");
+                std::string entryName = std::string(entry->d_name).substr(0, dotPos);
+
+                Material::MaterialMap[entryName] = Material(buffer);
+    
+                free(buffer);
+            }
+        }
+    }
+}
+
+/* #endregion */
+
 /* #region Main */
 int main(){ 
     //Set main window size and initialise
@@ -387,54 +457,31 @@ int main(){
 
     //TODO: This region should happen externally, ideally reading in a file with the information in it
     /* #region Load Textures and materials */
-    
-    std::map<std::string, Texture> TextureMap;
-    
-    DIR *pDir;
-    struct dirent *entry;
-    if(pDir=opendir(textureDirectory.c_str())){
-        while(entry = readdir(pDir)){
-            if(strcmp(entry->d_name, ".")!= 0 && strcmp(entry->d_name, "..") != 0){
-                //TDOO: Fix these not loading
-                printf("%s\n", entry->d_name);
-                textureDirectory.append("/");
-                textureDirectory.append(entry->d_name);
-                printf("blip\n");
-                char * buffer = (char *) malloc(100);
-                printf("blip\n");
-                strcpy(buffer, textureDirectory.c_str());
-                printf("blip\n");
-                TextureMap[std::string(entry->d_name)] = Texture(buffer);
-                TextureMap[std::string(entry->d_name)].LoadTextureA();
-                free(buffer);
-            }
-        }
-    }
-
-    
-    brickTexture = Texture("src/textures/brick.png");
-    brickTexture.LoadTextureA();
-    dirtTexture = Texture("src/textures/dirt.png");
-    dirtTexture.LoadTextureA();
-    plainTexture = Texture("src/textures/plain.png");
-    plainTexture.LoadTextureA();
-    
-    shinyMaterial = Material(4.0f, 256);
-    dullMaterial = Material(0.3f, 4);
+    loadTextures();
+    loadMaterialsFromFile();
     /* #endregion */
-
+    
     //TODO: This region should happen externally, ideally reading in a file with the information in it
     /* #region Create object list and put objects into it. This lines up one to one with the meshlist, so you should make a single list or entity with objects/meshes included */
+
+    ironMan = Model();
+
+    std::string inIron = "src/Models/deer.obj";
+    
+    ironMan.LoadModel(inIron);
 
     glm::vec3 objPos1(8.0f, 2.0f, 1.0f);
     glm::vec3 objPos2(4.0f, 4.0f, 1.0f);
     glm::vec3 objPos3(1.0f, 0.0f, 3.0f);
     glm::vec3 objPos4(0.0f, -4.0f, 1.0f);
-
-    Object ob1(&objPos1,&dullMaterial,&TextureMap[0]);
-    Object ob2(&objPos2,&dullMaterial,&brickTexture);
-    Object ob3(&objPos3,&dullMaterial,&plainTexture);
-    Object ob4(&objPos4,&dullMaterial,&plainTexture);
+    glm::vec3 deerPos2(-4.0f, 4.0f, 1.0f);
+    
+    Object ob1(&objPos1,"dull","plain");
+    Object ob2(&objPos2,"shiny","plain");
+    Object ob3(&objPos3,"dull","plain");
+    Object ob4(&objPos4,"shiny","plain");
+    Object deer(&deerPos2, &ironMan);
+    
     objectList.push_back(ob1);
     objectList.push_back(ob2);
     objectList.push_back(ob3);
@@ -445,18 +492,8 @@ int main(){
     objectPointerList.push_back(&ob2);
     objectPointerList.push_back(&ob3);
     objectPointerList.push_back(&ob4);
-    /* #endregion */
-
-    ironMan = Model();
-
-    std::string inIron = "src/Models/deer.obj";
-    
-    ironMan.LoadModel(inIron);
-
-    glm::vec3 deerPos2(-4.0f, 4.0f, 1.0f);
-    Object deer(&deerPos2, &ironMan);
-
     objectPointerList.push_back(&deer);
+    /* #endregion */
 
     /* #region IMGUI setup code*/
     //glsl version, required for opengl3 implementation
@@ -478,10 +515,9 @@ int main(){
     io.MousePos = ImVec2(0,0);
     /* #endregion */
 
-    
     //Create control vec
     controllerVec = glm::vec3(8,0,0);
-    
+
     //Create objects and shaders
     CreateObjects();
     CreateShaders();
@@ -569,7 +605,9 @@ int main(){
     }
 
     /* #endregion */
-
+    
+    
+    
     /* #region program loop */
     while(!mainWindow.getShouldClose()){
         /* #region Time Controls */

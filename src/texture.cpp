@@ -38,6 +38,10 @@ Texture::~Texture()
 }
 /* #endregion */
 
+/* #region TextureMap */
+std::map<std::string, Texture> Texture::TextureMap;
+/* #endregion */
+
 /* #region Load Texture Functions */
 bool Texture::LoadTextureA()
 {

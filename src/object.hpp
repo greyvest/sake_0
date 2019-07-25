@@ -1,3 +1,4 @@
+#include <string>
 #include <vector>
 #include <stdio.h>
 #include <iostream>
@@ -11,7 +12,7 @@ public:
     /* #region Contstructors & Destructor */
     Object();
     Object(glm::vec3 * , Model *);
-    Object(glm::vec3 * invec, Material * inMat, Texture * inTex);
+    Object(glm::vec3 * invec, std::string inMatName, std::string inTexName);
     ~Object();
     /* #endregion */
     
@@ -20,6 +21,7 @@ public:
     glm::vec3 * pos;
     Material * material;
     Texture * texture;
+    std::string ObjectName;
     /* Serializable overloads */
     //Implementations
 	virtual bool Serialize(std::ostream&);

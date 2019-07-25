@@ -9,10 +9,10 @@ Object::Object(glm::vec3 * invec, Model * inMod){
     model = inMod;
 }
 
-Object::Object(glm::vec3 * invec, Material * inMat, Texture * inTex){
+Object::Object(glm::vec3 * invec, std::string inMatName, std::string inTexName){
     pos = invec;
-    material = inMat;
-    texture = inTex;
+    material = &Material::MaterialMap[inMatName];
+    texture = &Texture::TextureMap[inTexName];
 }
 
 bool Object::Serialize(std::ostream& stream){

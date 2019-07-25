@@ -11,12 +11,27 @@
 /* #region Constructors/Destructors */
 Material::Material()
 {
+    matName = "default";
     specularIntensity = 0.0f;
     shininess = 0.0f;
 }
 
-Material::Material(GLfloat sIntensity, GLfloat shine)
+Material::Material(char * fileName){
+	//create a file buffer
+	std::filebuf fb;
+	//Open desired file
+	fb.open(fileName, std::ios::in);
+	//Create instream
+	std::istream fs(&fb);
+	//Deserialize objects
+	fs >> matName >> specularIntensity >> shininess;
+
+	fb.close();
+}
+
+Material::Material(std::string inName, GLfloat sIntensity, GLfloat shine)
 {
+    matName = inName;
     specularIntensity = sIntensity;
     shininess = shine;
 }
@@ -26,6 +41,10 @@ Material::~Material()
 }
 /* #endregion */
 
+/* #region MaterialMap */
+std::map<std::string, Material> Material::MaterialMap;
+/* #endregion */
+
 /* #region Use Material */
 void Material::UseMaterial(GLuint specularIntensityLocation, GLuint shininessLocation)
 {
@@ -33,3 +52,18 @@ void Material::UseMaterial(GLuint specularIntensityLocation, GLuint shininessLoc
     glUniform1f(shininessLocation, shininess);
 }
 /* #endregion */
+
+/* #region serialize Material */
+void Material::serializeMaterial(char * fileName){
+    
+    //create a file buffer
+	std::filebuf fb;
+	//Open desired file
+	fb.open(fileName, std::ios::out);
+	//Create instream
+	std::ostream fs(&fb);
+	//Deserialize objects
+	fs << matName << '\n' << specularIntensity << '\n' << shininess;
+
+	fb.close();
+}
