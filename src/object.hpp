@@ -11,21 +11,25 @@ class Object : public Serializable{
 public:
     /* #region Contstructors & Destructor */
     Object();
+    Object(char *);
     Object(glm::vec3 * inPos, std::string matName, std::string texName);
     Object(glm::vec3 * pos, glm::vec3 * scale, std::string inMatName, std::string inTexName, std::string inName, std::string modelName);
     ~Object();
     /* #endregion */
     
+    static std::map<std::string, Object> ObjectMap;
+
     /* Instance variables */
-    Model * model;
+
     glm::vec3 * pos;
     glm::vec3 * scale;
     std::string matName;
     std::string texName;
     std::string modelName;
-    Material * material;
-    Texture * texture;
-    std::string ObjectName;
+    std::string objectName;
+    // Material * material;
+    // Texture * texture;
+    // Model * model;
     /* Serializable overloads */
     //Implementations
 	virtual bool Serialize(std::ostream&);
@@ -33,13 +37,12 @@ public:
 	//Operator overloads
     friend std::ostream& operator<<(std::ostream& os, const Object& dt)
     {
-        os << dt.pos->x << dt.pos->y << dt.pos->z << *dt.model;
+        os << dt.objectName << '\n' << dt.pos->x << '\n' << dt.pos->y << '\n' << dt.pos->z << '\n' << dt.scale->x << '\n' << dt.scale->y << '\n' << dt.scale->z << '\n' << dt.matName << '\n' << dt.texName << '\n' << dt.modelName << '\n' ;
         return os;
     }
 
     friend std::istream & operator >> (std::istream &in, Object& c){
-        in >> c.pos->x >> c.pos->y >> c.pos->z >> *c.model;
-        return in;
+        in >> c.objectName >> c.pos->x >> c.pos->y >> c.pos->z >> c.scale->x >> c.scale->y >> c.scale->z >> c.matName >> c.texName >> c.modelName;
     }
 private:
     

@@ -260,13 +260,20 @@ void RenderScene(){
 
         /* #region Model Rendering */
         for(int i = 0; i < simpleObjectList.size(); i++){
-            renderAModel(&model, uniformModel, simpleObjectList[i].pos, simpleObjectList[i].texture, simpleObjectList[i].material, uniformSpecularIntensity, uniformShininess, i);
+            renderAModel(&model, uniformModel, simpleObjectList[i].pos, &Texture::TextureMap[simpleObjectList[i].texName], &Material::MaterialMap[simpleObjectList[i].matName], uniformSpecularIntensity, uniformShininess, i);
         }
         /* #endregion */
 
-
+        
         //TODO: Make this not require anything from the simple object list
-        for(int i = 0; i < objectList.size(); i++){
+        /*for (std::pair<std::string, int> element : ) {
+            // Accessing KEY from element
+            std::string word = element.first;
+            // Accessing VALUE from element.
+            int count = element.second;
+            std::cout << word << " :: " << count << std::endl;
+        }*/
+        for(int i = 0; i < Object::ObjectMap.size() ; i++){
             render3DModel(&model, uniformModel, objectList[i].pos, objectList[i].scale, &Texture::TextureMap[objectList[i].texName],&Material::MaterialMap[objectList[i].matName], uniformSpecularIntensity, uniformShininess, &Model::ModelMap[objectList[i].modelName]);    
         }
         
@@ -388,7 +395,9 @@ void RenderPass(glm::mat4 viewMatrix, glm::mat4 projectionMatrix)
 
 /* #endregion */
 
-/* #region Load Textures function */
+/* #region Loading assets region */
+
+/* #region Loading textures function */
 void loadTextures(){
     DIR *pDir;
     struct dirent *entry;
@@ -418,6 +427,9 @@ void loadTextures(){
     }
 }
 
+/* #endregion */
+
+/* #region Loading materials from files function */
 void loadMaterialsFromFile(){
     //Create Directory Pointer
     DIR *pDir;
@@ -449,7 +461,9 @@ void loadMaterialsFromFile(){
         }
     }
 }
+/* #endregion */
 
+/* #region Load models from files function */
 void loadModelsFromFile(){
     //Create Directory Pointer
     DIR *pDir;
@@ -490,6 +504,49 @@ void loadModelsFromFile(){
         }
     }
 }
+/* #endregion */
+
+/* #region Load Level function */
+void loadLevel(std::string levelName){
+    //form file path
+    std::string levelDirectoryCopy = levelDirectory;
+    levelDirectoryCopy.append("/");
+    levelDirectoryCopy.append(levelName);
+    levelDirectoryCopy.append("/");
+
+    DIR *pDir;
+    //Variable for current entry 
+    struct dirent *entry;
+    //If you can open the directory
+    if(pDir=opendir(levelDirectoryCopy.c_str())){
+        //while there are files to read in the directory
+        while(entry = readdir(pDir)){
+            //if the file name isn't the current direcotry/prev directory reference
+            if(strcmp(entry->d_name, ".")!= 0 && strcmp(entry->d_name, "..") != 0){
+                //Copy of model directory string
+                std::string levelDirectoryCopy2 = levelDirectoryCopy;
+                //Append /
+                levelDirectoryCopy2.append("/");
+                //
+                levelDirectoryCopy2.append(entry->d_name);
+                char * buffer = (char *) malloc(100);
+    
+                strcpy(buffer, levelDirectoryCopy2.c_str());
+                
+                std::string temp(entry->d_name);
+
+                int dotPos = temp.find(".");
+                
+                Object::ObjectMap[temp.substr(0, dotPos)] = Object(buffer);
+
+                free(buffer);
+            }
+        }
+    }
+
+}
+
+/* #endregion */
 
 /* #endregion */
 
@@ -504,6 +561,7 @@ int main(){
     loadTextures();
     loadMaterialsFromFile();
     loadModelsFromFile();
+    loadLevel("test_level");
     /* #endregion */
     
     /* #region Create object list and put objects into it. This lines up one to one with the meshlist, so you should make a single list or entity with objects/meshes included */
@@ -517,25 +575,24 @@ int main(){
     glm::vec3 deerpos(-3.0f, -4.0f, 4.0f);
     glm::vec3 deerScale(0.01f, 0.01f, 0.01f);
 
-    Object ob1(&objPos1,"dull","plain");
-    Object ob2(&objPos2,"shiny","plain");
+    Object ob1(&objPos1,"dull","brick");
+    Object ob2(&objPos2,"shiny","dirt");
     Object ob3(&objPos3,"dull","plain");
     Object ob4(&objPos4,"shiny","plain");
     Object deer(&deerpos, &deerScale, std::string("plain"), std::string("dull"), std::string("deer"), std::string("deer"));
-    
+       
     {
         //create a file buffer
         std::filebuf fb;
         //Open desired file
-        fb.open("src/levels/test_level.txt", std::ios::out);
+        fb.open("src/levels/test_level/deer.txt", std::ios::out);
         //Create instream
         std::ostream fs(&fb);
         //Deserialize objects
-        deer.Serialize(fs);
-
+        fs << deer;
         fb.close();
-    }
-
+    } 
+    
     //Creating a simple object list for primative objects. Won't be neccessary once all game object models are imported
     simpleObjectList.push_back(ob1);
     simpleObjectList.push_back(ob2);
