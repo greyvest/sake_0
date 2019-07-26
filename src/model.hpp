@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string>
 #include <iostream>
+#include <map>
 #include "texture.hpp"
 #include "material.hpp"
 #include "mesh.hpp"
@@ -25,6 +26,7 @@ public:
     Texture * returnTexture(){return textureList[0];}
     int sourceInt = 0;
 
+    static std::map<std::string, Model> ModelMap;
 private:
 
     void LoadNode(aiNode * node, const aiScene * scene);

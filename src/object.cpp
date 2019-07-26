@@ -4,15 +4,19 @@ Object::Object(){};
 
 Object::~Object(){};
 
-Object::Object(glm::vec3 * invec, Model * inMod){
-    pos = invec;
-    model = inMod;
+Object::Object(glm::vec3 * inPos, std::string matName, std::string texName){
+    pos = inPos;
+    material = &Material::MaterialMap[matName];
+    texture = &Texture::TextureMap[texName];    
 }
 
-Object::Object(glm::vec3 * invec, std::string inMatName, std::string inTexName){
-    pos = invec;
+Object::Object(glm::vec3 * inPos, glm::vec3 * inScale,std::string inMatName, std::string inTexName, std::string inName, Model * inModel){
+    pos = inPos;
+    scale = inScale;
     material = &Material::MaterialMap[inMatName];
     texture = &Texture::TextureMap[inTexName];
+    ObjectName = inName;
+    model = inModel;
 }
 
 bool Object::Serialize(std::ostream& stream){

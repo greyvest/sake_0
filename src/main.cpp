@@ -74,8 +74,6 @@ Texture plainTexture;
 Material shinyMaterial;
 Material dullMaterial;
 
-Model ironMan;
-
 DirectionalLight mainLight;
 PointLight pointLights[MAX_POINT_LIGHTS];
 SpotLight spotLights[MAX_SPOT_LIGHTS];
@@ -104,6 +102,7 @@ static const char * vShader = "src/Shaders/shader.vert";
 static const char * fShader = "src/Shaders/shader.frag";
 
 
+std::vector<Object> simpleObjectList;
 std::vector<Object> objectList;
 /* #endregion */
 
@@ -260,13 +259,17 @@ void RenderScene(){
         glm::mat4 model(1.0f);
 
         /* #region Model Rendering */
-        for(int i = 0; i < objectList.size(); i++){
-            renderAModel(&model, uniformModel, objectList[i].pos, objectList[i].texture, objectList[i].material, uniformSpecularIntensity, uniformShininess, i);
+        for(int i = 0; i < simpleObjectList.size(); i++){
+            renderAModel(&model, uniformModel, simpleObjectList[i].pos, simpleObjectList[i].texture, simpleObjectList[i].material, uniformSpecularIntensity, uniformShininess, i);
         }
         /* #endregion */
-        glm::vec3 deerpos(-3.0f, -4.0f, 4.0f);
-        glm::vec3 deerScale(0.01f, 0.01f, 0.01f);
-        render3DModel(&model, uniformModel, &deerpos, &deerScale, objectList[0].texture,objectList[0].material, uniformSpecularIntensity, uniformShininess, &ironMan);
+
+
+        //TODO: Make this not require anything from the simple object list
+        for(int i = 0; i < objectList.size(); i++){
+            render3DModel(&model, uniformModel, objectList[i].pos, objectList[i].scale, simpleObjectList[0].texture,simpleObjectList[0].material, uniformSpecularIntensity, uniformShininess, objectList[i].model);    
+        }
+        
 
 }
 /* #endregion */
@@ -447,6 +450,47 @@ void loadMaterialsFromFile(){
     }
 }
 
+void loadModelsFromFile(){
+    //Create Directory Pointer
+    DIR *pDir;
+    //Variable for current entry 
+    struct dirent *entry;
+    //If you can open the directory
+    if(pDir=opendir(modelDirectory.c_str())){
+        //while there are files to read in the directory
+        while(entry = readdir(pDir)){
+            //if the file name isn't the current direcotry/prev directory reference
+            if(strcmp(entry->d_name, ".")!= 0 && strcmp(entry->d_name, "..") != 0){
+                //Copy of model directory string
+                std::string modelDirectoryCopy = modelDirectory;
+                //Append /
+                modelDirectoryCopy.append("/");
+                //
+                modelDirectoryCopy.append(entry->d_name);
+                char * buffer = (char *) malloc(100);
+    
+                strcpy(buffer, modelDirectoryCopy.c_str());
+                
+                std::string temp(entry->d_name);
+
+                int dotPos = temp.find(".");
+
+                //TODO: add other file types that assimp is capable of loading into models
+                if(temp.substr(dotPos, temp.length()) == ".obj"){
+                    std::string entryName = std::string(entry->d_name).substr(0, dotPos);
+                    printf("Entry Name: %s\n", entryName.c_str());
+                    Model::ModelMap[entryName] = Model();
+                    Model::ModelMap[entryName].LoadModel(buffer);
+
+                    printf("%s\n", temp.c_str());
+                }
+
+                free(buffer);
+            }
+        }
+    }
+}
+
 /* #endregion */
 
 /* #region Main */
@@ -459,16 +503,10 @@ int main(){
     /* #region Load Textures and materials */
     loadTextures();
     loadMaterialsFromFile();
+    loadModelsFromFile();
     /* #endregion */
     
-    //TODO: This region should happen externally, ideally reading in a file with the information in it
     /* #region Create object list and put objects into it. This lines up one to one with the meshlist, so you should make a single list or entity with objects/meshes included */
-
-    ironMan = Model();
-
-    std::string inIron = "src/Models/deer.obj";
-    
-    ironMan.LoadModel(inIron);
 
     glm::vec3 objPos1(8.0f, 2.0f, 1.0f);
     glm::vec3 objPos2(4.0f, 4.0f, 1.0f);
@@ -476,16 +514,23 @@ int main(){
     glm::vec3 objPos4(0.0f, -4.0f, 1.0f);
     glm::vec3 deerPos2(-4.0f, 4.0f, 1.0f);
     
+    glm::vec3 deerpos(-3.0f, -4.0f, 4.0f);
+    glm::vec3 deerScale(0.01f, 0.01f, 0.01f);
+
     Object ob1(&objPos1,"dull","plain");
     Object ob2(&objPos2,"shiny","plain");
     Object ob3(&objPos3,"dull","plain");
     Object ob4(&objPos4,"shiny","plain");
-    Object deer(&deerPos2, &ironMan);
+    Object deer(&deerpos, &deerScale, std::string("plain"), std::string("dull"), std::string("deer"), &Model::ModelMap["deer"]);
     
-    objectList.push_back(ob1);
-    objectList.push_back(ob2);
-    objectList.push_back(ob3);
-    objectList.push_back(ob4);
+    //Creating a simple object list for primative objects. Won't be neccessary once all game object models are imported
+    simpleObjectList.push_back(ob1);
+    simpleObjectList.push_back(ob2);
+    simpleObjectList.push_back(ob3);
+    simpleObjectList.push_back(ob4);
+
+    //Primary object list for game objects, this list will render models as opposed to rendering lists of vertices like the simple objects
+    objectList.push_back(deer);
 
     std::vector <Object *> objectPointerList;
     objectPointerList.push_back(&ob1);

@@ -10,6 +10,10 @@ Model::~Model(){
 }
 /* #endregion */
 
+/* #region ModelMap */
+std::map<std::string, Model> Model::ModelMap;
+/* #endregion */
+
 /* #region Loading models functionality */
 
 /* #region Load Model parent function */
