@@ -12,7 +12,7 @@ public:
     /* #region Contstructors & Destructor */
     Object();
     Object(glm::vec3 * inPos, std::string matName, std::string texName);
-    Object(glm::vec3 * pos, glm::vec3 * scale, std::string inMatName, std::string inTexName, std::string inName, Model *);
+    Object(glm::vec3 * pos, glm::vec3 * scale, std::string inMatName, std::string inTexName, std::string inName, std::string modelName);
     ~Object();
     /* #endregion */
     
@@ -20,6 +20,9 @@ public:
     Model * model;
     glm::vec3 * pos;
     glm::vec3 * scale;
+    std::string matName;
+    std::string texName;
+    std::string modelName;
     Material * material;
     Texture * texture;
     std::string ObjectName;

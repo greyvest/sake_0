@@ -184,6 +184,10 @@ assimp/scene.h
 assimp/postprocess.h
 -
 
+/Users/u0964759/sake_0/src/object.cpp
+object.hpp
+/Users/u0964759/sake_0/src/object.hpp
+
 /Users/u0964759/sake_0/src/object.hpp
 string
 -
@@ -468,6 +472,12 @@ types.h
 defs.h
 /usr/local/include/assimp/defs.h
 
+/usr/local/include/assimp/quaternion.inl
+quaternion.h
+/usr/local/include/assimp/quaternion.h
+cmath
+-
+
 /usr/local/include/assimp/scene.h
 types.h
 /usr/local/include/assimp/types.h
@@ -636,6 +646,20 @@ type_mat3x2.inl
 
 /usr/local/include/glm/./detail/type_mat3x2.inl
 
+/usr/local/include/glm/./detail/type_mat3x3.hpp
+type_vec3.hpp
+/usr/local/include/glm/./detail/type_vec3.hpp
+limits
+-
+cstddef
+-
+type_mat3x3.inl
+/usr/local/include/glm/./detail/type_mat3x3.inl
+
+/usr/local/include/glm/./detail/type_mat3x3.inl
+../matrix.hpp
+/usr/local/include/glm/./matrix.hpp
+
 /usr/local/include/glm/./detail/type_mat3x4.hpp
 type_vec3.hpp
 /usr/local/include/glm/./detail/type_vec3.hpp
@@ -678,6 +702,24 @@ type_mat4x3.inl
 
 /usr/local/include/glm/./detail/type_mat4x3.inl
 
+/usr/local/include/glm/./detail/type_mat4x4.hpp
+type_vec4.hpp
+/usr/local/include/glm/./detail/type_vec4.hpp
+limits
+-
+cstddef
+-
+type_mat4x4.inl
+/usr/local/include/glm/./detail/type_mat4x4.inl
+
+/usr/local/include/glm/./detail/type_mat4x4.inl
+../matrix.hpp
+/usr/local/include/glm/./matrix.hpp
+type_mat4x4_simd.inl
+/usr/local/include/glm/./detail/type_mat4x4_simd.inl
+
+/usr/local/include/glm/./detail/type_mat4x4_simd.inl
+
 /usr/local/include/glm/./detail/type_vec2.hpp
 qualifier.hpp
 /usr/local/include/glm/./detail/qualifier.hpp
@@ -689,6 +731,30 @@ cstddef
 -
 type_vec2.inl
 /usr/local/include/glm/./detail/type_vec2.inl
+
+/usr/local/include/glm/./detail/type_vec3.hpp
+qualifier.hpp
+/usr/local/include/glm/./detail/qualifier.hpp
+_swizzle.hpp
+/usr/local/include/glm/./detail/_swizzle.hpp
+_swizzle_func.hpp
+/usr/local/include/glm/./detail/_swizzle_func.hpp
+cstddef
+-
+type_vec3.inl
+/usr/local/include/glm/./detail/type_vec3.inl
+
+/usr/local/include/glm/./detail/type_vec4.hpp
+qualifier.hpp
+/usr/local/include/glm/./detail/qualifier.hpp
+_swizzle.hpp
+/usr/local/include/glm/./detail/_swizzle.hpp
+_swizzle_func.hpp
+/usr/local/include/glm/./detail/_swizzle_func.hpp
+cstddef
+-
+type_vec4.inl
+/usr/local/include/glm/./detail/type_vec4.inl
 
 /usr/local/include/glm/./ext/matrix_double2x2.hpp
 ../detail/type_mat2x2.hpp
@@ -955,6 +1021,38 @@ type_vec2.inl
 /usr/local/include/glm/./ext/vector_uint4_precision.hpp
 ../detail/type_vec4.hpp
 /usr/local/include/glm/./detail/type_vec4.hpp
+
+/usr/local/include/glm/./matrix.hpp
+detail/qualifier.hpp
+/usr/local/include/glm/./detail/qualifier.hpp
+detail/setup.hpp
+/usr/local/include/glm/./detail/setup.hpp
+vec2.hpp
+/usr/local/include/glm/./vec2.hpp
+vec3.hpp
+/usr/local/include/glm/./vec3.hpp
+vec4.hpp
+/usr/local/include/glm/./vec4.hpp
+mat2x2.hpp
+/usr/local/include/glm/./mat2x2.hpp
+mat2x3.hpp
+/usr/local/include/glm/./mat2x3.hpp
+mat2x4.hpp
+/usr/local/include/glm/./mat2x4.hpp
+mat3x2.hpp
+/usr/local/include/glm/./mat3x2.hpp
+mat3x3.hpp
+/usr/local/include/glm/./mat3x3.hpp
+mat3x4.hpp
+/usr/local/include/glm/./mat3x4.hpp
+mat4x2.hpp
+/usr/local/include/glm/./mat4x2.hpp
+mat4x3.hpp
+/usr/local/include/glm/./mat4x3.hpp
+mat4x4.hpp
+/usr/local/include/glm/./mat4x4.hpp
+detail/func_matrix.inl
+/usr/local/include/glm/./detail/func_matrix.inl
 
 /usr/local/include/glm/common.hpp
 detail/qualifier.hpp

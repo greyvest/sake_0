@@ -267,7 +267,7 @@ void RenderScene(){
 
         //TODO: Make this not require anything from the simple object list
         for(int i = 0; i < objectList.size(); i++){
-            render3DModel(&model, uniformModel, objectList[i].pos, objectList[i].scale, simpleObjectList[0].texture,simpleObjectList[0].material, uniformSpecularIntensity, uniformShininess, objectList[i].model);    
+            render3DModel(&model, uniformModel, objectList[i].pos, objectList[i].scale, &Texture::TextureMap[objectList[i].texName],&Material::MaterialMap[objectList[i].matName], uniformSpecularIntensity, uniformShininess, &Model::ModelMap[objectList[i].modelName]);    
         }
         
 
@@ -521,8 +521,21 @@ int main(){
     Object ob2(&objPos2,"shiny","plain");
     Object ob3(&objPos3,"dull","plain");
     Object ob4(&objPos4,"shiny","plain");
-    Object deer(&deerpos, &deerScale, std::string("plain"), std::string("dull"), std::string("deer"), &Model::ModelMap["deer"]);
+    Object deer(&deerpos, &deerScale, std::string("plain"), std::string("dull"), std::string("deer"), std::string("deer"));
     
+    {
+        //create a file buffer
+        std::filebuf fb;
+        //Open desired file
+        fb.open("src/levels/test_level.txt", std::ios::out);
+        //Create instream
+        std::ostream fs(&fb);
+        //Deserialize objects
+        deer.Serialize(fs);
+
+        fb.close();
+    }
+
     //Creating a simple object list for primative objects. Won't be neccessary once all game object models are imported
     simpleObjectList.push_back(ob1);
     simpleObjectList.push_back(ob2);
