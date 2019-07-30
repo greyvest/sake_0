@@ -6,6 +6,7 @@ Object::Object(){};
 Object::Object(char * fileName){
   std::fstream f1(fileName);
     std::string line;
+    //TODO: Pretty sure this will mess with multiple objects for file, so for now 1 object per file
     while (getline(f1,line) ) {
         std::string temp1, temp2, temp3, temp4, temp5, temp6;
         if (std::istringstream(line) >> objectName >> temp1 >> temp2 >> temp3 >> temp4 >> temp5 >> temp6 >> matName >> texName >> modelName)

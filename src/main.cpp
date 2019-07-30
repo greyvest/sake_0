@@ -263,19 +263,10 @@ void RenderScene(){
             renderAModel(&model, uniformModel, simpleObjectList[i].pos, &Texture::TextureMap[simpleObjectList[i].texName], &Material::MaterialMap[simpleObjectList[i].matName], uniformSpecularIntensity, uniformShininess, i);
         }
         /* #endregion */
-
         
-        //TODO: Make this not require anything from the simple object list
         for (std::pair<std::string, Object> element : Object::ObjectMap) {
-            // Accessing KEY from element
-            std::string word = element.first;
-            //printf("Element Second Pos : %s\n", element.second.objectName.c_str());
-            render3DModel(&model, uniformModel, element.second.pos, objectList[0].scale, &Texture::TextureMap[objectList[0].texName],&Material::MaterialMap[objectList[0].matName], uniformSpecularIntensity, uniformShininess, &Model::ModelMap[objectList[0].modelName]);    
+            render3DModel(&model, uniformModel, element.second.pos, element.second.scale, &Texture::TextureMap[element.second.texName],&Material::MaterialMap[element.second.matName], uniformSpecularIntensity, uniformShininess, &Model::ModelMap[element.second.modelName]);    
         }
-        for(int i = 0; i < Object::ObjectMap.size() ; i++){
-            //render3DModel(&model, uniformModel, objectList[i].pos, objectList[i].scale, &Texture::TextureMap[objectList[i].texName],&Material::MaterialMap//[objectList[i].matName], uniformSpecularIntensity, uniformShininess, &Model::ModelMap[objectList[i].modelName]);    
-        }
-        
 
 }
 /* #endregion */
@@ -583,18 +574,7 @@ int main(){
     Object ob3(&objPos3,"dull","plain");
     Object ob4(&objPos4,"shiny","plain");
     Object deer(&deerpos, &deerScale, std::string("plain"), std::string("dull"), std::string("deer"), std::string("deer"));
-       
-    {
-        //create a file buffer
-        std::filebuf fb;
-        //Open desired file
-        fb.open("src/levels/test_level/deer.txt", std::ios::out);
-        //Create instream
-        std::ostream fs(&fb);
-        //Deserialize objects
-        fs << deer;
-        fb.close();
-    } 
+
     
     //Creating a simple object list for primative objects. Won't be neccessary once all game object models are imported
     simpleObjectList.push_back(ob1);
