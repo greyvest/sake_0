@@ -1,0 +1,1 @@
+cobbles 0 0 0 1 1 1 BrickRound0105_5_S dull cobbles 

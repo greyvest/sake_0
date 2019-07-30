@@ -29,18 +29,6 @@ Object::Object(char * fileName){
             printf("Error creating object\n");
         }
     }
-
-/*
-    //create a file buffer
-    std::filebuf fb;
-    //Open desired file
-    fb.open("src/levels/test_level/deer.txt", std::ios::in);
-    //Create instream
-    std::istream fs(&fb);
-    //Deserialize objects
-    deSerialize(fs);
-    fb.close();
-*/
 }
 
 //TODO: this isn't gonna be useful, probably remove once you remove simpleobjects
@@ -69,6 +57,23 @@ Object::~Object(){};
 
 std::map<std::string, Object> Object::ObjectMap;
 
+//TODO: Should this require an inputed level directory (i.e. src/levels) or just know it automatically?
+void Object::saveLevelObject(std::string oName, std::string levelName, Object * o){
+    std::string levelDirectoryCopy = levelName;
+    levelDirectoryCopy.append("/");
+    levelDirectoryCopy.append(oName);
+    
+    //create a file buffer
+    std::filebuf fb;
+    //Open desired file
+    fb.open(levelDirectoryCopy, std::ios::out);
+    //Create instream
+    std::ostream fs(&fb);
+    //Deserialize objects
+    o->Serialize(fs);
+    fb.close();
+}
+
 bool Object::Serialize(std::ostream& stream){
     printf("Serializing object\n");
 
@@ -87,33 +92,5 @@ bool Object::deSerialize(std::istream& fs){
     {
         return false;
     }*/
-    
-    fs >> objectName;
-    std::string tempx, tempy, tempz, stempx, stempy, stempz;
-    fs >> tempx;
-    fs >> tempy;
-    fs >> tempz;
-    fs >> stempx;
-    fs >> stempy;
-    fs >> stempz;
-    
-    double fx = std::stod(tempx);
-    pos->x = fx;
-    printf("Here\n");
-    double fy = std::stod(tempy);
-    pos->y = fy;
-    double fz = std::stod(tempz);
-    pos->z = fz;
-    double sfx = std::stod(stempx);
-    scale->x = sfx;
-    double sfy = std::stod(stempy);
-    scale->y = fy;
-    double sfz = std::stod(stempz);
-    scale->z = sfz;
-    fs >> matName;
-    fs >> texName;
-    fs >> modelName;
-    
-    
     
 }

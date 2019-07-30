@@ -33,6 +33,7 @@ public:
     // Model * model;
     /* Serializable overloads */
     //Implementations
+    void saveLevelObject(std::string, std::string, Object *);
 	virtual bool Serialize(std::ostream&);
 	virtual bool deSerialize(std::istream&);
 	//Operator overloads

@@ -62,22 +62,18 @@ Window mainWindow;
 std::vector<Mesh*> meshList;
 std::vector<Shader> shaderList;
 
+//TODO: maybe throw shaders in a static map like the rest of the assets?
 Shader directionalShadowShader;
 Shader omniShadowShader;
 //Camera Object
 Camera camera;
-//List of textueres:
-Texture brickTexture;
-Texture dirtTexture;
-Texture plainTexture;
 
-Material shinyMaterial;
-Material dullMaterial;
-
+//TODO: Do I remove these?
 DirectionalLight mainLight;
 PointLight pointLights[MAX_POINT_LIGHTS];
 SpotLight spotLights[MAX_SPOT_LIGHTS];
 
+//TODO: Maybe a "globals.hpp" is in order...
 unsigned int directionalLightCount = 0;
 unsigned int pointLightCount = 0;
 unsigned int spotLightCount = 0;
@@ -231,6 +227,7 @@ void SetControllerLoc(bool* keys, GLfloat deltaTime){
 /* #region Rendering functionality */
 
 /* #region Render Model Function */
+//TODO: Probably remove (or comment out?) this since it's  just  simple objects and I don't think I'll need/want that functionality. 
 void renderAModel(glm::mat4 * model, GLuint uniformModel, glm::vec3 * pos, Texture * renderTex, Material * renderMat, GLuint uniformSpecularIntensity, GLuint uniformShininess, int i){
     model = new glm::mat4(1.0f);
     *model = glm::translate(*model, *pos);
@@ -258,15 +255,17 @@ void render3DModel(glm::mat4 * model, GLuint uniformModel, glm::vec3 * pos, glm:
 void RenderScene(){
         glm::mat4 model(1.0f);
 
-        /* #region Model Rendering */
+        /* #region simple object Rendering */
         for(int i = 0; i < simpleObjectList.size(); i++){
             renderAModel(&model, uniformModel, simpleObjectList[i].pos, &Texture::TextureMap[simpleObjectList[i].texName], &Material::MaterialMap[simpleObjectList[i].matName], uniformSpecularIntensity, uniformShininess, i);
         }
         /* #endregion */
-        
+
+        /* #region 3d Model rendering */
         for (std::pair<std::string, Object> element : Object::ObjectMap) {
             render3DModel(&model, uniformModel, element.second.pos, element.second.scale, &Texture::TextureMap[element.second.texName],&Material::MaterialMap[element.second.matName], uniformSpecularIntensity, uniformShininess, &Model::ModelMap[element.second.modelName]);    
         }
+        /* #endregion */
 
 }
 /* #endregion */
@@ -547,25 +546,26 @@ int main(){
     mainWindow = Window(windowWidth, windowHeight); // 1280, 1024 or 1024, 768
     mainWindow.Initialise();
 
-    //TODO: This region should happen externally, ideally reading in a file with the information in it
+    //TODO: For now, this is loading in ALL models, textures, and materials in the given folders. If I decide later I need faster loading, this is an optimization point for sure. (Possible solution: Only load ALL assets in once a menu has been opened to list them, etc)
     /* #region Load Textures and materials */
     loadTextures();
     loadMaterialsFromFile();
     loadModelsFromFile();
     printf("Entering load level\n");
+    //TODO: it'd be nice to have a drop down menu to pick from. Need to think about how dynamically loading in other levels would work.
     loadLevel("test_level");
     /* #endregion */
     
     /* #region Create object list and put objects into it. This lines up one to one with the meshlist, so you should make a single list or entity with objects/meshes included */
-
-    
-
     glm::vec3 objPos1(8.0f, 2.0f, 1.0f);
     glm::vec3 objPos2(4.0f, 4.0f, 1.0f);
     glm::vec3 objPos3(1.0f, 0.0f, 3.0f);
     glm::vec3 objPos4(0.0f, -4.0f, 1.0f);
     glm::vec3 deerPos2(-4.0f, 4.0f, 1.0f);
     
+    glm::vec3 cobblePos(0.0f, 0.0f, 0.0f);
+    glm::vec3 cobbleScale(1.0f,1.0f,1.0f);
+
     glm::vec3 deerpos(-3.0f, -4.0f, 4.0f);
     glm::vec3 deerScale(0.01f, 0.01f, 0.01f);
 
@@ -573,18 +573,15 @@ int main(){
     Object ob2(&objPos2,"shiny","dirt");
     Object ob3(&objPos3,"dull","plain");
     Object ob4(&objPos4,"shiny","plain");
+    Object cobble_floor(&cobblePos, &cobbleScale, std::string("BrickRound0105_5_S"), std::string("dull"), std::string("cobbles"), std::string("cobbles"));
     Object deer(&deerpos, &deerScale, std::string("plain"), std::string("dull"), std::string("deer"), std::string("deer"));
-
     
     //Creating a simple object list for primative objects. Won't be neccessary once all game object models are imported
     simpleObjectList.push_back(ob1);
     simpleObjectList.push_back(ob2);
     simpleObjectList.push_back(ob3);
     simpleObjectList.push_back(ob4);
-
-    //Primary object list for game objects, this list will render models as opposed to rendering lists of vertices like the simple objects
-    objectList.push_back(deer);
-
+    
     std::vector <Object *> objectPointerList;
     objectPointerList.push_back(&ob1);
     objectPointerList.push_back(&ob2);
@@ -753,6 +750,7 @@ int main(){
                     }
                     if (ImGui::MenuItem("Save", "Ctrl+S"))   {
                         /* Do stuff */ 
+                        //TODO: Change how this is saved to be up to date with new serialization style
                         FileOperations::saveObjectVector<Object>(objectPointerList, "Objects.txt");
                         printf("Hit save\n");
                     }
