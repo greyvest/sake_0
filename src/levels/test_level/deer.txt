@@ -1,10 +1,1 @@
-deer
--3
--4
-4
-0.01
-0.01
-0.01
-plain
-dull
-deer
+deer -3 -4 4 0.01 0.01 0.01 plain dull deer 

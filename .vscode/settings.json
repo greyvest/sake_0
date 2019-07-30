@@ -54,6 +54,14 @@
         "type_traits": "cpp",
         "typeinfo": "cpp",
         "utility": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "__hash_table": "cpp",
+        "__node_handle": "cpp",
+        "__tree": "cpp",
+        "map": "cpp",
+        "numeric": "cpp",
+        "optional": "cpp",
+        "set": "cpp",
+        "unordered_map": "cpp"
     }
 }

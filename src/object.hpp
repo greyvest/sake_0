@@ -6,6 +6,7 @@
 #include "serializable.hpp"
 #include "model.hpp"
 #include <glm/glm.hpp>
+#include <sstream>
 
 class Object : public Serializable{
 public:
@@ -37,7 +38,7 @@ public:
 	//Operator overloads
     friend std::ostream& operator<<(std::ostream& os, const Object& dt)
     {
-        os << dt.objectName << '\n' << dt.pos->x << '\n' << dt.pos->y << '\n' << dt.pos->z << '\n' << dt.scale->x << '\n' << dt.scale->y << '\n' << dt.scale->z << '\n' << dt.matName << '\n' << dt.texName << '\n' << dt.modelName << '\n' ;
+        os << dt.objectName << ' ' << dt.pos->x << ' ' << dt.pos->y << ' ' << dt.pos->z << ' ' << dt.scale->x << ' ' << dt.scale->y << ' ' << dt.scale->z << ' ' << dt.matName << ' ' << dt.texName << ' ' << dt.modelName << ' ' ;
         return os;
     }
 

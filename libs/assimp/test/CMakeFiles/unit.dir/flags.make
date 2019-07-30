@@ -9,7 +9,7 @@ C_DEFINES = -DASSIMP_BUILD_NO_C4D_IMPORTER -DASSIMP_BUILD_NO_OWN_ZLIB -DASSIMP_T
 
 C_INCLUDES = -I/Users/u0964759/sake_0/libs/assimp/. -I/Users/u0964759/sake_0/libs/assimp/include -I/Users/u0964759/sake_0/libs/assimp -I/Users/u0964759/sake_0/libs/assimp/test/../contrib/gtest/include -I/Users/u0964759/sake_0/libs/assimp/test/../contrib/gtest -I/Users/u0964759/sake_0/libs/assimp/code 
 
-CXX_FLAGS =  -w -g -fvisibility=hidden -fPIC -Wall -Wno-long-long -std=c++11 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -std=gnu++11
+CXX_FLAGS =  -w -g -g -fvisibility=hidden -fPIC -Wall -Wno-long-long -std=c++11 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk   -std=gnu++11
 
 CXX_DEFINES = -DASSIMP_BUILD_NO_C4D_IMPORTER -DASSIMP_BUILD_NO_OWN_ZLIB -DASSIMP_TEST_MODELS_DIR=\"/Users/u0964759/sake_0/libs/assimp/test/models\" -DOPENDDL_NO_USE_CPP11
 

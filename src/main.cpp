@@ -266,15 +266,14 @@ void RenderScene(){
 
         
         //TODO: Make this not require anything from the simple object list
-        /*for (std::pair<std::string, int> element : ) {
+        for (std::pair<std::string, Object> element : Object::ObjectMap) {
             // Accessing KEY from element
             std::string word = element.first;
-            // Accessing VALUE from element.
-            int count = element.second;
-            std::cout << word << " :: " << count << std::endl;
-        }*/
+            //printf("Element Second Pos : %s\n", element.second.objectName.c_str());
+            render3DModel(&model, uniformModel, element.second.pos, objectList[0].scale, &Texture::TextureMap[objectList[0].texName],&Material::MaterialMap[objectList[0].matName], uniformSpecularIntensity, uniformShininess, &Model::ModelMap[objectList[0].modelName]);    
+        }
         for(int i = 0; i < Object::ObjectMap.size() ; i++){
-            render3DModel(&model, uniformModel, objectList[i].pos, objectList[i].scale, &Texture::TextureMap[objectList[i].texName],&Material::MaterialMap[objectList[i].matName], uniformSpecularIntensity, uniformShininess, &Model::ModelMap[objectList[i].modelName]);    
+            //render3DModel(&model, uniformModel, objectList[i].pos, objectList[i].scale, &Texture::TextureMap[objectList[i].texName],&Material::MaterialMap//[objectList[i].matName], uniformSpecularIntensity, uniformShininess, &Model::ModelMap[objectList[i].modelName]);    
         }
         
 
@@ -492,11 +491,8 @@ void loadModelsFromFile(){
                 //TODO: add other file types that assimp is capable of loading into models
                 if(temp.substr(dotPos, temp.length()) == ".obj"){
                     std::string entryName = std::string(entry->d_name).substr(0, dotPos);
-                    printf("Entry Name: %s\n", entryName.c_str());
                     Model::ModelMap[entryName] = Model();
                     Model::ModelMap[entryName].LoadModel(buffer);
-
-                    printf("%s\n", temp.c_str());
                 }
 
                 free(buffer);
@@ -525,9 +521,7 @@ void loadLevel(std::string levelName){
             if(strcmp(entry->d_name, ".")!= 0 && strcmp(entry->d_name, "..") != 0){
                 //Copy of model directory string
                 std::string levelDirectoryCopy2 = levelDirectoryCopy;
-                //Append /
-                levelDirectoryCopy2.append("/");
-                //
+                
                 levelDirectoryCopy2.append(entry->d_name);
                 char * buffer = (char *) malloc(100);
     
@@ -536,9 +530,15 @@ void loadLevel(std::string levelName){
                 std::string temp(entry->d_name);
 
                 int dotPos = temp.find(".");
+                printf("In Load Level, buffer = %s\n", buffer);
+                Object x(buffer);
+                printf("Succesfully created object x");
+                printf("X object name = %s %g \n", x.objectName.c_str(), x.pos->x);
                 
-                Object::ObjectMap[temp.substr(0, dotPos)] = Object(buffer);
+                Object::ObjectMap.insert(std::pair<std::string, Object>(temp.substr(0, dotPos), Object(buffer)));
 
+                printf("OBJECT MAP TEST: %s %d\n", Object::ObjectMap[temp.substr(0, dotPos)].objectName.c_str(), Object::ObjectMap[temp.substr(0, dotPos)].pos->x);
+                
                 free(buffer);
             }
         }
@@ -561,10 +561,13 @@ int main(){
     loadTextures();
     loadMaterialsFromFile();
     loadModelsFromFile();
+    printf("Entering load level\n");
     loadLevel("test_level");
     /* #endregion */
     
     /* #region Create object list and put objects into it. This lines up one to one with the meshlist, so you should make a single list or entity with objects/meshes included */
+
+    
 
     glm::vec3 objPos1(8.0f, 2.0f, 1.0f);
     glm::vec3 objPos2(4.0f, 4.0f, 1.0f);
