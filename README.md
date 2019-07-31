@@ -27,6 +27,9 @@ Resources Used:
 
 
 # usage instructions
+
+Note: Currently only compiling on Mac OSX
+
 1. Clone project
 2. Install dependencies (I suggest using brew on mac or choco on windows)
 3. '''cmake .''' inside of project directory
