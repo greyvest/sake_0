@@ -31,6 +31,11 @@ public:
     // Material * material;
     // Texture * texture;
     // Model * model;
+    
+    /* Debug Gui variables */
+    bool isSelected = false;
+    
+    
     /* Serializable overloads */
     //Implementations
 

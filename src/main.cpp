@@ -772,21 +772,30 @@ int main(){
             char * li[] = {"x", "y"};
             const char** listbox_items;
 
-            Object::getNamesOfAllObjects(listbox_items);
-            
-            
-            static int listbox_item_current = -1, listbox_item_current2 = -1;
-            ImGui::ListBox("listbox\n(single select)", &listbox_item_current, listbox_items, IM_ARRAYSIZE(listbox_items), 4);
+            // static int listbox_item_current = -1, listbox_item_current2 = -1;
+            // ImGui::ListBox("listbox\n(single select)", &listbox_item_current, listbox_items, IM_ARRAYSIZE(listbox_items), 4);
 
-            ImGui::PushItemWidth(-1);
-            ImGui::ListBox("##listbox2", &listbox_item_current2, listbox_items, IM_ARRAYSIZE(listbox_items), 4);
-            ImGui::PopItemWidth();
-            /*
-            ImGui::ListBoxHeader("List", 3, 2);
-            ImGui::Selectable("Selected", true);
-            ImGui::Selectable("Not Selected", false);
+            // ImGui::PushItemWidth(-1);
+            // ImGui::ListBox("##listbox2", &listbox_item_current2, listbox_items, IM_ARRAYSIZE(listbox_items), 4);
+            // ImGui::PopItemWidth();
+            Object * prevKey = NULL;
+            if(prevKey != NULL){
+                ImGui::Text(prevKey->objectName.c_str());
+            }
+            
+            ImGui::ListBoxHeader("List", 3, 5);
+            for( auto & [key, val] : Object::ObjectMap )
+            {
+                ImGui::Selectable(val.objectName.c_str(), val.isSelected);
+                if(ImGui::IsItemClicked(0)){
+                    val.isSelected = true;
+                }
+                if(ImGui::IsItemClicked(1)){
+                    val.isSelected = false;
+                }
+            }
             ImGui::ListBoxFooter();
-            */
+            
             ImGui::InputFloat("X Pos", &objPos2.x, -20, 20, "%.3f", 1.0f);
             ImGui::InputFloat("Y Pos", &objPos2.y, -20, 20, "%.3f", 1.0f);
             ImGui::InputFloat("Z Pos", &objPos2.z, -20, 20, "%.3f", 1.0f);
