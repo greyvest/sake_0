@@ -14,6 +14,7 @@ This is an OpenGL engine developed for learning purposes.
 #include <vector>
 #include <dirent.h>
 #include <map>
+#include <thread>
 //--Third Pawrty Header Files--
 //GLEW
 #define GLEW_STATIC
@@ -239,22 +240,24 @@ void renderAModel(glm::mat4 * model, GLuint uniformModel, glm::vec3 * pos, Textu
 /* #endregion */
 
 /* #region Render 3D Model Function */
-void render3DModel(glm::mat4 * model, GLuint uniformModel, glm::vec3 * pos, glm::vec3 * scale, Texture * renderTex, Material * renderMat, GLuint uniformSpecularIntensity, GLuint uniformShininess, Model * renderModel){
+void render3DModel(GLuint uniformModel, glm::vec3 * pos, glm::vec3 * scale, Texture * renderTex, Material * renderMat, GLuint uniformSpecularIntensity, GLuint uniformShininess, Model * renderModel){
     glm::mat4 tempMat(1.0f);
-    model = &tempMat;
-    *model = glm::translate(*model, *pos);
-    *model = glm::scale(*model, *scale);
-    glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(*model));
+    tempMat = glm::translate(tempMat, *pos);
+    tempMat = glm::scale(tempMat, *scale);
+    glUniformMatrix4fv(uniformModel, 1, GL_FALSE, glm::value_ptr(tempMat));
     renderTex->UseTexture();
     renderMat->UseMaterial(uniformSpecularIntensity, uniformShininess);
     renderModel->RenderModel();
 }
 /* #endregion */
 
+void printStuff(int x){
+    printf("I'M PRINTING A THING FROM A THREAD %d\n", x);
+}
+
 /* #region Render Scene Function */
 void RenderScene(){
         glm::mat4 model(1.0f);
-
         /* #region simple object Rendering */
         for(int i = 0; i < simpleObjectList.size(); i++){
             renderAModel(&model, uniformModel, simpleObjectList[i].pos, &Texture::TextureMap[simpleObjectList[i].texName], &Material::MaterialMap[simpleObjectList[i].matName], uniformSpecularIntensity, uniformShininess, i);
@@ -263,8 +266,9 @@ void RenderScene(){
 
         /* #region 3d Model rendering */
         for (std::pair<std::string, Object> element : Object::ObjectMap) {
-            render3DModel(&model, uniformModel, element.second.pos, element.second.scale, &Texture::TextureMap[element.second.texName],&Material::MaterialMap[element.second.matName], uniformSpecularIntensity, uniformShininess, &Model::ModelMap[element.second.modelName]);    
+            render3DModel(uniformModel, element.second.pos, element.second.scale, &Texture::TextureMap[element.second.texName],&Material::MaterialMap[element.second.matName], uniformSpecularIntensity, uniformShininess, &Model::ModelMap[element.second.modelName]);
         }
+        
         /* #endregion */
 
 }
@@ -394,22 +398,15 @@ void loadTextures(){
         while(entry = readdir(pDir)){
             if(strcmp(entry->d_name, ".")!= 0 && strcmp(entry->d_name, "..") != 0){
                 //TDOO: Fix these not loading
-    
                 std::string textureDirectoryCopy = textureDirectory;
                 textureDirectoryCopy.append("/");
                 textureDirectoryCopy.append(entry->d_name);
-    
                 char * buffer = (char *) malloc(100);
-    
                 strcpy(buffer, textureDirectoryCopy.c_str());
-
                 int dotPos = std::string(entry->d_name).find(".");
                 std::string entryName = std::string(entry->d_name).substr(0, dotPos);
-
                 Texture::TextureMap[entryName] = Texture(buffer);
-    
                 Texture::TextureMap[entryName].LoadTextureA();
-    
                 free(buffer);
             }
         }
@@ -520,15 +517,11 @@ void loadLevel(std::string levelName){
                 std::string temp(entry->d_name);
 
                 int dotPos = temp.find(".");
-                printf("In Load Level, buffer = %s\n", buffer);
+                
                 Object x(buffer);
-                printf("Succesfully created object x");
-                printf("X object name = %s %g \n", x.objectName.c_str(), x.pos->x);
                 
                 Object::ObjectMap.insert(std::pair<std::string, Object>(temp.substr(0, dotPos), Object(buffer)));
 
-                printf("OBJECT MAP TEST: %s %d\n", Object::ObjectMap[temp.substr(0, dotPos)].objectName.c_str(), Object::ObjectMap[temp.substr(0, dotPos)].pos->x);
-                
                 free(buffer);
             }
         }
@@ -573,8 +566,7 @@ int main(){
     Object ob2(&objPos2,"shiny","dirt");
     Object ob3(&objPos3,"dull","plain");
     Object ob4(&objPos4,"shiny","plain");
-    Object cobble_floor(&cobblePos, &cobbleScale, std::string("BrickRound0105_5_S"), std::string("dull"), std::string("cobbles"), std::string("cobbles"));
-    Object deer(&deerpos, &deerScale, std::string("plain"), std::string("dull"), std::string("deer"), std::string("deer"));
+
     
     //Creating a simple object list for primative objects. Won't be neccessary once all game object models are imported
     simpleObjectList.push_back(ob1);
@@ -587,7 +579,7 @@ int main(){
     objectPointerList.push_back(&ob2);
     objectPointerList.push_back(&ob3);
     objectPointerList.push_back(&ob4);
-    objectPointerList.push_back(&deer);
+
     /* #endregion */
 
     /* #region IMGUI setup code*/
@@ -774,6 +766,33 @@ int main(){
                 ImGui::Text("Mouse Pos: X %.6f Y: %.6f\n", io.MousePos.x, io.MousePos.y);
                 ImGui::EndMainMenuBar();
             }
+
+
+            ImGui::Begin("Another window");
+            char * li[] = {"x", "y"};
+            const char** listbox_items;
+
+            Object::getNamesOfAllObjects(listbox_items);
+            
+            
+            static int listbox_item_current = -1, listbox_item_current2 = -1;
+            ImGui::ListBox("listbox\n(single select)", &listbox_item_current, listbox_items, IM_ARRAYSIZE(listbox_items), 4);
+
+            ImGui::PushItemWidth(-1);
+            ImGui::ListBox("##listbox2", &listbox_item_current2, listbox_items, IM_ARRAYSIZE(listbox_items), 4);
+            ImGui::PopItemWidth();
+            /*
+            ImGui::ListBoxHeader("List", 3, 2);
+            ImGui::Selectable("Selected", true);
+            ImGui::Selectable("Not Selected", false);
+            ImGui::ListBoxFooter();
+            */
+            ImGui::InputFloat("X Pos", &objPos2.x, -20, 20, "%.3f", 1.0f);
+            ImGui::InputFloat("Y Pos", &objPos2.y, -20, 20, "%.3f", 1.0f);
+            ImGui::InputFloat("Z Pos", &objPos2.z, -20, 20, "%.3f", 1.0f);
+
+            ImGui::End();
+
         }
         
         /* #endregion */

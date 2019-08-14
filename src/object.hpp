@@ -33,10 +33,18 @@ public:
     // Model * model;
     /* Serializable overloads */
     //Implementations
+
+
+
     void saveLevelObject(std::string, std::string, Object *);
 	virtual bool Serialize(std::ostream&);
 	virtual bool deSerialize(std::istream&);
-	//Operator overloads
+	
+    static void getNamesOfAllObjects(const char **);
+
+
+
+    //Operator overloads
     friend std::ostream& operator<<(std::ostream& os, const Object& dt)
     {
         os << dt.objectName << ' ' << dt.pos->x << ' ' << dt.pos->y << ' ' << dt.pos->z << ' ' << dt.scale->x << ' ' << dt.scale->y << ' ' << dt.scale->z << ' ' << dt.matName << ' ' << dt.texName << ' ' << dt.modelName << ' ' ;

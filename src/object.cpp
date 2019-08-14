@@ -94,3 +94,8 @@ bool Object::deSerialize(std::istream& fs){
     }*/
     
 }
+
+
+void Object::getNamesOfAllObjects(const char ** outArr){
+
+}
