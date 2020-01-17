@@ -1,5 +1,7 @@
-# sake
-An OpenGL graphics engine developed by me, Austin Anderson, for learning purposes. I plan to develop this engine to the point where it is usable enough to develop a game in, and then develop a game in it to ensure I have all the functionality I would want in a custom engine.
+# sake 0
+
+
+An OpenGL graphics engine developed by me, Austin Anderson, for learning purposes. I have now switched this project over to developing on a forked version of https://github.com/TheCherno/OpenGL due to numorous cross-platform development hiccups. That repository can be found on my profile. 
 
 Project Goals:
 
